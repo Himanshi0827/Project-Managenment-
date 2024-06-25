@@ -619,8 +619,13 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
+// const mongoUrl =
+//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
 const mongoUrl =
-  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+
+
 
 
 mongoose
@@ -1605,6 +1610,8 @@ app.get("/api/getForm/:id", async (req, res) => {
     res.status(500).send({ error: "Error fetching form data" });
   }
 });
+
+
 const File = require("./Schema/FileSchema");
 //const File = mongoose.model("Form", FileSchema);
 app.get('/api/files', async (req, res) => {
