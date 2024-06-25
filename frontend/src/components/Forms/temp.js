@@ -338,20 +338,22 @@ export default function TaskSelector() {
         <Table>
           <TableHead>
             <TableRow style={{ color: 'white' ,backgroundColor: '#334155'}}  >
+            <TableCell style={{ color: 'white' }}>File Number</TableCell>
               <TableCell style={{ color: 'white' }}>Project Number</TableCell>
               <TableCell style={{ color: 'white' }}>Project Name</TableCell>
               <TableCell style={{ color: 'white' }}>Template Name</TableCell>
               <TableCell style={{ color: 'white' }}>Created By</TableCell>
               <TableCell style={{ color: 'white' }}>Date of Creation</TableCell>
               <TableCell style={{ color: 'white' }}>Version</TableCell>
-              <TableCell style={{ color: 'white' }}>Actions</TableCell>
+              {/* <TableCell style={{ color: 'white' }}>Actions</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredFiles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((file) => (
               <TableRow key={file._id} style={{ backgroundColor: 'white'}}>
+              <TableCell style={{ color: '#334155' }}>{ file.fileNumber}</TableCell>
                 <TableCell style={{ color: '#334155' }}>{file.projectNumber}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{file.projectName}</TableCell>
+                <TableCell style={{ color: '#334155' }}>{file.projectTitle}</TableCell>
                 <TableCell style={{ color: '#334155' }}>{file.templateName}</TableCell>
                 <TableCell style={{ color: '#334155' }}>{file.createdBy}</TableCell>
                 <TableCell style={{ color: '#334155' }}>{new Date(file.createdAt).toLocaleDateString()}</TableCell>
@@ -360,14 +362,19 @@ export default function TaskSelector() {
                     {file.versions.map((version, index) => (
                       <MenuItem key={index} value={version.version} style={{ color: '#1e293b' }}>
                         {version.version} - Created: {new Date(version.createdAt).toLocaleDateString()} - Updated: {version.updatedAt ? new Date(version.updatedAt).toLocaleDateString() : 'N/A'}
+                        <br></br>
+                        <Button variant="outlined" onClick={() => alert(`Viewing file: ${version.version}`)} style={{ color: 'white', borderColor: 'white', marginRight:"3px",marginLeft:"3px", backgroundColor:"#1e293b" }}>View</Button>
+                        <Button variant="outlined" onClick={() => alert(`Downloading file: ${version.version}`)} style={{ color: 'white', borderColor: 'white' ,backgroundColor:"#1e293b"}}>Edit</Button>
                       </MenuItem>
-                    ))}
+                   
+                  ))}
                   </Select>
                 </TableCell>
-                <TableCell>
-                  <Button variant="contained" onClick={() => alert(`Viewing file: ${file.fileName}`)}>View</Button>
-                  <Button variant="contained" onClick={() => alert(`Downloading file: ${file.fileName}`)}>Download</Button>
-                </TableCell>
+                {/* <TableCell>
+                {file.versions.map((version, index) => (
+                  <Button variant="contained" onClick={() => alert(`Viewing file: ${file.versions.version}`)}>View</Button>
+                  <Button variant="contained" onClick={() => alert(`Downloading file: ${file.versions.version}`)}>Download</Button>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
