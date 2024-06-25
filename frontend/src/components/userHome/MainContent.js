@@ -5,6 +5,8 @@ const MainContent = ({ content, userData }) => {
     padding: "20px",
     backgroundColor: "white",
     color: "#334155",
+
+    
   };
 
   const [projects, setProjects] = useState([]);
