@@ -1,0 +1,13 @@
+.landingpage {
+    background-color: #f5f5f5; /* Light gray background */
+    min-height: 100vh; /* Ensure full viewport height */
+  }
+  
+.btn {
+    background-color: hsl(211, 95%, 53%); /* Brand primary color */
+    color: white;
+}
+
+.btn:hover{
+  background-color: rgb(231, 98, 98);
+}
