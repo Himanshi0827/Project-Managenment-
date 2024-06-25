@@ -631,13 +631,6 @@ const MainContent = ({ content, userData }) => {
                   </table>
                 </div>
               </div>
-              <button
-                className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                type="button"
-                onClick={(event) => (window.location.href = "/template")}
-              >
-                Open
-              </button>
               <div className="flex justify-between w-full max-w-7xl py-4">
                 <button
                   onClick={() => paginate(currentPage - 1)}

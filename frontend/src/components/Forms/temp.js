@@ -1,5 +1,3 @@
-
-
 // import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 // import Button from '@mui/material/Button';
@@ -92,8 +90,6 @@
 //     </div>
 //   );
 // }
-
-
 
 // import React, { useEffect, useState } from 'react';
 // import { useHistory } from 'react-router-dom';
@@ -218,17 +214,30 @@
 //   );
 // }
 
-
-
-
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { 
-  Table, TableBody, TableCell, TableContainer, TableHead, 
-  TableRow, Paper, Select, MenuItem, Button, Typography, 
-  Dialog, DialogTitle, List, ListItem, ListItemButton, 
-  ListItemText, TextField, TablePagination 
-} from '@mui/material';
+import React, { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Select,
+  MenuItem,
+  Button,
+  Typography,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  TextField,
+  TablePagination,
+} from "@mui/material";
+import axios from "axios";
 
 export default function TaskSelector() {
   const history = useHistory();
@@ -240,12 +249,22 @@ export default function TaskSelector() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  // const [title, setTitle] = useState("Untitled Form");
+  // const [description, setDescription] = useState("");
+  // const [data, setData] = useState([]);
+
+  let title = useRef("")
+  let description = useRef("")
+  let data = useRef([])
+
+  //file props
+
   useEffect(() => {
     const fetchTaskNames = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/templates");
         const data = await response.json();
-        setTaskNames(data.map(template => template.templateName));
+        setTaskNames(data.map((template) => template.templateName));
       } catch (error) {
         console.error("Error fetching task names:", error);
       }
@@ -257,7 +276,7 @@ export default function TaskSelector() {
       try {
         const response = await fetch("http://localhost:5000/api/files");
         const data = await response.json();
-        console.log('Fetched files:', data);
+        console.log("Fetched files:", data);
         setFiles(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -276,7 +295,7 @@ export default function TaskSelector() {
     setOpen(false);
     if (value) {
       setSelectedValue(value);
-      showForm(value)
+      showForm(value);
     }
   };
 
@@ -286,6 +305,13 @@ export default function TaskSelector() {
 
   const showForm = (templateName) => {
     history.push("/form", { tempName: templateName });
+  };
+  const showFormdata = (title, description, data) => {
+    history.push("/form", {
+      titlen: title,
+      descriptionn: description,
+      datan: data,
+    });
   };
 
   const handleSearch = (event) => {
@@ -301,17 +327,58 @@ export default function TaskSelector() {
     setPage(0);
   };
 
-  const filteredFiles = files.filter(file => 
+  const handleView = async (formId) => {
+    if (formId) {
+      console.log(`form id is : ${formId}`);
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/getForm/${formId}`
+        );
+        if (response.data) {
+
+          const t = response.data.title;
+          const d = response.data.description;
+          const da = response.data.data;
+          // setTitle(t);
+          // setDescription(d);
+          // setData(da);
+
+          title = t;
+          description = d;
+          data = da;
+          console.log(t);
+          console.log(d);
+          console.log(response.data.data);
+        }
+        showFormdata(title,description,data)
+
+        console.log(title);
+        console.log(description);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching form:", error);
+        alert("Error fetching form data");
+      }
+    }
+  };
+
+  const filteredFiles = files.filter((file) =>
     file.templateName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div style={{ padding: '20px', backgroundColor: '#1e293b', color: 'white' }}>
+    <div
+      style={{ padding: "20px", backgroundColor: "#1e293b", color: "white" }}
+    >
       <Typography variant="subtitle1" component="div">
         Selected: {selectedValue}
       </Typography>
       <br />
-      <Button variant="outlined" onClick={handleClickOpen} style={{ color: 'white', borderColor: 'white' }}>
+      <Button
+        variant="outlined"
+        onClick={handleClickOpen}
+        style={{ color: "white", borderColor: "white" }}
+      >
         Create Form
       </Button>
       <Dialog onClose={() => handleClose(null)} open={open}>
@@ -331,52 +398,101 @@ export default function TaskSelector() {
         variant="outlined"
         value={search}
         onChange={handleSearch}
-        sx={{ marginTop: 2, marginBottom: 2, backgroundColor: 'white' }}
+        sx={{ marginTop: 2, marginBottom: 2, backgroundColor: "white" }}
         fullWidth
       />
-      <TableContainer component={Paper} sx={{ marginTop: 4}}>
+      <TableContainer component={Paper} sx={{ marginTop: 4 }}>
         <Table>
           <TableHead>
-            <TableRow style={{ color: 'white' ,backgroundColor: '#334155'}}  >
-            <TableCell style={{ color: 'white' }}>File Number</TableCell>
-              <TableCell style={{ color: 'white' }}>Project Number</TableCell>
-              <TableCell style={{ color: 'white' }}>Project Name</TableCell>
-              <TableCell style={{ color: 'white' }}>Template Name</TableCell>
-              <TableCell style={{ color: 'white' }}>Created By</TableCell>
-              <TableCell style={{ color: 'white' }}>Date of Creation</TableCell>
-              <TableCell style={{ color: 'white' }}>Version</TableCell>
+            <TableRow style={{ color: "white", backgroundColor: "#334155" }}>
+              <TableCell style={{ color: "white" }}>File Number</TableCell>
+              <TableCell style={{ color: "white" }}>Project Number</TableCell>
+              <TableCell style={{ color: "white" }}>Project Name</TableCell>
+              <TableCell style={{ color: "white" }}>Template Name</TableCell>
+              <TableCell style={{ color: "white" }}>Created By</TableCell>
+              <TableCell style={{ color: "white" }}>Date of Creation</TableCell>
+              <TableCell style={{ color: "white" }}>Version</TableCell>
               {/* <TableCell style={{ color: 'white' }}>Actions</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredFiles.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((file) => (
-              <TableRow key={file._id} style={{ backgroundColor: 'white'}}>
-              <TableCell style={{ color: '#334155' }}>{ file.fileNumber}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{file.projectNumber}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{file.projectTitle}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{file.templateName}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{file.createdBy}</TableCell>
-                <TableCell style={{ color: '#334155' }}>{new Date(file.createdAt).toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <Select defaultValue={file.versions[0].version} style={{ color: '#334155' }}>
-                    {file.versions.map((version, index) => (
-                      <MenuItem key={index} value={version.version} style={{ color: '#1e293b' }}>
-                        {version.version} - Created: {new Date(version.createdAt).toLocaleDateString()} - Updated: {version.updatedAt ? new Date(version.updatedAt).toLocaleDateString() : 'N/A'}
-                        <br></br>
-                        <Button variant="outlined" onClick={() => alert(`Viewing file: ${version.version}`)} style={{ color: 'white', borderColor: 'white', marginRight:"3px",marginLeft:"3px", backgroundColor:"#1e293b" }}>View</Button>
-                        <Button variant="outlined" onClick={() => alert(`Downloading file: ${version.version}`)} style={{ color: 'white', borderColor: 'white' ,backgroundColor:"#1e293b"}}>Edit</Button>
-                      </MenuItem>
-                   
-                  ))}
-                  </Select>
-                </TableCell>
-                {/* <TableCell>
+            {filteredFiles
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((file) => (
+                <TableRow key={file._id} style={{ backgroundColor: "white" }}>
+                  <TableCell style={{ color: "#334155" }}>
+                    {file.fileNumber}
+                  </TableCell>
+                  <TableCell style={{ color: "#334155" }}>
+                    {file.projectNumber}
+                  </TableCell>
+                  <TableCell style={{ color: "#334155" }}>
+                    {file.projectTitle}
+                  </TableCell>
+                  <TableCell style={{ color: "#334155" }}>
+                    {file.templateName}
+                  </TableCell>
+                  <TableCell style={{ color: "#334155" }}>
+                    {file.createdBy}
+                  </TableCell>
+                  <TableCell style={{ color: "#334155" }}>
+                    {new Date(file.createdAt).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <Select
+                      defaultValue={file.versions[0].version}
+                      style={{ color: "#334155" }}
+                    >
+                      {file.versions.map((version, index) => (
+                        <MenuItem
+                          key={index}
+                          value={version.version}
+                          style={{ color: "#1e293b" }}
+                        >
+                          {version.version} - Created:{" "}
+                          {new Date(version.createdAt).toLocaleDateString()} -
+                          Updated:{" "}
+                          {version.updatedAt
+                            ? new Date(version.updatedAt).toLocaleDateString()
+                            : "N/A"}
+                          <br></br>
+                          <Button
+                            variant="outlined"
+                            onClick={() =>
+                              alert(`Viewing file: ${version.version}`)
+                            }
+                            style={{
+                              color: "white",
+                              borderColor: "white",
+                              marginRight: "3px",
+                              marginLeft: "3px",
+                              backgroundColor: "#1e293b",
+                            }}
+                          >
+                            View
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            onClick={() => handleView(`${version.version}`)}
+                            style={{
+                              color: "white",
+                              borderColor: "white",
+                              backgroundColor: "#1e293b",
+                            }}
+                          >
+                            Edit
+                          </Button>
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </TableCell>
+                  {/* <TableCell>
                 {file.versions.map((version, index) => (
                   <Button variant="contained" onClick={() => alert(`Viewing file: ${file.versions.version}`)}>View</Button>
                   <Button variant="contained" onClick={() => alert(`Downloading file: ${file.versions.version}`)}>Download</Button>
                 </TableCell> */}
-              </TableRow>
-            ))}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
         <TablePagination
@@ -387,14 +503,12 @@ export default function TaskSelector() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          sx={{ color: '#334155' }}
+          sx={{ color: "#334155" }}
         />
       </TableContainer>
     </div>
   );
 }
-
-
 
 // import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
@@ -437,7 +551,6 @@ export default function TaskSelector() {
 //         console.error("Error fetching task names:", error);
 //       }
 //     };
-
 
 //     fetchTaskNames();
 
@@ -489,7 +602,7 @@ export default function TaskSelector() {
 //           ))}
 //         </List>
 //       </Dialog>
-      
+
 //       {/* Add the table here */}
 //       <TableContainer component={Paper} sx={{ marginTop: 4 }}>
 //         <Table>

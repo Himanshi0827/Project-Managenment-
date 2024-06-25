@@ -1,4 +1,3 @@
-
 // const express = require("express");
 // const app = express();
 // const mongoose = require("mongoose");
@@ -57,8 +56,6 @@
 
 //   return date_now;
 // };
-
-
 
 // app.post("/register", async (req, res) => {
 //   const date_now = getDateTime();
@@ -327,10 +324,7 @@
 //   res.json(results);
 // });
 
-
-
 // // Temp Data fetching
-
 
 // // Define the Project schema and model
 // const projectSchema = new mongoose.Schema({
@@ -358,11 +352,7 @@
 //   }
 // });
 
-
-
-
 // // Temp Project Director
-
 
 // // const projectSchema = new mongoose.Schema({
 // //   manager: String,
@@ -419,7 +409,7 @@
 // ];
 // const sampleProject = [
 //   { id: '24SC2',clientname:'himanshi',title:'LMS',manager:'abc',description:'learning managenment system',status:'ongoing',nom:7},
-//   { id: '24SC3',clientname:'himanshi singh',title:'project ',manager:'ab',description:'project managenment system',status:'ongoing',nom:3} 
+//   { id: '24SC3',clientname:'himanshi singh',title:'project ',manager:'ab',description:'project managenment system',status:'ongoing',nom:3}
 // ];
 // // Populate sample data
 // const populateSampleData = async () => {
@@ -551,56 +541,6 @@
 //   }
 // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -619,14 +559,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-const mongoUrl =
-  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 // const mongoUrl =
-//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-
-
+const mongoUrl =
+  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -1397,12 +1334,11 @@ app.get("/api/projects/:email", async (req, res) => {
   }
 });
 app.get("/api/projects", async (req, res) => {
-  
   try {
     const projects = await Project.find();
     res.json({ status: "ok", projects });
   } catch (error) {
-    console.error('Error fetching projects:', error);
+    console.error("Error fetching projects:", error);
     res.status(500).json({ status: "error", error: "Server Error" });
   }
 });
@@ -1427,8 +1363,8 @@ app.post("/api/requirements", async (req, res) => {
         { upsert: true }
       );
 
-      console.log("Requirement Updated")
-      alert("Requirement Updated!")
+      console.log("Requirement Updated");
+      alert("Requirement Updated!");
       if (result.nModified > 0) {
         res.status(200).send("Requirement updated successfully");
       } else if (result.upserted) {
@@ -1443,9 +1379,12 @@ app.post("/api/requirements", async (req, res) => {
       const count = await Requirement.countDocuments({ projectNumber });
 
       const requirementCount = count + 1;
-      const mainPart =` R${String(projectNumber).padStart(2, "0")}.00.`;
+      const mainPart = ` R${String(projectNumber).padStart(2, "0")}.00.`;
       const lastPart = String(requirementCount % 100).padStart(2, "0");
-      const middlePart = String(Math.floor(requirementCount / 100)).padStart(2, "0");
+      const middlePart = String(Math.floor(requirementCount / 100)).padStart(
+        2,
+        "0"
+      );
 
       req.body.requirementNumber = `${mainPart}${middlePart}.${lastPart}`;
 
@@ -1454,20 +1393,20 @@ app.post("/api/requirements", async (req, res) => {
     }
   } catch (error) {
     console.error("Error processing requirement:", error.message);
-    res.status(500).send("Internal Server Error: Unable to process requirement");
+    res
+      .status(500)
+      .send("Internal Server Error: Unable to process requirement");
   }
 });
 
-
 //const express = require('express');
 //const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const AutoIncrement = require('mongoose-auto-increment');
+const bodyParser = require("body-parser");
+const AutoIncrement = require("mongoose-auto-increment");
 
 app.use(bodyParser.json());
 
 const connection = mongoose.connection;
-
 
 AutoIncrement.initialize(connection);
 
@@ -1510,13 +1449,22 @@ const cpSchema = new mongoose.Schema({
   },
 });
 
-cpSchema.plugin(AutoIncrement.plugin, { model: 'CP', field: 'taskNumber' });
+cpSchema.plugin(AutoIncrement.plugin, { model: "CP", field: "taskNumber" });
 const CPmodel = mongoose.model("CP", cpSchema);
 
 // Express route for handling POST request
-app.post('/api/calculate-cp', async (req, res) => {
+app.post("/api/calculate-cp", async (req, res) => {
   try {
-    const { requirementNumber, task, numberOfInputElements, numberOfTablesViews, interfaceClass, functionsLogic, rndComponent, CP } = req.body;
+    const {
+      requirementNumber,
+      task,
+      numberOfInputElements,
+      numberOfTablesViews,
+      interfaceClass,
+      functionsLogic,
+      rndComponent,
+      CP,
+    } = req.body;
 
     // Create a new CP document
     const newCP = new CPmodel({
@@ -1533,10 +1481,10 @@ app.post('/api/calculate-cp', async (req, res) => {
     // Save the new document to the database
     await newCP.save();
 
-    res.status(200).json({ message: 'Form data saved successfully.' });
+    res.status(200).json({ message: "Form data saved successfully." });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
@@ -1580,9 +1528,7 @@ app.post("/templates", async (req, res) => {
 
 // insertSampleTemplates();
 
-
-
-/// form temp 
+/// form temp
 
 const FormSchema = new mongoose.Schema({
   title: String,
@@ -1602,19 +1548,42 @@ app.post("/api/saveForm", async (req, res) => {
   }
 });
 
-app.get("/api/getForm/:id", async (req, res) => {
+// app.get("/api/getForm/:id", async (req, res) => {
+//   try {
+//     const form = await Form.findById(req.params.id);
+//     res.status(200).send(form);
+//   } catch (error) {
+//     res.status(500).send({ error: "Error fetching form data" });
+//   }
+// });
+
+const File = require("./Schema/FileSchema");
+
+app.get("/api/getForm/:version", async (req, res) => {
   try {
-    const form = await Form.findById(req.params.id);
-    res.status(200).send(form);
+    const { version } = req.params;
+
+    const form = await File.aggregate([
+      { $unwind: "$versions" },
+      { $match: { "versions.version": version } },
+      { $project: { _id: 1, "versions.title": 1, "versions.description": 1, "versions.data": 1 } },
+    ]);
+
+    if (form.length === 0) {
+      return res.status(404).send({ error: "Form version not found" });
+    }
+
+    const result = form.map((f) => ({ _id: f._id, title: f.versions.title, description: f.versions.description, data: f.versions.data }))[0];
+
+    res.status(200).send(result);
   } catch (error) {
     res.status(500).send({ error: "Error fetching form data" });
   }
 });
 
 
-const File = require("./Schema/FileSchema");
 //const File = mongoose.model("Form", FileSchema);
-app.get('/api/files', async (req, res) => {
+app.get("/api/files", async (req, res) => {
   try {
     const files = await File.find();
     res.json(files);
@@ -1622,4 +1591,3 @@ app.get('/api/files', async (req, res) => {
     res.status(500).send(err);
   }
 });
-

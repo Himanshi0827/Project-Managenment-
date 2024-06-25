@@ -153,3 +153,7 @@
 [2024-06-25 7:34:31] : Login attempt successful: smit@gmail.com (HIMANSHI SINGH) (Project Manager)
 [2024-06-25 11:16:54] : Login attempt successful: kunj@gmail.com (kunj patel) (Analyst)
 [2024-06-25 12:24:33] : Login attempt successful: hi@gmail.com (HIMANSHI SINGH) (Analyst)
+[2024-06-25 12:27:32] : Login attempt successful: kunj@gmail.com (kunj patel) (Analyst)
+[2024-06-25 12:47:17] : Login attempt successful: kunj@gmail.com (kunj patel) (Analyst)
+[2024-06-25 13:5:11] : Login attempt successful: kunj@gmail.com (kunj patel) (Analyst)
+[2024-06-25 14:20:43] : Login attempt successful: kunj@gmail.com (kunj patel) (Analyst)
