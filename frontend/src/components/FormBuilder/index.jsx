@@ -35,6 +35,7 @@ import { formEl } from "./constants.js";
 import Header from "./Header";
 import { Document, Packer, Paragraph, TextRun, ImageRun } from "docx";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import { Margin } from "@mui/icons-material";
 
 const FormBuilder = () => {
   // Form
@@ -367,7 +368,20 @@ const FormBuilder = () => {
       URL.revokeObjectURL(url);
     });
   };
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '5px',
+    //height: '100vh' // Full viewport height
+  };
 
+  const centeredDivStyle = {
+    width: '65%',
+    border: '1px solid #ccc', // Optional: for visibility
+    padding: '5px', // Optional: for content padding
+    boxSizing: 'border-box' // Ensures padding and border are included in the total width and height
+  };
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -457,7 +471,8 @@ const FormBuilder = () => {
     switch (item.type) {
       case "text":
         return (
-          <TextFieldInput
+          <TextFieldInput 
+          style={{margin: "5px",}}
             item={item}
             handleValue={handleValue}
             deleteEl={deleteEl}
@@ -555,8 +570,19 @@ const FormBuilder = () => {
   console.log(data);
 
   return (
-    <div>
-      <Fragment>
+    <div  style={{
+      color: "1e293b",
+      borderColor: "white",
+      backgroundColor: "#e0e6ee",
+      height: '100vh',
+    }} >
+    <div style={containerStyle}>
+    <div className="bg-blueGray-50 m-1 rounded" style={centeredDivStyle}>
+      <Fragment style={{
+                              color: "1e293b",
+                              borderColor: "white",
+                              backgroundColor: "#334155",
+                            }}>
         <Grid container spacing={1} direction="row" justifyContent="center">
           <Grid item md={6}>
             <Header
@@ -577,7 +603,13 @@ const FormBuilder = () => {
               <IconButton
                 aria-label="add-element"
                 onClick={addElement}
-                sx={{ position: "sticky", top: 30 }}
+                sx={{ position: "sticky", top: 30 } }
+                style={{
+                              color: "#1e293b",
+                              borderColor: "white",
+                              backgroundColor: "white",
+                            }}
+
               >
                 <AddCircleOutlineOutlinedIcon color="#c8c7c7" />
               </IconButton>
@@ -585,17 +617,28 @@ const FormBuilder = () => {
           </Grid>
         </Grid>
       </Fragment>
+     
+      
       <Box display="flex" justifyContent="center" mt={2} mr={9}>
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<DownloadRoundedIcon />}
           onClick={handleDownload}
-          sx={{ fontFamily: "JetBrains Mono" }}
+          sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+          style={{
+                              color: "white",
+                              borderColor: "white",
+                              backgroundColor: "#1e293b",
+                            }}
         >
           Save as Doc
         </Button>
         <Tooltip title="Upload Word File" placement="top">
-          <Button component="label" varient="">
+          <Button component="label"  variant="outlined" sx={{ fontFamily: "JetBrains Mono", ml: 2 }} style={{
+                              color: "white",
+                              borderColor: "white",
+                              backgroundColor: "#1e293b",
+                            }}>
             Upload A Doc
             <input
               type="file"
@@ -607,10 +650,15 @@ const FormBuilder = () => {
           </Button>
         </Tooltip>
         <Button
-          variant="contained"
+          variant="outlined"
           startIcon={<ArchiveIcon />}
           onClick={handleSave}
           sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+          style={{
+                              color: "white",
+                              borderColor: "white",
+                              backgroundColor: "#1e293b",
+                            }}
         >
           Save
         </Button>
@@ -623,6 +671,8 @@ const FormBuilder = () => {
           View
         </Button>*/}
       </Box>
+      </div>
+      </div>
     </div>
   );
 };

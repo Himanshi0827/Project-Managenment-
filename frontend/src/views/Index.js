@@ -14,10 +14,10 @@ export default function Index() {
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
               <h2 className="font-semibold text-4xl text-blueGray-600">
-            BISAG-N - Project Management System.
+                BISAG-N - Project Management System.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-              Manage your client requirements efficiently and effectively.{" "}
+                Manage your client requirements efficiently and effectively.{" "}
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
                   className="text-blueGray-600"
@@ -80,7 +80,7 @@ export default function Index() {
               <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-lightBlue-500">
                 <img
                   alt="..."
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80"
+                  src="data:image/jpeg;base64,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"
                   className="w-full align-middle rounded-t-lg"
                 />
                 <blockquote className="relative p-8 mb-4">
@@ -96,10 +96,10 @@ export default function Index() {
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">
-                  BISAG-N Project Management System
+                    BISAG-N Project Management System
                   </h4>
                   <p className="text-md font-light mt-2 text-white">
-                  BISAG-N Project Management System is designed to streamline and enhance the efficiency of managing client requirements and project workflows. Built using the MERN stack (MongoDB, Express.js, React, Node.js), this system offers a comprehensive solution for project directors, managers, analysts, and auditors to collaborate and ensure successful project completion.
+                    BISAG-N Project Management System is designed to streamline and enhance the efficiency of managing client requirements and project workflows. Built using the MERN stack (MongoDB, Express.js, React, Node.js), this system offers a comprehensive solution for project directors, managers, analysts, and auditors to collaborate and ensure successful project completion.
                   </p>
                 </blockquote>
               </div>
@@ -114,13 +114,13 @@ export default function Index() {
                         <i className="fas fa-sitemap"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                      Project Director Dashboard:
+                        Project Director Dashboard:
                       </h6>
                       <p className="mb-4 text-blueGray-500">
-                      Create and assign projects to project managers.
-View all ongoing projects and their statuses.
-Access CP (Critical Path) calculations for projects.
-Monitor and oversee project progress.
+                        Create and assign projects to project managers.
+                        View all ongoing projects and their statuses.
+                        Access CP (Critical Path) calculations for projects.
+                        Monitor and oversee project progress.
                       </p>
                     </div>
                   </div>
@@ -130,13 +130,13 @@ Monitor and oversee project progress.
                         <i className="fas fa-drafting-compass"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                      Project Manager Dashboard:
+                        Project Manager Dashboard:
                       </h6>
                       <p className="mb-4 text-blueGray-500">
-                      View and manage projects assigned by the project director.
-Edit and update daily client requirement files.
-Track project timelines and deliverables.
-Communicate with the project team and stakeholders.
+                        View and manage projects assigned by the project director.
+                        Edit and update daily client requirement files.
+                        Track project timelines and deliverables.
+                        Communicate with the project team and stakeholders.
                       </p>
                     </div>
                   </div>
@@ -149,10 +149,10 @@ Communicate with the project team and stakeholders.
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">Project Analyst Dashboard:</h6>
                       <p className="mb-4 text-blueGray-500">
-                      Monitor different ongoing projects.
-Analyze client requirements and project data.
-Generate CP calculations based on project requirements.
-Provide insights and recommendations to project directors and managers.
+                        Monitor different ongoing projects.
+                        Analyze client requirements and project data.
+                        Generate CP calculations based on project requirements.
+                        Provide insights and recommendations to project directors and managers.
                       </p>
                     </div>
                   </div>
@@ -162,12 +162,12 @@ Provide insights and recommendations to project directors and managers.
                         <i className="fas fa-file-alt"></i>
                       </div>
                       <h6 className="text-xl mb-1 font-semibold">
-                      Auditor Dashboard:
+                        Auditor Dashboard:
                       </h6>
                       <p className="mb-4 text-blueGray-500">
-                      View all projects and their current statuses.
-Identify which managers are assigned to specific projects.
-Ensure compliance with project management protocols.
+                        View all projects and their current statuses.
+                        Identify which managers are assigned to specific projects.
+                        Ensure compliance with project management protocols.
                       </p>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ Ensure compliance with project management protocols.
           </div>
         </div>
 
-        <div className="container mx-auto overflow-hidden pb-20">
+        {/* <div className="container mx-auto overflow-hidden pb-20">
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
               <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
@@ -190,30 +190,7 @@ Ensure compliance with project management protocols.
               Streamlined processes for managing and updating client requirements.
               </p>
               <div className="block pb-6">
-                {/* <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Buttons
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Inputs
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Labels
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Menus
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Navbars
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Pagination
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Progressbars
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Typography
-                </span> */}
+                
               </div>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-index"
@@ -379,30 +356,7 @@ Node.js: Runtime environment for executing server-side code.
                 you.
               </p>
               <div className="block pb-6">
-                {/* <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Alerts
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Dropdowns
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Menus
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Modals
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Navbars
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Popovers
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Tabs
-                </span>
-                <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
-                  Tooltips
-                </span> */}
+               
               </div>
               <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-index"
@@ -414,7 +368,7 @@ Node.js: Runtime environment for executing server-side code.
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="container mx-auto px-4 pb-32 pt-48">
           <div className="items-center flex flex-wrap">
@@ -424,15 +378,21 @@ Node.js: Runtime environment for executing server-side code.
                   <i className="fas fa-file-alt text-xl"></i>
                 </div>
                 <h3 className="text-3xl font-semibold">
-                Advantages:
+                  Advantages:
                 </h3>
-                <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                Efficient Requirement Management: Streamlined processes for managing and updating client requirements.
-Enhanced Collaboration: Dashboards tailored for different roles facilitate better communication and collaboration among team members.
-Real-time Monitoring: Project directors and managers can monitor project progress in real-time, ensuring timely interventions.
-Data-Driven Decisions: Analysts provide critical insights and CP calculations to aid in strategic decision-making.
-Compliance and Oversight: Auditors can ensure projects adhere to established protocols and standards.
-                </p>
+                {/* <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                
+             
+
+              
+                
+                
+                Data-Driven Decisions: 
+                Analysts provide critical insights and CP calculations
+                 to aid in strategic decision-making.
+                
+               
+                </p> */}
                 <ul className="list-none mt-6">
                   <li className="py-2">
                     <div className="flex items-center">
@@ -442,9 +402,14 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-blueGray-500">
-                          Built by Developers for Developers
+                        <h4 className="text-blueGray-700 ">
+                          <b>Efficient Requirement Management:</b>
+
                         </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Streamlined processes for managing
+                          and updating client requirements.
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -456,9 +421,52 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-blueGray-500">
-                          Carefully crafted code for Components
+                        <h4 className="text-blueGray-700 ">
+                          <b>Enhanced Collaboration: </b>
+
                         </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Dashboards tailored for different roles facilitate
+                          better communication and collaboration among team members.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="py-2">
+                    <div className="flex items-center">
+                      <div>
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3">
+                          <i className="fab fa-html5"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-blueGray-700 ">
+                          <b>Compliance and Oversight:</b>
+
+                        </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Auditors can ensure projects adhere to established
+                          protocols and standards.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="py-2">
+                    <div className="flex items-center">
+                      <div>
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3">
+                          <i className="fab fa-html5"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-blueGray-700 ">
+                          <b>Real-time Monitoring: </b>
+
+                        </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Project directors and managers can monitor project
+                          progress in real-time, ensuring timely interventions.
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -470,9 +478,14 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
                         </span>
                       </div>
                       <div>
-                        <h4 className="text-blueGray-500">
-                          Dynamic Javascript Components
+                        <h4 className="text-blueGray-700 ">
+                          <b>Data-Driven Decisions: </b>
+
                         </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Analysts provide critical insights and CP calculations
+                          to aid in strategic decision-making.
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -498,7 +511,7 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
           <div className="w-full md:w-6/12 px-12 md:px-4">
             <h2 className="font-semibold text-4xl"> Pages</h2>
             <p className="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
-            Project Management System
+              Project Management System
             </p>
           </div>
         </div>
@@ -511,7 +524,7 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-4/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
-                    Login 
+                    Login
                   </h5>
                   <Link to="/auth/login">
                     <div className="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
@@ -526,7 +539,7 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
 
                 <div className="w-full lg:w-4/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
-                    Profile 
+                    About
                   </h5>
                   <Link to="/profile">
                     <div className="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
@@ -541,7 +554,7 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
 
                 <div className="w-full lg:w-4/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
-                    Landing 
+                    Know more
                   </h5>
                   <Link to="/landing">
                     <div className="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150">
@@ -567,38 +580,48 @@ Compliance and Oversight: Auditors can ensure projects adhere to established pro
                 <i className="fas fa-code-branch text-xl"></i>
               </div>
               <h3 className="text-3xl mb-2 font-semibold leading-normal text-white">
-              How It Works:
+                How It Works:
               </h3>
               <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-400">
-                Since{" "}
+                {/*                 
                 <a
                   href="https://tailwindcss.com/?ref=creativetim"
                   className="text-blueGray-300"
                   target="_blank"
                 >
                   
-                </a>{" "}
-                User Registration and Login:
+                </a>{" "} */}
+                <ol>
+                  <li className="py-2">
+                    User Registration and Login:
 
-Users register and log in through the admin dashboard.
-User roles (Project Director, Project Manager, Project Analyst, Auditor) are assigned.
-Project Creation and Assignment:
+                    Users register and log in through the admin dashboard.
+                    User roles (Project Director, Project Manager, Project Analyst, Auditor) are assigned.
+                  </li>
+                  <li className="py-2">Project Creation and Assignment:
 
-Project directors create projects and assign them to project managers.
-Project details and requirements are updated regularly.
-Data Analysis and CP Calculation:
+                    Project directors create projects and assign them to project managers.
+                    Project details and requirements are updated regularly.</li>
+                  <li className="py-2">
+                    Data Analysis and CP Calculation:
 
-Project analysts monitor ongoing projects, analyze data, and generate CP calculations.
-CP insights are shared with directors and managers for informed decision-making.
-Audit and Compliance:
+                    Project analysts monitor ongoing projects, analyze data, and generate CP calculations.
+                    CP insights are shared with directors and managers for informed decision-making.
+                  </li>
+                  <li className="py-2">
+                    Audit and Compliance:
 
-Auditors review project statuses and manager assignments to ensure compliance.
-Logs of all activities are maintained for transparency and accountability.
+                    Auditors review project statuses and manager assignments to ensure compliance.
+                    Logs of all activities are maintained for transparency and accountability.
+                  </li>
+                </ol>
+
+
               </p>
-              <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-400">
+              {/* <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-blueGray-400">
                 Get it free on Github and please help us spread the news with a
                 Star!
-              </p>
+              </p> */}
               {/* <a
                 href="https://github.com/creativetimofficial/notus-react?ref=nr-index"
                 target="_blank"
@@ -645,26 +668,26 @@ Logs of all activities are maintained for transparency and accountability.
                 </span>
               </p>
               <h3 className="font-semibold text-3xl">
-              Conclusion:
+                Conclusion:
               </h3>
               <p className="text-blueGray-500 text-lg leading-relaxed mt-4 mb-4">
-              The BISAG-N Project Management System is your all-in-one solution for managing projects efficiently and effectively. With specialized dashboards, real-time monitoring, and comprehensive data analysis, this system ensures that your projects are completed on time, within scope, and to the highest standards. Built with the robust and scalable MERN stack, it offers a seamless user experience and reliable performance.
+                The BISAG-N Project Management System is your all-in-one solution for managing projects efficiently and effectively. With specialized dashboards, real-time monitoring, and comprehensive data analysis, this system ensures that your projects are completed on time, within scope, and to the highest standards. Built with the robust and scalable MERN stack, it offers a seamless user experience and reliable performance.
               </p>
               <div className="sm:block flex flex-col mt-10">
                 <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-index"
+                  href="/auth/login"
                   target="_blank"
                   className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-2 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
-                  Get started
+                  Login
                 </a>
                 <a
-                  href="https://github.com/creativetimofficial/notus-react?ref=nr-index"
+                  href="/auth/register"
                   target="_blank"
                   className="github-star sm:ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                 >
-                  <i className="fab fa-github text-lg mr-1"></i>
-                  <span>Help With a Star</span>
+                  {/* <i className="fab fa-github text-lg mr-1"></i> */}
+                  <span>Register</span>
                 </a>
               </div>
               <div className="text-center mt-16"></div>

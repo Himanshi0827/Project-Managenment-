@@ -61,39 +61,39 @@ export default function Footer() {
               <div className="flex flex-wrap items-top mb-6">
                 <div className="w-full lg:w-4/12 px-4 ml-auto">
                   <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
-                    Useful Links
+                  About Us
                   </span>
                   <ul className="list-unstyled">
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/presentation?ref=nr-footer"
+                        href="https://bisag-n.gov.in/about_us"
                       >
-                        About Us
+                       Vision & Profile
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://blog.creative-tim.com?ref=nr-footer"
+                        href="https://bisag-n.gov.in/about_us"
                       >
-                        Blog
+                       Organization Setup
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.github.com/creativetimofficial?ref=nr-footer"
+                        href="https://bisag-n.gov.in/about_us"
                       >
-                        Github
+                        Activities of BISAG-N
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/bootstrap-themes/free?ref=nr-footer"
+                        href="https://bisag-n.gov.in/about_us"
                       >
-                        Free Products
+                       Act & Rules
                       </a>
                     </li>
                   </ul>
@@ -103,18 +103,11 @@ export default function Footer() {
                     Other Resources
                   </span>
                   <ul className="list-unstyled">
+                    
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md?ref=nr-footer"
-                      >
-                        MIT License
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/terms?ref=nr-footer"
+                        href="https://bisag-n.gov.in/satellite-communication"
                       >
                         Terms & Conditions
                       </a>
@@ -122,7 +115,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/privacy?ref=nr-footer"
+                        href="https://bisag-n.gov.in/satellite-communication"
                       >
                         Privacy Policy
                       </a>
@@ -130,7 +123,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/contact-us?ref=nr-footer"
+                        href="https://bisag-n.gov.in/contact_us"
                       >
                         Contact Us
                       </a>
@@ -144,12 +137,12 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Notus React by{" "}
+                {/* Copyright © {new Date().getFullYear()} Notus React by{" "} */}
                 <a
                   href="https://www.creative-tim.com?ref=nr-footer"
                   className="text-blueGray-500 hover:text-blueGray-800"
                 >
-                  Creative Tim
+                 BISAG
                 </a>
                 .
               </div>
