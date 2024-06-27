@@ -36,7 +36,9 @@ import Header from "./Header";
 import { Document, Packer, Paragraph, TextRun, ImageRun } from "docx";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Margin } from "@mui/icons-material";
+import Modal from 'react-modal';
 
+Modal.setAppElement('#root');
 const FormBuilder = () => {
   // Form
 
@@ -440,22 +442,52 @@ const FormBuilder = () => {
     }
   };
 
-  const handleSave = async () => {
-    try {
-      const response = await axios.post("http://localhost:5000/api/saveForm", {
-        title,
-        description,
-        data,
-      });
-      if (response.data.id) {
-        alert(`Form saved! ID: ${response.data.id}`);
-      }
-    } catch (error) {
-      console.error("Error saving form:", error);
-      alert("Error saving form data");
-    }
-  };
+  // const handleSave = async () => {
+  //   try {
+  //     const response = await axios.post("http://localhost:5000/api/saveForm", {
+  //       title,
+  //       description,
+  //       data,
+  //     });
+  //     if (response.data.id) {
+  //       alert(`Form saved! ID: ${response.data.id}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving form:", error);
+  //     alert("Error saving form data");
+  //   }
+  // };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [versionName, setVersionName] = useState('');
+    const [useVersion, setUseVersion] = useState(false);
+  
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+  
+    const handleSave = async () => {
+      openModal();
+    };
+  
+    const handleModalSave = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/saveForm", {
+          title,
+          description,
+          data,
+          version: useVersion,
+          versionName: versionName || "Default Version Name"
+        });
+        if (response.data.id) {
+          alert(`Form saved! ID: ${response.data.id}`);
+          closeModal();
+        }
+      } catch (error) {
+        console.error("Error saving form:", error);
+        alert("Error saving form data");
+        closeModal();
+      }
+    };
   // const handleView = async () => {
   //   try {
   //     if (location.state) {
@@ -677,7 +709,36 @@ const FormBuilder = () => {
             />
           </Button>
         </Tooltip>
-        <Button
+        <div>
+        <button onClick={handleSave}>Save Form</button>
+
+<Modal
+  isOpen={isModalOpen}
+  onRequestClose={closeModal}
+  contentLabel="Version Information"
+>
+  <h2>Save Version</h2>
+  <label>
+    <input
+      type="checkbox"
+      checked={useVersion}
+      onChange={(e) => setUseVersion(e.target.checked)}
+    />
+    Use custom version name
+  </label>
+  {useVersion && (
+    <input
+      type="text"
+      value={versionName}
+      onChange={(e) => setVersionName(e.target.value)}
+      placeholder="Enter version name"
+    />
+  )}
+  <button onClick={handleModalSave}>Save</button>
+  <button onClick={closeModal}>Cancel</button>
+</Modal>
+        </div>
+        {/* <Button
           variant="outlined"
           startIcon={<ArchiveIcon />}
           onClick={handleSave}
@@ -689,7 +750,7 @@ const FormBuilder = () => {
                             }}
         >
           Save
-        </Button>
+        </Button> */}
         {/*<Button
           variant="contained"
           startIcon={<UnarchiveIcon />}

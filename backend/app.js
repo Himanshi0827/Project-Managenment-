@@ -1538,15 +1538,15 @@ const FormSchema = new mongoose.Schema({
 
 const Form = mongoose.model("Form", FormSchema);
 
-app.post("/api/saveForm", async (req, res) => {
-  try {
-    const form = new Form(req.body);
-    await form.save();
-    res.status(200).send({ id: form._id });
-  } catch (error) {
-    res.status(500).send({ error: "Error saving form data" });
-  }
-});
+// app.post("/api/saveForm", async (req, res) => {
+//   try {
+//     const form = new Form(req.body);
+//     await form.save();
+//     res.status(200).send({ id: form._id });
+//   } catch (error) {
+//     res.status(500).send({ error: "Error saving form data" });
+//   }
+// });
 
 // app.get("/api/getForm/:id", async (req, res) => {
 //   try {
@@ -1594,7 +1594,32 @@ const FileSchema = new mongoose.Schema({
 cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
 
 const File = mongoose.model("File", FileSchema);
+app.post('/api/saveForm', async (req, res) => {
+  try {
+    const { title, description, data, version, versionName } = req.body;
 
+    const newVersion = {
+      title,
+      description,
+      data,
+      versionNum: versionName,
+    };
+
+    const file = new File({
+      projectNumber: 123, // Example project number, adjust as needed
+      projectTitle: "Example Project", // Example project title, adjust as needed
+      templateName: "Example Template", // Example template name, adjust as needed
+      createdBy: "user@example.com", // Example user, adjust as needed
+      versions: [newVersion],
+    });
+
+    const savedFile = await file.save();
+    res.status(200).json({ id: savedFile._id });
+  } catch (error) {
+    console.error("Error saving form:", error);
+    res.status(500).send("Error saving form data");
+  }
+});
 // app.get("/api/getForm/:version", async (req, res) => {
 //   try {
 //     const { version } = req.params;
