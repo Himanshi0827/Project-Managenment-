@@ -2,15 +2,17 @@ import React, { useEffect, useState, useRef } from "react";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 // const navigate = useNavigate();
 
 const MainContent = ({ content, userData }) => {
   const history = useHistory();
-  const showForm = () => {
-    history.push("/temp");
+
+  const showForm = (projectNumber) => {
+    history.push("/temp", { projectNumber: projectNumber });
   };
+
   const containerStyle = {
     padding: "20px",
     backgroundColor: "white",
@@ -456,7 +458,7 @@ const MainContent = ({ content, userData }) => {
         return (
           <div className="text-blueGray-700 text-2xl font-bold">
             <h2 className="text-blueGray-700 text-2xl font-bold text-center">
-              Project Analyst 
+              Project Analyst
             </h2>
             <h3 className="text-blueGray-600 text-xl font-bold mt-4 text-center">
               Ongoing Projects
@@ -616,13 +618,21 @@ const MainContent = ({ content, userData }) => {
                           </td>
                           <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                              <button
-                                className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                                type="button"
-                                onClick={showForm}
+                              <Link
+                                to={{
+                                  pathname: "/temp",
+                                  state: {
+                                    projectNumber: project.projectNumber,
+                                  },
+                                }}
                               >
-                                Open
-                              </button>
+                                <button
+                                  className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                  type="button"
+                                >
+                                  Open
+                                </button>
+                              </Link>
                             </p>
                           </td>
                         </tr>

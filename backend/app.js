@@ -1557,30 +1557,111 @@ app.post("/api/saveForm", async (req, res) => {
 //   }
 // });
 
-const File = require("./Schema/FileSchema");
+AutoIncrement.initialize(connection);
+
+const FileSchema = new mongoose.Schema({
+  fileNumber: {
+    type: Number,
+  },
+  projectNumber: {
+    type: Number,
+    ref: "Project",
+    required: true,
+  },
+  // projectNumber: String,//reference se aayega
+  projectTitle: {
+    type: String,
+    ref: "Project",
+    required: true,
+  },
+  // projectName: String,
+  templateName: String,
+  createdBy: String,
+  createdAt: { type: Date, default: Date.now },
+  versions: [
+    {
+      title: String,
+      description: String,
+      data: Array,
+      version: { type: Number, unique: true },
+      versionNum: { type: String },
+      createdAt: { type: Date, default: Date.now },
+      updatedAt: Date,
+    },
+  ],
+});
+
+cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
+
+const File = mongoose.model("File", FileSchema);
+
+// app.get("/api/getForm/:version", async (req, res) => {
+//   try {
+//     const { version } = req.params;
+
+//     const form = await File.aggregate([
+//       { $unwind: "$versions" },
+//       { $match: { "versions.version": version } },
+//       {
+//         $project: {
+//           _id: 1,
+//           "versions.title": 1,
+//           "versions.description": 1,
+//           "versions.data": 1,
+//         },
+//       },
+//     ]);
+
+//     if (form.length === 0) {
+//       return res.status(404).send({ error: "Form version not found" });
+//     }
+
+//     const result = form.map((f) => ({
+//       _id: f._id,
+//       title: f.versions.title,
+//       description: f.versions.description,
+//       data: f.versions.data,
+//     }))[0];
+
+//     res.status(200).send(result);
+//   } catch (error) {
+//     res.status(500).send({ error: "Error fetching form data" });
+//   }
+// });
 
 app.get("/api/getForm/:version", async (req, res) => {
   try {
-    const { version } = req.params;
+    const version = Number(req.params.version); // Convert version to a number
 
     const form = await File.aggregate([
       { $unwind: "$versions" },
-      { $match: { "versions.version": version } },
-      { $project: { _id: 1, "versions.title": 1, "versions.description": 1, "versions.data": 1 } },
+      { $match: { "versions.version": version } }, // Ensure the match is done with a number
+      {
+        $project: {
+          _id: 1,
+          "versions.title": 1,
+          "versions.description": 1,
+          "versions.data": 1,
+        },
+      },
     ]);
 
     if (form.length === 0) {
       return res.status(404).send({ error: "Form version not found" });
     }
 
-    const result = form.map((f) => ({ _id: f._id, title: f.versions.title, description: f.versions.description, data: f.versions.data }))[0];
+    const result = form.map((f) => ({
+      _id: f._id,
+      title: f.versions.title,
+      description: f.versions.description,
+      data: f.versions.data,
+    }))[0];
 
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send({ error: "Error fetching form data" });
   }
 });
-
 
 //const File = mongoose.model("Form", FileSchema);
 app.get("/api/files", async (req, res) => {

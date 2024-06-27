@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch,Link } from "react-router-dom";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
@@ -18,9 +18,10 @@ import Index from "views/Index.js";
 import UserDetails from "components/userDetails/userDetails";
 import Templates from "components/Forms/Templates";
 import Grid from "components/Forms/grid";
-import Temp from "components/Forms/temp";
+
 import ABC from "ABC";
 import FormBuilder from "components/FormBuilder";
+import TaskSelector from "components/Forms/temp";
 
 function App() {
   return (
@@ -35,7 +36,8 @@ function App() {
 
         {/* Forms */}
         <Route path="/template" exact component={Templates} />
-        <Route path="/temp" exact component={Temp} />
+
+        <Route path="/temp" exact component={TaskSelector} />
         <Route path="/formGrid" exact component={Grid} />
         {/*<Route path="/form" exact component={ABC} />*/}
         <Route path="/form" exact component={FormBuilder} />

@@ -77,8 +77,22 @@ const FormBuilder = () => {
   };
 
   // Function to add new element
+  // const addElement = () => {
+  //   const data = {
+  //     id: uuid(),
+  //     label: "",
+  //     value: "",
+  //     date: "",
+  //     type: formData,
+  //     required: false,
+  //   };
+  //   console.log("New Element:", data);
+  //   setData((prevState) => [...prevState, data]);
+  //   setFormData(initVal);
+  // };
+
   const addElement = () => {
-    const data = {
+    const newElement = {
       id: uuid(),
       label: "",
       value: "",
@@ -86,8 +100,18 @@ const FormBuilder = () => {
       type: formData,
       required: false,
     };
-    console.log("New Element:", data);
-    setData((prevState) => [...prevState, data]);
+    console.log("New Element:", newElement);
+  
+    setData((prevState) => {
+      // Ensure prevState is an array before spreading it
+      if (Array.isArray(prevState)) {
+        return [...prevState, newElement];
+      } else {
+        console.error("prevState is not an array:", prevState);
+        return [newElement];
+      }
+    });
+  
     setFormData(initVal);
   };
 
@@ -559,6 +583,16 @@ const FormBuilder = () => {
       <Fragment>
         <Grid container spacing={1} direction="row" justifyContent="center">
           <Grid item md={6}>
+            <h1
+              style={{
+                fontSize: "30px",
+                marginBottom: "12px",
+                marginTop: "12px",
+                fontFamily: "sans-serif",
+              }}
+            >
+              {tName}
+            </h1>
             <Header
               title={title}
               setTitle={setTitle}
@@ -577,7 +611,7 @@ const FormBuilder = () => {
               <IconButton
                 aria-label="add-element"
                 onClick={addElement}
-                sx={{ position: "sticky", top: 30 }}
+                sx={{ position: "sticky", top: 60 }}
               >
                 <AddCircleOutlineOutlinedIcon color="#c8c7c7" />
               </IconButton>
