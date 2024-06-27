@@ -398,15 +398,14 @@ const FormBuilder = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "5px",
-    //height: '100vh' // Full viewport height
+    overflow: "auto",
+    // Full viewport height
   };
 
   const centeredDivStyle = {
-    width: "65%",
-    border: "1px solid #ccc", // Optional: for visibility
-    padding: "5px", // Optional: for content padding
-    boxSizing: "border-box", // Ensures padding and border are included in the total width and height
+    width: "75%",
+    padding: "5px",
+    // Ensures padding and border are included in the total width and height
   };
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -463,6 +462,7 @@ const FormBuilder = () => {
       left: "50%",
       right: "auto",
       bottom: "auto",
+      alignItems: "center",
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       width: "400px", // Adjust the width as needed
@@ -471,6 +471,7 @@ const FormBuilder = () => {
       color: "#1e293b",
       border: "1px solid white",
       borderRadius: "10px",
+      justifyContent: "center",
     },
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -645,15 +646,29 @@ const FormBuilder = () => {
 
   return (
     <div
+      className="bg-blueGray-50"
       style={{
-        color: "1e293b",
+        // color: "1e293b",
+        // borderColor: "white",
+        // // backgroundColor: "#e0e6ee",
+        // height: "100vh",
+        color: "#1e293b",
         borderColor: "white",
         backgroundColor: "#e0e6ee",
         height: "100vh",
+        backgroundAttachment: "fixed",
+        overflowY:"auto",
       }}
     >
-      <div style={containerStyle}>
-        <div className="bg-blueGray-50 m-1 rounded" style={centeredDivStyle}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+        }}
+      >
+        <div style={centeredDivStyle}>
           <Fragment
             style={{
               color: "1e293b",
@@ -735,7 +750,13 @@ const FormBuilder = () => {
                 />
               </Button>
             </Tooltip>
-            <div>
+            <div
+              style={{
+                textAlign: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
               <Button
                 variant="outlined"
                 startIcon={<ArchiveIcon />}
@@ -749,55 +770,88 @@ const FormBuilder = () => {
               >
                 Save Form
               </Button>
-
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel="Version Information"
-                style={customStyles}
-              >
-                <h2>Save Version</h2>
-                <label>
+              <div style={{ textAlign: "center", alignItems: "center" }}>
+                <Modal
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                  contentLabel="Version Information"
+                  style={customStyles}
+                >
+                  <h2 style={{ fontSize: "28px" }}>Save Version</h2>
                   <input
                     type="checkbox"
                     checked={useVersion}
                     onChange={(e) => setUseVersion(e.target.checked)}
+                    style={{
+                      marginBottom: "2px",
+                      marginRight: "6px",
+                      textAlign: "center",
+                    }}
                   />
-                  Use custom version name
-                </label>
-                {useVersion && (
-                  <input
-                    type="text"
-                    value={versionName}
-                    onChange={(e) => setVersionName(e.target.value)}
-                    placeholder="Enter version name"
-                  />
-                )}
-                <Button
-                  variant="outlined"
-                  onClick={handleModalSave}
-                  sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
-                  style={{
-                    color: "white",
-                    borderColor: "white",
-                    backgroundColor: "#1e293b",
-                  }}
-                >
-                  Save
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={closeModal}
-                  sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
-                  style={{
-                    color: "white",
-                    borderColor: "white",
-                    backgroundColor: "#1e293b",
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Modal>
+                  <label style={{ textAlign: "center" }}>
+                    Use custom version name
+                  </label>
+                  <br />
+                  {useVersion && (
+                    <div>
+                      <input
+                        type="text"
+                        value={versionName}
+                        onChange={(e) => setVersionName(e.target.value)}
+                        placeholder="Enter version name"
+                        style={{
+                          marginTop: "4px",
+                          marginBottom: "4px",
+                          textAlign: "center",
+                        }}
+                      />
+                      <Button
+                        variant="outlined"
+                        onClick={handleModalSave}
+                        sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+                        style={{
+                          color: "white",
+                          borderColor: "white",
+                          backgroundColor: "#1e293b",
+                          marginTop: "4px",
+                          marginBottom: "4px",
+                          marginRight: "1px",
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                  <Button
+                    variant="outlined"
+                    onClick={closeModal}
+                    sx={{ fontFamily: "JetBrains Mono", ml: 1 }}
+                    style={{
+                      color: "white",
+                      borderColor: "white",
+                      backgroundColor: "#1e293b",
+                      marginTop: "4px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    Use Same Version
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={closeModal}
+                    sx={{ fontFamily: "JetBrains Mono", ml: 1 }}
+                    style={{
+                      color: "white",
+                      borderColor: "white",
+                      backgroundColor: "#1e293b",
+                      marginTop: "4px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Modal>
+              </div>
             </div>
             {/* <Button
           variant="outlined"
