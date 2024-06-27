@@ -36,9 +36,9 @@ import Header from "./Header";
 import { Document, Packer, Paragraph, TextRun, ImageRun } from "docx";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Margin } from "@mui/icons-material";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 const FormBuilder = () => {
   // Form
 
@@ -104,7 +104,7 @@ const FormBuilder = () => {
       required: false,
     };
     console.log("New Element:", newElement);
-  
+
     setData((prevState) => {
       // Ensure prevState is an array before spreading it
       if (Array.isArray(prevState)) {
@@ -114,7 +114,7 @@ const FormBuilder = () => {
         return [newElement];
       }
     });
-  
+
     setFormData(initVal);
   };
 
@@ -395,18 +395,18 @@ const FormBuilder = () => {
     });
   };
   const containerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: '5px',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "5px",
     //height: '100vh' // Full viewport height
   };
 
   const centeredDivStyle = {
-    width: '65%',
-    border: '1px solid #ccc', // Optional: for visibility
-    padding: '5px', // Optional: for content padding
-    boxSizing: 'border-box' // Ensures padding and border are included in the total width and height
+    width: "65%",
+    border: "1px solid #ccc", // Optional: for visibility
+    padding: "5px", // Optional: for content padding
+    boxSizing: "border-box", // Ensures padding and border are included in the total width and height
   };
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
@@ -457,37 +457,55 @@ const FormBuilder = () => {
   //     alert("Error saving form data");
   //   }
   // };
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "400px", // Adjust the width as needed
+      padding: "20px",
+      backgroundColor: "white",
+      color: "#1e293b",
+      border: "1px solid white",
+      borderRadius: "10px",
+    },
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+    },
+  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [versionName, setVersionName] = useState("");
+  const [useVersion, setUseVersion] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [versionName, setVersionName] = useState('');
-    const [useVersion, setUseVersion] = useState(false);
-  
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
-  
-    const handleSave = async () => {
-      openModal();
-    };
-  
-    const handleModalSave = async () => {
-      try {
-        const response = await axios.post("http://localhost:5000/api/saveForm", {
-          title,
-          description,
-          data,
-          version: useVersion,
-          versionName: versionName || "Default Version Name"
-        });
-        if (response.data.id) {
-          alert(`Form saved! ID: ${response.data.id}`);
-          closeModal();
-        }
-      } catch (error) {
-        console.error("Error saving form:", error);
-        alert("Error saving form data");
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleSave = async () => {
+    openModal();
+  };
+
+  const handleModalSave = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/saveForm", {
+        title,
+        description,
+        data,
+        version: useVersion,
+        versionName: versionName || "Default Version Name",
+      });
+      if (response.data.id) {
+        alert(`Form saved! ID: ${response.data.id}`);
         closeModal();
       }
-    };
+    } catch (error) {
+      console.error("Error saving form:", error);
+      alert("Error saving form data");
+      closeModal();
+    }
+  };
   // const handleView = async () => {
   //   try {
   //     if (location.state) {
@@ -527,8 +545,8 @@ const FormBuilder = () => {
     switch (item.type) {
       case "text":
         return (
-          <TextFieldInput 
-          style={{margin: "5px",}}
+          <TextFieldInput
+            style={{ margin: "5px" }}
             item={item}
             handleValue={handleValue}
             deleteEl={deleteEl}
@@ -626,119 +644,162 @@ const FormBuilder = () => {
   console.log(data);
 
   return (
-    <div  style={{
-      color: "1e293b",
-      borderColor: "white",
-      backgroundColor: "#e0e6ee",
-      height: '100vh',
-    }} >
-    <div style={containerStyle}>
-    <div className="bg-blueGray-50 m-1 rounded" style={centeredDivStyle}>
-      <Fragment style={{
-                              color: "1e293b",
-                              borderColor: "white",
-                              backgroundColor: "#334155",
-                            }}>
-        <Grid container spacing={1} direction="row" justifyContent="center">
-          <Grid item md={6}>
-            <h1
+    <div
+      style={{
+        color: "1e293b",
+        borderColor: "white",
+        backgroundColor: "#e0e6ee",
+        height: "100vh",
+      }}
+    >
+      <div style={containerStyle}>
+        <div className="bg-blueGray-50 m-1 rounded" style={centeredDivStyle}>
+          <Fragment
+            style={{
+              color: "1e293b",
+              borderColor: "white",
+              backgroundColor: "#334155",
+            }}
+          >
+            <Grid container spacing={1} direction="row" justifyContent="center">
+              <Grid item md={6}>
+                <h1
+                  style={{
+                    fontSize: "30px",
+                    marginBottom: "12px",
+                    marginTop: "12px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  {tName}
+                </h1>
+                <Header
+                  title={title}
+                  setTitle={setTitle}
+                  description={description}
+                  setDescription={setDescription}
+                />
+                <Nestable
+                  items={items}
+                  renderItem={renderElements}
+                  maxDepth={1}
+                  onChange={handleOnChangeSort}
+                />
+              </Grid>
+              <Grid item md={1}>
+                <Tooltip title="Add Element" aria-label="add-element">
+                  <IconButton
+                    aria-label="add-element"
+                    onClick={addElement}
+                    sx={{ position: "sticky", top: 30 }}
+                  >
+                    <AddCircleOutlineOutlinedIcon color="#c8c7c7" />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            </Grid>
+          </Fragment>
+
+          <Box display="flex" justifyContent="center" mt={2} mr={9}>
+            <Button
+              variant="outlined"
+              startIcon={<DownloadRoundedIcon />}
+              onClick={handleDownload}
+              sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
               style={{
-                fontSize: "30px",
-                marginBottom: "12px",
-                marginTop: "12px",
-                fontFamily: "sans-serif",
+                color: "white",
+                borderColor: "white",
+                backgroundColor: "#1e293b",
               }}
             >
-              {tName}
-            </h1>
-            <Header
-              title={title}
-              setTitle={setTitle}
-              description={description}
-              setDescription={setDescription}
-            />
-            <Nestable
-              items={items}
-              renderItem={renderElements}
-              maxDepth={1}
-              onChange={handleOnChangeSort}
-            />
-          </Grid>
-          <Grid item md={1}>
-            <Tooltip title="Add Element" aria-label="add-element">
-              <IconButton
-                aria-label="add-element"
-                onClick={addElement}
-                sx={{ position: "sticky", top: 30 }}
+              Save as Doc
+            </Button>
+            <Tooltip title="Upload Word File" placement="top">
+              <Button
+                component="label"
+                variant="outlined"
+                sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+                style={{
+                  color: "white",
+                  borderColor: "white",
+                  backgroundColor: "#1e293b",
+                }}
               >
-                <AddCircleOutlineOutlinedIcon color="#c8c7c7" />
-              </IconButton>
+                Upload A Doc
+                <input
+                  type="file"
+                  accept=".docx"
+                  hidden
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                />
+              </Button>
             </Tooltip>
-          </Grid>
-        </Grid>
-      </Fragment>
-     
-      
-      <Box display="flex" justifyContent="center" mt={2} mr={9}>
-        <Button
-          variant="outlined"
-          startIcon={<DownloadRoundedIcon />}
-          onClick={handleDownload}
-          sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
-          style={{
-                              color: "white",
-                              borderColor: "white",
-                              backgroundColor: "#1e293b",
-                            }}
-        >
-          Save as Doc
-        </Button>
-        <Tooltip title="Upload Word File" placement="top">
-          <Button component="label"  variant="outlined" sx={{ fontFamily: "JetBrains Mono", ml: 2 }} style={{
-                              color: "white",
-                              borderColor: "white",
-                              backgroundColor: "#1e293b",
-                            }}>
-            Upload A Doc
-            <input
-              type="file"
-              accept=".docx"
-              hidden
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-            />
-          </Button>
-        </Tooltip>
-        <div>
-        <button onClick={handleSave}>Save Form</button>
+            <div>
+              <Button
+                variant="outlined"
+                startIcon={<ArchiveIcon />}
+                onClick={handleSave}
+                sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+                style={{
+                  color: "white",
+                  borderColor: "white",
+                  backgroundColor: "#1e293b",
+                }}
+              >
+                Save Form
+              </Button>
 
-<Modal
-  isOpen={isModalOpen}
-  onRequestClose={closeModal}
-  contentLabel="Version Information"
->
-  <h2>Save Version</h2>
-  <label>
-    <input
-      type="checkbox"
-      checked={useVersion}
-      onChange={(e) => setUseVersion(e.target.checked)}
-    />
-    Use custom version name
-  </label>
-  {useVersion && (
-    <input
-      type="text"
-      value={versionName}
-      onChange={(e) => setVersionName(e.target.value)}
-      placeholder="Enter version name"
-    />
-  )}
-  <button onClick={handleModalSave}>Save</button>
-  <button onClick={closeModal}>Cancel</button>
-</Modal>
-        </div>
-        {/* <Button
+              <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Version Information"
+                style={customStyles}
+              >
+                <h2>Save Version</h2>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={useVersion}
+                    onChange={(e) => setUseVersion(e.target.checked)}
+                  />
+                  Use custom version name
+                </label>
+                {useVersion && (
+                  <input
+                    type="text"
+                    value={versionName}
+                    onChange={(e) => setVersionName(e.target.value)}
+                    placeholder="Enter version name"
+                  />
+                )}
+                <Button
+                  variant="outlined"
+                  onClick={handleModalSave}
+                  sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+                  style={{
+                    color: "white",
+                    borderColor: "white",
+                    backgroundColor: "#1e293b",
+                  }}
+                >
+                  Save
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={closeModal}
+                  sx={{ fontFamily: "JetBrains Mono", ml: 2 }}
+                  style={{
+                    color: "white",
+                    borderColor: "white",
+                    backgroundColor: "#1e293b",
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Modal>
+            </div>
+            {/* <Button
           variant="outlined"
           startIcon={<ArchiveIcon />}
           onClick={handleSave}
@@ -751,7 +812,7 @@ const FormBuilder = () => {
         >
           Save
         </Button> */}
-        {/*<Button
+            {/*<Button
           variant="contained"
           startIcon={<UnarchiveIcon />}
           onClick={handleView}
@@ -759,8 +820,8 @@ const FormBuilder = () => {
         >
           View
         </Button>*/}
-      </Box>
-      </div>
+          </Box>
+        </div>
       </div>
     </div>
   );
