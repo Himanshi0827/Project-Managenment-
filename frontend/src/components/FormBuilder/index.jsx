@@ -51,6 +51,12 @@ const FormBuilder = () => {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState("text");
   const [images, setImages] = useState([]);
+  const [pNumber, setPNumber] = useState("");
+  const [fileNumber, setFileNumber] = useState("");
+  const [projectTitle, setProjectTitle] = useState("Untitled Project Title");
+  const [templateName, setTemplateName] = useState("Untitled Template");
+  const [createdBy, setCreatedBy] = useState("ABC");
+  const [createdAt, setCreatedAt] = useState("ABC");
 
   const items = data;
 
@@ -65,6 +71,15 @@ const FormBuilder = () => {
     setTitle(location.state.titlen);
     setDescription(location.state.descriptionn);
     setData(location.state.datan);
+
+
+    setPNumber(location.state.projectNumber)
+    setFileNumber(location.state.fileNumber)
+    setProjectTitle(location.state.projectTitle)
+    setTemplateName(location.state.templateName)
+    setCreatedBy(location.state.createdBy)
+    setCreatedAt(location.state.createdAt)
+
   }, []);
 
   const handleImageUpload = (file) => {
@@ -487,15 +502,45 @@ const FormBuilder = () => {
   const handleSave = async () => {
     openModal();
   };
-
+  const handleModalSave2 = async () => {
+    try {
+      const response = await axios.post("http://localhost:5000/api/saveForm", {
+        title,
+        description,
+        data,
+        version: 21, //check
+        versionName: versionName || "1.0",
+        projectNumber : pNumber,
+        fileNumber : fileNumber || 6, // check
+        projectTitle : projectTitle || "projecttitleExp", // check
+        templateName : templateName || tName,
+        createdBy : createdBy || "user1", // check
+        createdAt : createdAt || Date.now(),
+      });
+      if (response.data.id) {
+        alert(`Form saved! ID: ${response.data.id}`);
+        closeModal();
+      }
+    } catch (error) {
+      console.error("Error saving form:", error);
+      alert("Error saving form data");
+      closeModal();
+    }
+  };
   const handleModalSave = async () => {
     try {
       const response = await axios.post("http://localhost:5000/api/saveForm", {
         title,
         description,
         data,
-        version: useVersion,
-        versionName: versionName || "Default Version Name",
+        version: 20, //check
+        versionName: versionName || "1.0",
+        projectNumber : pNumber,
+        fileNumber : fileNumber || 6, // check
+        projectTitle : projectTitle || "projecttitleExp", // check
+        templateName : templateName || tName,
+        createdBy : createdBy || "user1", // check
+        createdAt : createdAt || Date.now(),
       });
       if (response.data.id) {
         alert(`Form saved! ID: ${response.data.id}`);
@@ -824,7 +869,7 @@ const FormBuilder = () => {
                   )}
                   <Button
                     variant="outlined"
-                    onClick={closeModal}
+                    onClick={handleModalSave2}
                     sx={{ fontFamily: "JetBrains Mono", ml: 1 }}
                     style={{
                       color: "white",

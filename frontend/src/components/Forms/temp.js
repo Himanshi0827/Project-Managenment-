@@ -554,9 +554,19 @@ export default function TaskSelector(props) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  let title = useRef("");
-  let description = useRef("");
-  let data = useRef([]);
+  // let title = useRef("");
+  // let description = useRef("");
+  // let data = useRef([]);
+
+  const titleRef = useRef("");
+  const descriptionRef = useRef("");
+  const dataRef = useRef([]);
+  const projectNumberRef = useRef("");
+  const fileNumberRef = useRef("");
+  const projectTitleRef = useRef("");
+  const templateNameRef = useRef("");
+  const createdByRef = useRef("");
+  const createdAtRef = useRef("");
 
   useEffect(() => {
     const fetchTaskNames = async () => {
@@ -617,11 +627,35 @@ export default function TaskSelector(props) {
     if (templateName) history.push("/form", { tempName: templateName });
   };
 
-  const showFormdata = (title, description, data) => {
+  // const showFormdata = (title, description, data) => {
+  //   history.push("/form", {
+  //     titlen: title.current,
+  //     descriptionn: description.current,
+  //     datan: data.current
+  //   });
+  // };
+
+  const showFormdata = (
+    titleRef,
+    descriptionRef,
+    dataRef,
+    projectNumberRef,
+    fileNumberRef,
+    projectTitleRef,
+    templateNameRef,
+    createdByRef,
+    createdAtRef
+  ) => {
     history.push("/form", {
-      titlen: title.current,
-      descriptionn: description.current,
-      datan: data.current,
+      titlen: titleRef.current,
+      descriptionn: descriptionRef.current,
+      datan: dataRef.current,
+      projectNumber: projectNumberRef.current,
+      fileNumber: fileNumberRef.current,
+      projectTitle: projectTitleRef.current,
+      templateName: templateNameRef.current,
+      createdBy: createdByRef.current,
+      createdAt: createdAtRef.current,
     });
   };
 
@@ -638,26 +672,120 @@ export default function TaskSelector(props) {
     setPage(0);
   };
 
-  const handleView = async (formId) => {
-    if (formId) {
-      console.log(`form id is : ${formId}`);
+  // const handleView = async (formId) => {
+  //   if (formId) {
+  //     console.log(`form id is : ${formId}`);
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:5000/api/getForm/${formId}`
+  //       );
+  //       if (response.data) {
+  //         title.current = response.data.title;
+  //         description.current = response.data.description;
+  //         data.current = response.data.data;
+  //         console.log(response.data.title);
+  //         console.log(response.data.description);
+  //         console.log(response.data.data);
+  //       }
+  //       showFormdata(title, description, data);
+
+  //       console.log(title.current);
+  //       console.log(description.current);
+  //       console.log(data.current);
+  //     } catch (error) {
+  //       console.error("Error fetching form:", error);
+  //       alert("Error fetching form data");
+  //     }
+  //   }
+  // };
+
+  // const handleView = async (version) => {
+  //   if (version) {
+  //     console.log(`form id is : ${version}`);
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:5000/api/getForm/${version}`
+  //       );
+  //       if (response.data) {
+  //         const {
+  //           title,
+  //           description,
+  //           data,
+  //           projectNumber,
+  //           fileNumber,
+  //           projectTitle,
+  //           templateName,
+  //           createdBy,
+  //           createdAt,
+  //         } = response.data;
+
+  //         // Or if using useRef
+  //         titleRef.current = title;
+  //         descriptionRef.current = description;
+  //         dataRef.current = data;
+  //         projectNumberRef.current = projectNumber;
+  //         fileNumberRef.current = fileNumber;
+  //         projectTitleRef.current = projectTitle;
+  //         templateNameRef.current = templateName;
+  //         createdByRef.current = createdBy;
+  //         createdAtRef.current = createdAt;
+
+  //         // Update the state or DOM elements with the fetched data
+  //         showFormdata({
+  //           titleRef,
+  //           descriptionRef,
+  //           dataRef,
+  //           projectNumberRef,
+  //           fileNumberRef,
+  //           projectTitleRef,
+  //           templateNameRef,
+  //           createdByRef,
+  //           createdAtRef,
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching form:", error);
+  //       alert("Error fetching form data");
+  //     }
+  //   }
+  // };
+
+  const handleView = async (version) => {
+    if (version) {
+      console.log(`Fetching form data for version: ${version}`);
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/getForm/${formId}`
+          `http://localhost:5000/api/getForm/${version}`
         );
         if (response.data) {
-          title.current = response.data.title;
-          description.current = response.data.description;
-          data.current = response.data.data;
-          console.log(response.data.title);
-          console.log(response.data.description);
-          console.log(response.data.data);
-        }
-        showFormdata(title, description, data);
 
-        console.log(title.current);
-        console.log(description.current);
-        console.log(data.current);
+          // Assuming useRef for storing DOM element references
+          titleRef.current = response.data.title;
+          descriptionRef.current = response.data.description;
+          dataRef.current = response.data.data;
+          // projectNumberRef.current = response.data.projectNumber;
+          projectNumberRef.current = projectNumber;
+          fileNumberRef.current = response.data.fileNumber;
+          projectTitleRef.current = response.data.projectTitle;
+          templateNameRef.current = response.data.templateName;
+          createdByRef.current = response.data.createdBy;
+          createdAtRef.current = response.data.createdAt;
+
+          console.log(response.data.fileNumber)
+
+          // Update the state or DOM elements with the fetched data
+          showFormdata(
+            titleRef,
+            descriptionRef,
+            dataRef,
+            projectNumberRef,
+            fileNumberRef,
+            projectTitleRef,
+            templateNameRef,
+            createdByRef,
+            createdAtRef,
+          );
+        }
       } catch (error) {
         console.error("Error fetching form:", error);
         alert("Error fetching form data");
@@ -677,31 +805,32 @@ export default function TaskSelector(props) {
       style={{ padding: "20px", backgroundColor: "#1e293b", color: "white" }}
     >
       {/*Temparory Dialog box */}
-        <Button variant="outlined" onClick={handleClickOpenDia}>
-          Open alert dialog
-        </Button>
-        <Dialog
-          open={openDia}
-          onClose={handleCloseDia}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"Do you want to create new version ?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-               If you click <b>Yes</b> you can then create a new version of the form or if you click <b>No</b> it will save to the existing version.
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDia}>No</Button>
-            <Button onClick={handleCloseDia} autoFocus>
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
-      
+      <Button variant="outlined" onClick={handleClickOpenDia}>
+        Open alert dialog
+      </Button>
+      <Dialog
+        open={openDia}
+        onClose={handleCloseDia}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Do you want to create new version ?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            If you click <b>Yes</b> you can then create a new version of the
+            form or if you click <b>No</b> it will save to the existing version.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDia}>No</Button>
+          <Button onClick={handleCloseDia} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Typography variant="subtitle1" component="div">
         Selected: {selectedValue}
       </Typography>

@@ -559,11 +559,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-const mongoUrl =
-  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 // const mongoUrl =
-//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const mongoUrl =
+  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -1594,11 +1594,13 @@ const FileSchema = new mongoose.Schema({
 cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
 
 const File = mongoose.model("File", FileSchema);
-app.post('/api/saveForm', async (req, res) => {
+
+app.post("/api/saveForm", async (req, res) => {
   try {
-    const { title, description, data, version, versionName } = req.body;
+    const { title, description, data, version, versionName,projectNumber,fileNumber,projectTitle,templateName,createdBy,createdAt } = req.body;
 
     const newVersion = {
+      version,
       title,
       description,
       data,
@@ -1606,10 +1608,12 @@ app.post('/api/saveForm', async (req, res) => {
     };
 
     const file = new File({
-      projectNumber: 123, // Example project number, adjust as needed
-      projectTitle: "Example Project", // Example project title, adjust as needed
-      templateName: "Example Template", // Example template name, adjust as needed
-      createdBy: "user@example.com", // Example user, adjust as needed
+      fileNumber : fileNumber,
+      projectNumber: projectNumber, // Example project number, adjust as needed
+      projectTitle: projectTitle, // Example project title, adjust as needed
+      templateName: templateName, // Example template name, adjust as needed
+      createdBy:createdBy, // Example user, adjust as needed
+      createdAt: createdAt,
       versions: [newVersion],
     });
 
@@ -1654,41 +1658,143 @@ app.post('/api/saveForm', async (req, res) => {
 //   }
 // });
 
+// >> Correct only for form data
+
+// app.get("/api/getForm/:version", async (req, res) => {
+//   try {
+//     const version = Number(req.params.version); // Convert version to a number
+//     console.log(`Fetching form with version: ${version}`);
+
+//     const form = await File.aggregate([
+//       { $unwind: "$versions" },
+//       { $match: { "versions.version": version } }, // Ensure the match is done with a number
+//       {
+//         $project: {
+//           _id: 1,
+//           "versions.title": 1,
+//           "versions.description": 1,
+//           "versions.data": 1,
+//         },
+//       },
+//     ]);
+
+//     if (form.length === 0) {
+//       return res.status(404).send({ error: "Form version not found" });
+//     }
+
+//     const result = form.map((f) => ({
+//       _id: f._id,
+//       title: f.versions.title,
+//       description: f.versions.description,
+//       data: f.versions.data,
+//     }))[0];
+
+//     res.status(200).send(result);
+//   } catch (error) {
+//     res.status(500).send({ error: "Error fetching form data" });
+//   }
+// });
+
+// app.get("/api/getForm/:version", async (req, res) => {
+//   try {
+//     const version = Number(req.params.version); // Convert version to a number
+//     console.log(`Fetching form with version: ${version}`);
+
+//     // Log before running the aggregate query
+//     console.log("Starting aggregation pipeline");
+
+//     const form = await File.aggregate([
+//       { $unwind: "$versions" },
+//       { $match: { "versions.version": version } }, // Ensure the match is done with a number
+//       {
+//         $project: {
+//           _id: 1,
+//           projectNumber: 1,
+//           fileNumber: 1,
+//           projectTitle: 1,
+//           templateName: 1,
+//           createdBy: 1,
+//           createdAt: 1,
+//           "versions.title": 1,
+//           "versions.description": 1,
+//           "versions.data": 1,
+//         },
+//       },
+//     ]);
+
+//     // Log the result of the aggregation
+//     console.log(`Aggregation result: ${JSON.stringify(form)}`);
+
+//     if (form.length === 0) {
+//       console.log(`Form version not found`);
+//       return res.status(404).send({ error: "Form version not found" });
+//     }
+
+//     const result = form.map((f) => ({
+//       _id: f._id,
+//       projectNumber: f.projectNumber,
+//       fileNumber: f.fileNumber,
+//       projectTitle: f.projectTitle,
+//       templateName: f.templateName,
+//       createdBy: f.createdBy,
+//       createdAt: f.createdAt,
+//       title: f.versions.title,
+//       description: f.versions.description,
+//       data: f.versions.data,
+//     }))[0];
+
+//     // Log the final result to be sent
+//     console.log(`Sending result: ${JSON.stringify(result)}`);
+
+//     res.status(200).send(result);
+//   } catch (error) {
+//     console.error(`Error fetching form data: ${error}`);
+//     res.status(500).send({ error: "Error fetching form data" });
+//   }
+// });
+
+app.use(bodyParser.json());
 app.get("/api/getForm/:version", async (req, res) => {
+  const { version } = req.params;
+
   try {
-    const version = Number(req.params.version); // Convert version to a number
+    console.log("Searching for form with version:", version);
 
-    const form = await File.aggregate([
-      { $unwind: "$versions" },
-      { $match: { "versions.version": version } }, // Ensure the match is done with a number
-      {
-        $project: {
-          _id: 1,
-          "versions.title": 1,
-          "versions.description": 1,
-          "versions.data": 1,
-        },
-      },
-    ]);
+    const form = await File.findOne({
+      "versions.version": parseInt(version), // Convert version to number for comparison
+    });
 
-    if (form.length === 0) {
-      return res.status(404).send({ error: "Form version not found" });
+    if (form && form.versions) {
+      const versionData = form.versions.find(
+        (v) => v.version === parseInt(version)
+      ); // Corrected comparison
+      if (versionData) {
+        const response = {
+          title: versionData.title,
+          description: versionData.description,
+          data: versionData.data,
+          projectNumber: form.projectNumber,
+          fileNumber: form.fileNumber,
+          projectTitle: form.projectTitle,
+          templateName: form.templateName,
+          createdBy: form.createdBy,
+          createdAt: versionData.createdAt,
+        };
+        res.json(response);
+      } else {
+        console.log("Version not found for version:", version);
+        res.status(404).send("Version not found");
+      }
+    } else {
+      console.log("Form not found for version:", version);
+      res.status(404).send("Form not found");
     }
-
-    const result = form.map((f) => ({
-      _id: f._id,
-      title: f.versions.title,
-      description: f.versions.description,
-      data: f.versions.data,
-    }))[0];
-
-    res.status(200).send(result);
   } catch (error) {
-    res.status(500).send({ error: "Error fetching form data" });
+    console.error("Error fetching form:", error);
+    res.status(500).send("Error fetching form data");
   }
 });
 
-//const File = mongoose.model("Form", FileSchema);
 app.get("/api/files", async (req, res) => {
   try {
     const files = await File.find();
