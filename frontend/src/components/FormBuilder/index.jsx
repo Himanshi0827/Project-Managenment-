@@ -57,6 +57,8 @@ const FormBuilder = () => {
   const [templateName, setTemplateName] = useState("Untitled Template");
   const [createdBy, setCreatedBy] = useState("ABC");
   const [createdAt, setCreatedAt] = useState("ABC");
+  const [disable, setDisable] = useState(false);
+
 
   const items = data;
 
@@ -79,6 +81,9 @@ const FormBuilder = () => {
     setTemplateName(location.state.templateName)
     setCreatedBy(location.state.createdBy)
     setCreatedAt(location.state.createdAt)
+    setDisable(location.state.disable)
+
+    console.log(location.state.disable)
 
   }, []);
 
@@ -599,6 +604,7 @@ const FormBuilder = () => {
             handleElType={handleElType}
             duplicateElement={duplicateElement}
             handleLabelChange={handleLabelChange}
+            disabled={disable}
           />
         );
       case "textarea":
@@ -610,6 +616,7 @@ const FormBuilder = () => {
             handleElType={handleElType}
             duplicateElement={duplicateElement}
             handleLabelChange={handleLabelChange}
+            disabled={disable}
           />
         );
       case "number":
@@ -621,6 +628,7 @@ const FormBuilder = () => {
             handleElType={handleElType}
             duplicateElement={duplicateElement}
             handleLabelChange={handleLabelChange}
+            disabled={disable}
           />
         );
       case "radio":
@@ -634,6 +642,7 @@ const FormBuilder = () => {
             deleteOption={deleteOption}
             duplicateElement={duplicateElement}
             handleLabelChange={handleLabelChange}
+            disabled={disable}
           />
         );
       case "checkbox":
@@ -647,6 +656,7 @@ const FormBuilder = () => {
             deleteOption={deleteOption}
             duplicateElement={duplicateElement}
             handleLabelChange={handleLabelChange}
+            disabled={disable}
           />
         );
       // case "date":
@@ -680,6 +690,7 @@ const FormBuilder = () => {
             handleElType={handleElType}
             duplicateElement={duplicateElement}
             handleImageUpload={handleImageUpload}
+            disabled={disable}
           />
         );
       default:
@@ -738,6 +749,7 @@ const FormBuilder = () => {
                   setTitle={setTitle}
                   description={description}
                   setDescription={setDescription}
+                  disabled={disable}
                 />
                 <Nestable
                   items={items}

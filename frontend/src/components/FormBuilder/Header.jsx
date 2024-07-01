@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 
-const Header = ({ title, description, setTitle, setDescription }) => {
+const Header = ({ title, description, setTitle, setDescription,disabled }) => {
   return (
     <div>
     <Fragment>
@@ -17,6 +17,7 @@ const Header = ({ title, description, setTitle, setDescription }) => {
             name="title"
             sx={{ mb: 3 }}
             fullWidth
+            disabled={disabled}
           />
           <TextField
             name="description"
@@ -28,6 +29,7 @@ const Header = ({ title, description, setTitle, setDescription }) => {
             sx={{ mb: 2 }}
             multiline
             rows={2}
+            disabled={disabled}
           />
         </Paper>
       </Box>

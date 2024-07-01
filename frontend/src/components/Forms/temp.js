@@ -567,6 +567,7 @@ export default function TaskSelector(props) {
   const templateNameRef = useRef("");
   const createdByRef = useRef("");
   const createdAtRef = useRef("");
+  const disable = useRef(false);
 
   useEffect(() => {
     const fetchTaskNames = async () => {
@@ -578,7 +579,7 @@ export default function TaskSelector(props) {
         console.error("Error fetching task names:", error);
       }
     };
-
+    console.log(disable.current)
     fetchTaskNames();
 
     const fetchFiles = async () => {
@@ -644,7 +645,8 @@ export default function TaskSelector(props) {
     projectTitleRef,
     templateNameRef,
     createdByRef,
-    createdAtRef
+    createdAtRef,
+    disable
   ) => {
     history.push("/form", {
       titlen: titleRef.current,
@@ -656,6 +658,7 @@ export default function TaskSelector(props) {
       templateName: templateNameRef.current,
       createdBy: createdByRef.current,
       createdAt: createdAtRef.current,
+      disable: disable.current,
     });
   };
 
@@ -750,15 +753,15 @@ export default function TaskSelector(props) {
   //   }
   // };
 
-  const handleView = async (version) => {
+  const handleEdit = async (version) => {
     if (version) {
       console.log(`Fetching form data for version: ${version}`);
       try {
+        disable.current = false;
         const response = await axios.get(
           `http://localhost:5000/api/getForm/${version}`
         );
         if (response.data) {
-
           // Assuming useRef for storing DOM element references
           titleRef.current = response.data.title;
           descriptionRef.current = response.data.description;
@@ -770,8 +773,10 @@ export default function TaskSelector(props) {
           templateNameRef.current = response.data.templateName;
           createdByRef.current = response.data.createdBy;
           createdAtRef.current = response.data.createdAt;
+          
 
-          console.log(response.data.fileNumber)
+          console.log(response.data.fileNumber);
+          console.log("disable" + disable.current);
 
           // Update the state or DOM elements with the fetched data
           showFormdata(
@@ -784,6 +789,52 @@ export default function TaskSelector(props) {
             templateNameRef,
             createdByRef,
             createdAtRef,
+            disable
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching form:", error);
+        alert("Error fetching form data");
+      }
+    }
+  };
+
+  const handleView = async (version) => {
+    if (version) {
+      console.log(`Fetching form data for version: ${version}`);
+      try {
+        disable.current = true;
+        const response = await axios.get(
+          `http://localhost:5000/api/getForm/${version}`
+        );
+        if (response.data) {
+          // Assuming useRef for storing DOM element references
+          titleRef.current = response.data.title;
+          descriptionRef.current = response.data.description;
+          dataRef.current = response.data.data;
+          // projectNumberRef.current = response.data.projectNumber;
+          projectNumberRef.current = projectNumber;
+          fileNumberRef.current = response.data.fileNumber;
+          projectTitleRef.current = response.data.projectTitle;
+          templateNameRef.current = response.data.templateName;
+          createdByRef.current = response.data.createdBy;
+          createdAtRef.current = response.data.createdAt;
+          
+          console.log("disable:" + disable.current);
+          console.log(response.data.fileNumber);
+
+          // Update the state or DOM elements with the fetched data
+          showFormdata(
+            titleRef,
+            descriptionRef,
+            dataRef,
+            projectNumberRef,
+            fileNumberRef,
+            projectTitleRef,
+            templateNameRef,
+            createdByRef,
+            createdAtRef,
+            disable
           );
         }
       } catch (error) {
@@ -804,33 +855,6 @@ export default function TaskSelector(props) {
     <div
       style={{ padding: "20px", backgroundColor: "#1e293b", color: "white" }}
     >
-      {/*Temparory Dialog box */}
-      <Button variant="outlined" onClick={handleClickOpenDia}>
-        Open alert dialog
-      </Button>
-      <Dialog
-        open={openDia}
-        onClose={handleCloseDia}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Do you want to create new version ?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            If you click <b>Yes</b> you can then create a new version of the
-            form or if you click <b>No</b> it will save to the existing version.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDia}>No</Button>
-          <Button onClick={handleCloseDia} autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Typography variant="subtitle1" component="div">
         Selected: {selectedValue}
       </Typography>
@@ -919,9 +943,7 @@ export default function TaskSelector(props) {
                           <br></br>
                           <Button
                             variant="outlined"
-                            onClick={() =>
-                              alert(`Viewing file: ${version.version}`)
-                            }
+                            onClick={() => handleView(`${version.version}`)}
                             style={{
                               color: "white",
                               borderColor: "white",
@@ -934,7 +956,7 @@ export default function TaskSelector(props) {
                           </Button>
                           <Button
                             variant="outlined"
-                            onClick={() => handleView(`${version.version}`)}
+                            onClick={() => handleEdit(`${version.version}`)}
                             style={{
                               color: "white",
                               borderColor: "white",
