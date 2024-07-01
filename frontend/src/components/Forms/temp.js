@@ -652,7 +652,7 @@ export default function TaskSelector(props) {
       titlen: titleRef.current,
       descriptionn: descriptionRef.current,
       datan: dataRef.current,
-      projectNumber: projectNumberRef.current,
+      projectNumber: projectNumber,
       fileNumber: fileNumberRef.current,
       projectTitle: projectTitleRef.current,
       templateName: templateNameRef.current,

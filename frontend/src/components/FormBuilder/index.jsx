@@ -507,15 +507,19 @@ const FormBuilder = () => {
   const handleSave = async () => {
     openModal();
   };
+  const [count,setCount]= useState(27);
   const handleModalSave2 = async () => {
     try {
+      const newc= count+1
+      console.log(newc);
+      setCount(newc)
       const response = await axios.post("http://localhost:5000/api/saveForm", {
         title,
         description,
         data,
-        version: 21, //check
+        version:newc , //check
         versionName: versionName || "1.0",
-        projectNumber : pNumber,
+        projectNumber : pNumber || 1 ,
         fileNumber : fileNumber || 6, // check
         projectTitle : projectTitle || "projecttitleExp", // check
         templateName : templateName || tName,
@@ -534,13 +538,16 @@ const FormBuilder = () => {
   };
   const handleModalSave = async () => {
     try {
+      const newc= count+1
+      console.log(newc);
+      setCount(newc)
       const response = await axios.post("http://localhost:5000/api/saveForm", {
         title,
         description,
         data,
-        version: 20, //check
+        version: newc, //check
         versionName: versionName || "1.0",
-        projectNumber : pNumber,
+        projectNumber : pNumber|| 1 ,
         fileNumber : fileNumber || 6, // check
         projectTitle : projectTitle || "projecttitleExp", // check
         templateName : templateName || tName,
