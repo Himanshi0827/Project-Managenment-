@@ -1595,35 +1595,107 @@ cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
 
 const File = mongoose.model("File", FileSchema);
 
+// app.post("/api/saveForm", async (req, res) => {
+//   try {
+//     const { title, description, data, version, versionName,projectNumber,fileNumber,projectTitle,templateName,createdBy,createdAt } = req.body;
+
+//     const newVersion = {
+//       version,
+//       title,
+//       description,
+//       data,
+//       versionNum: versionName,
+//     };
+
+//     const file = new File({
+//       fileNumber : fileNumber,
+//       projectNumber: projectNumber, // Example project number, adjust as needed
+//       projectTitle: projectTitle, // Example project title, adjust as needed
+//       templateName: templateName, // Example template name, adjust as needed
+//       createdBy:createdBy, // Example user, adjust as needed
+//       createdAt: createdAt,
+//       versions: [newVersion],
+//     });
+
+//     const savedFile = await file.save();
+//     res.status(200).json({ id: savedFile._id });
+//   } catch (error) {
+//     console.error("Error saving form:", error);
+//     res.status(500).send("Error saving form data");
+//   }
+// });
+
 app.post("/api/saveForm", async (req, res) => {
   try {
-    const { title, description, data, version, versionName,projectNumber,fileNumber,projectTitle,templateName,createdBy,createdAt } = req.body;
-
-    const newVersion = {
-      version,
+    const {
       title,
       description,
       data,
+      version,
+      versionName,
+      projectNumber,
+      fileNumber,
+      projectTitle,
+      templateName,
+      createdBy,
+      createdAt,
+    } = req.body;
+
+    const newVersion = {
+      version: version,
+      title: title,
+      description: description,
+      data: data,
       versionNum: versionName,
+      createdAt: new Date(),
     };
 
-    const file = new File({
-      fileNumber : fileNumber,
-      projectNumber: projectNumber, // Example project number, adjust as needed
-      projectTitle: projectTitle, // Example project title, adjust as needed
-      templateName: templateName, // Example template name, adjust as needed
-      createdBy:createdBy, // Example user, adjust as needed
-      createdAt: createdAt,
-      versions: [newVersion],
-    });
+    // Check if a file with the same templateName already exists
+    let file = await File.findOne({ templateName, projectNumber });
+    //let project = await File.findOne({projectNumber});
 
-    const savedFile = await file.save();
-    res.status(200).json({ id: savedFile._id });
+    if (file) {
+      // Check if the version already exists
+      const existingVersion = file.versions.find(
+        (v) => v.versionNum === versionName
+      );
+
+      if (existingVersion) {
+        // Update the existing version
+        existingVersion.title = title;
+        existingVersion.description = description;
+        existingVersion.data = data;
+        existingVersion.versionNum = versionName;
+        existingVersion.updatedAt = new Date();
+      } else {
+        // Add the new version
+
+        file.versions.push(newVersion);
+      }
+
+      await file.save();
+    } else {
+      // Create a new file document
+      file = new File({
+        fileNumber,
+        projectNumber,
+        projectTitle,
+        templateName,
+        createdBy,
+        createdAt,
+        versions: [newVersion],
+      });
+
+      await file.save();
+    }
+
+    res.status(200).json({ id: file._id });
   } catch (error) {
     console.error("Error saving form:", error);
-    res.status(500).send("Error saving form data");
+    res.status(500).send("Error saving form data");
   }
 });
+
 // app.get("/api/getForm/:version", async (req, res) => {
 //   try {
 //     const { version } = req.params;
