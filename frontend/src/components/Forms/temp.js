@@ -542,6 +542,7 @@ export default function TaskSelector(props) {
   // project Number from Projects
   const { state } = useLocation();
   const projectNumber = state.projectNumber;
+  const projectTitle = state.projectTitle;
 
   const history = useHistory();
   const [openDia, setOpenDia] = useState(false);
@@ -567,6 +568,7 @@ export default function TaskSelector(props) {
   const templateNameRef = useRef("");
   const createdByRef = useRef("");
   const createdAtRef = useRef("");
+  const versionNumRef = useRef("");
   const disable = useRef(false);
 
   useEffect(() => {
@@ -616,7 +618,7 @@ export default function TaskSelector(props) {
     if (value) {
       handleClickOpenDia();
       setSelectedValue(value);
-      showForm(value);
+      showForm(value,projectNumber,projectTitle);
     }
   };
 
@@ -624,8 +626,8 @@ export default function TaskSelector(props) {
     handleClose(value);
   };
 
-  const showForm = (templateName) => {
-    if (templateName) history.push("/form", { tempName: templateName });
+  const showForm = (templateName,projectNumber,projectTitle) => {
+    if (templateName) history.push("/form", { tempName: templateName, projectNumber : projectNumber,projectTitle:projectTitle });
   };
 
   // const showFormdata = (title, description, data) => {
@@ -646,18 +648,21 @@ export default function TaskSelector(props) {
     templateNameRef,
     createdByRef,
     createdAtRef,
+    versionNumRef,
     disable
   ) => {
     history.push("/form", {
       titlen: titleRef.current,
       descriptionn: descriptionRef.current,
       datan: dataRef.current,
-      projectNumber: projectNumber,
+      projectNumber: projectNumberRef.current,
       fileNumber: fileNumberRef.current,
-      projectTitle: projectTitleRef.current,
+      // projectTitle: projectTitleRef.current,
+      projectTitle : projectTitle,
       templateName: templateNameRef.current,
       createdBy: createdByRef.current,
       createdAt: createdAtRef.current,
+      versionNum : versionNumRef.current,
       disable: disable.current,
     });
   };
@@ -773,6 +778,7 @@ export default function TaskSelector(props) {
           templateNameRef.current = response.data.templateName;
           createdByRef.current = response.data.createdBy;
           createdAtRef.current = response.data.createdAt;
+          versionNumRef.current = response.data.versionNum;
           
 
           console.log(response.data.fileNumber);
@@ -789,6 +795,7 @@ export default function TaskSelector(props) {
             templateNameRef,
             createdByRef,
             createdAtRef,
+            versionNumRef,
             disable
           );
         }
@@ -819,6 +826,7 @@ export default function TaskSelector(props) {
           templateNameRef.current = response.data.templateName;
           createdByRef.current = response.data.createdBy;
           createdAtRef.current = response.data.createdAt;
+          versionNumRef.current = response.data.versionNum;
           
           console.log("disable:" + disable.current);
           console.log(response.data.fileNumber);
@@ -834,6 +842,7 @@ export default function TaskSelector(props) {
             templateNameRef,
             createdByRef,
             createdAtRef,
+            versionNumRef,
             disable
           );
         }

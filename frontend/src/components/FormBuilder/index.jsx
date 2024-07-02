@@ -57,6 +57,7 @@ const FormBuilder = () => {
   const [templateName, setTemplateName] = useState("Untitled Template");
   const [createdBy, setCreatedBy] = useState("ABC");
   const [createdAt, setCreatedAt] = useState("ABC");
+  const [versionNum, setVersionNum] = useState("1.0");
   const [disable, setDisable] = useState(false);
 
 
@@ -82,6 +83,7 @@ const FormBuilder = () => {
     setCreatedBy(location.state.createdBy)
     setCreatedAt(location.state.createdAt)
     setDisable(location.state.disable)
+    setVersionNum(location.state.versionNum)
 
     console.log(location.state.disable)
 
@@ -508,7 +510,8 @@ const FormBuilder = () => {
     openModal();
   };
   const [count,setCount]= useState(27);
-  const handleModalSave2 = async () => {
+  const handleModalSave2 = async () => { 
+    // Use same version 
     try {
       const newc= count+1
       console.log(newc);
@@ -518,7 +521,7 @@ const FormBuilder = () => {
         description,
         data,
         version:newc , //check
-        versionName: versionName || "1.0",
+        versionName: versionNum || "1.0",
         projectNumber : pNumber || 1 ,
         fileNumber : fileNumber || 6, // check
         projectTitle : projectTitle || "projecttitleExp", // check
@@ -537,6 +540,8 @@ const FormBuilder = () => {
     }
   };
   const handleModalSave = async () => {
+
+    // User created version
     try {
       const newc= count+1
       console.log(newc);

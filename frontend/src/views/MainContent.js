@@ -623,6 +623,7 @@ const MainContent = ({ content, userData }) => {
                                   pathname: "/temp",
                                   state: {
                                     projectNumber: project.projectNumber,
+                                    projectTitle : project.projectTitle,
                                   },
                                 }}
                               >
