@@ -509,25 +509,95 @@ const FormBuilder = () => {
   const handleSave = async () => {
     openModal();
   };
-  const [count,setCount]= useState(27);
-  const handleModalSave2 = async () => { 
-    // Use same version 
+  // const [count,setCount]= useState(27);
+  // const handleModalSave2 = async () => { 
+  //   // Use same version 
+  //   try {
+  //     const newc= count+1
+  //     console.log(newc);
+  //     setCount(newc)
+  //     const response = await axios.post("http://localhost:5000/api/saveForm", {
+  //       title,
+  //       description,
+  //       data,
+  //       version:newc , //check
+  //       versionName: versionNum || "1.0",
+  //       projectNumber : pNumber || 1 ,
+  //       fileNumber : fileNumber || 6, // check
+  //       projectTitle : projectTitle || "projecttitleExp", // check
+  //       templateName : templateName || tName,
+  //       createdBy : createdBy || "user1", // check
+  //       createdAt : createdAt || Date.now(),
+  //     });
+  //     if (response.data.id) {
+  //       alert(`Form saved! ID: ${response.data.id}`);
+  //       closeModal();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving form:", error);
+  //     alert("Error saving form data");
+  //     closeModal();
+  //   }
+  // };
+  // const handleModalSave = async () => {
+
+  //   // User created version
+  //   try {
+  //     const newc= count+1
+  //     console.log(newc);
+  //     setCount(newc)
+  //     const response = await axios.post("http://localhost:5000/api/saveForm", {
+  //       title,
+  //       description,
+  //       data,
+  //       version: newc, //check
+  //       versionName: versionName || "1.0",
+  //       projectNumber : pNumber|| 1 ,
+  //       fileNumber : fileNumber || 6, // check
+  //       projectTitle : projectTitle || "projecttitleExp", // check
+  //       templateName : templateName || tName,
+  //       createdBy : createdBy || "user1", // check
+  //       createdAt : createdAt || Date.now(),
+  //     });
+  //     if (response.data.id) {
+  //       alert(`Form saved! ID: ${response.data.id}`);
+  //       closeModal();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving form:", error);
+  //     alert("Error saving form data");
+  //     closeModal();
+  //   }
+  // };
+  const [count, setCount] = useState(() => {
+    // Retrieve the count from local storage if it exists, otherwise start with 27
+    const savedCount = localStorage.getItem("count");
+    return savedCount !== null ? JSON.parse(savedCount) : 27;
+  });
+
+  useEffect(() => {
+    // Update local storage whenever the count changes
+    localStorage.setItem("count", JSON.stringify(count));
+  }, [count]);
+
+  const handleModalSave = async () => {
+    // User created version
     try {
-      const newc= count+1
+      const newc = count + 1;
       console.log(newc);
-      setCount(newc)
+      setCount(newc);
       const response = await axios.post("http://localhost:5000/api/saveForm", {
         title,
         description,
         data,
-        version:newc , //check
-        versionName: versionNum || "1.0",
-        projectNumber : pNumber || 1 ,
-        fileNumber : fileNumber || 6, // check
-        projectTitle : projectTitle || "projecttitleExp", // check
-        templateName : templateName || tName,
-        createdBy : createdBy || "user1", // check
-        createdAt : createdAt || Date.now(),
+        version: newc, //check
+        versionName: versionName || "1.0",
+        projectNumber: pNumber || 1,
+        fileNumber: fileNumber || 6, // check
+        projectTitle: projectTitle || "projecttitleExp", // check
+        templateName: templateName || tName,
+        createdBy: createdBy || "user1", // check
+        createdAt: createdAt || Date.now(),
       });
       if (response.data.id) {
         alert(`Form saved! ID: ${response.data.id}`);
@@ -539,25 +609,25 @@ const FormBuilder = () => {
       closeModal();
     }
   };
-  const handleModalSave = async () => {
 
-    // User created version
+  const handleModalSave2 = async () => {
+    // Use same version
     try {
-      const newc= count+1
+      const newc = count + 1;
       console.log(newc);
-      setCount(newc)
+      setCount(newc);
       const response = await axios.post("http://localhost:5000/api/saveForm", {
         title,
         description,
         data,
         version: newc, //check
-        versionName: versionName || "1.0",
-        projectNumber : pNumber|| 1 ,
-        fileNumber : fileNumber || 6, // check
-        projectTitle : projectTitle || "projecttitleExp", // check
-        templateName : templateName || tName,
-        createdBy : createdBy || "user1", // check
-        createdAt : createdAt || Date.now(),
+        versionName: versionNum || "1.0",
+        projectNumber: pNumber || 1,
+        fileNumber: fileNumber || 6, // check
+        projectTitle: projectTitle || "projecttitleExp", // check
+        templateName: templateName || tName,
+        createdBy: createdBy || "user1", // check
+        createdAt: createdAt || Date.now(),
       });
       if (response.data.id) {
         alert(`Form saved! ID: ${response.data.id}`);

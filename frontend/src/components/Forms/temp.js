@@ -866,9 +866,6 @@ export default function TaskSelector(props) {
     <div
       style={{ padding: "20px", backgroundColor: "#1e293b", color: "white" }}
     >
-      <Typography variant="subtitle1" component="div">
-        Selected: {selectedValue}
-      </Typography>
       <br />
       <Button
         variant="outlined"

@@ -427,7 +427,7 @@ const MainContent = ({ content, userData }) => {
     console.log("Query details:", queryInputs[requirementId]);
     // Handle query form submission logic here
   };
-  const managerEmail = `${userData.email}`;
+  const managerEmail = `${userData.fname}`;
   const renderContent = () => {
     switch (content) {
       case "AboutUs":
