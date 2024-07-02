@@ -9,10 +9,6 @@ import { Link } from "react-router-dom";
 const MainContent = ({ content, userData }) => {
   const history = useHistory();
 
-  const showForm = (projectNumber) => {
-    history.push("/temp", { projectNumber: projectNumber });
-  };
-
   const containerStyle = {
     padding: "20px",
     backgroundColor: "white",

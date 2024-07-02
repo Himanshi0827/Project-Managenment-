@@ -661,7 +661,7 @@ app.post("/login-user", async (req, res) => {
   }
   if (await bcrypt.compare(password, user.password)) {
     const token = jwt.sign({ email: user.email }, JWT_SECRET, {
-      expiresIn: "15m",
+      expiresIn: "60m",
     });
 
     if (res.status(201)) {
