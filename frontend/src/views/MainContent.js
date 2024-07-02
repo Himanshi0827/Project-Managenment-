@@ -427,7 +427,7 @@ const MainContent = ({ content, userData }) => {
     console.log("Query details:", queryInputs[requirementId]);
     // Handle query form submission logic here
   };
-
+  const managerEmail = `${userData.email}`;
   const renderContent = () => {
     switch (content) {
       case "AboutUs":
@@ -620,12 +620,14 @@ const MainContent = ({ content, userData }) => {
                                   state: {
                                     projectNumber: project.projectNumber,
                                     projectTitle : project.projectTitle,
+                                    createdBy:managerEmail 
                                   },
                                 }}
                               >
                                 <button
                                   className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
                                   type="button"
+
                                 >
                                   Open
                                 </button>

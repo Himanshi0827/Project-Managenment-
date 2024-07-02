@@ -543,6 +543,7 @@ export default function TaskSelector(props) {
   const { state } = useLocation();
   const projectNumber = state.projectNumber;
   const projectTitle = state.projectTitle;
+  const createdBy = state.createdBy;
 
   const history = useHistory();
   const [openDia, setOpenDia] = useState(false);
@@ -598,7 +599,7 @@ export default function TaskSelector(props) {
 
     fetchFiles();
   }, []);
-
+  console.log(createdBy);
   // Version Dialogbox
 
   const handleClickOpenDia = () => {
@@ -618,7 +619,7 @@ export default function TaskSelector(props) {
     if (value) {
       handleClickOpenDia();
       setSelectedValue(value);
-      showForm(value,projectNumber,projectTitle);
+      showForm(value,projectNumber,projectTitle,createdBy);
     }
   };
 
@@ -626,8 +627,8 @@ export default function TaskSelector(props) {
     handleClose(value);
   };
 
-  const showForm = (templateName,projectNumber,projectTitle) => {
-    if (templateName) history.push("/form", { tempName: templateName, projectNumber : projectNumber,projectTitle:projectTitle });
+  const showForm = (templateName,projectNumber,projectTitle,createdBy) => {
+    if (templateName) history.push("/form", { tempName: templateName, projectNumber : projectNumber,projectTitle:projectTitle, createdBy:createdBy });
   };
 
   // const showFormdata = (title, description, data) => {
@@ -660,7 +661,8 @@ export default function TaskSelector(props) {
       // projectTitle: projectTitleRef.current,
       projectTitle : projectTitle,
       templateName: templateNameRef.current,
-      createdBy: createdByRef.current,
+      // createdBy: createdByRef.current,
+      createdBy: createdBy,
       createdAt: createdAtRef.current,
       versionNum : versionNumRef.current,
       disable: disable.current,
@@ -776,7 +778,7 @@ export default function TaskSelector(props) {
           fileNumberRef.current = response.data.fileNumber;
           projectTitleRef.current = response.data.projectTitle;
           templateNameRef.current = response.data.templateName;
-          createdByRef.current = response.data.createdBy;
+          createdByRef.current = createdBy;
           createdAtRef.current = response.data.createdAt;
           versionNumRef.current = response.data.versionNum;
           
@@ -824,7 +826,7 @@ export default function TaskSelector(props) {
           fileNumberRef.current = response.data.fileNumber;
           projectTitleRef.current = response.data.projectTitle;
           templateNameRef.current = response.data.templateName;
-          createdByRef.current = response.data.createdBy;
+          createdByRef.current = createdBy;
           createdAtRef.current = response.data.createdAt;
           versionNumRef.current = response.data.versionNum;
           

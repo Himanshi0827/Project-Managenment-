@@ -70,7 +70,7 @@ const Sidebar = () => {
       />
       <LeftMenu closeLeftMenu={closeLeftMenu} setContent={setContent} />
       <RightMenu closeRightMenu={closeRightMenu} setContent={setContent} />
-      <MainContent content={content} />
+      <MainContent content={content} userData={userData} />
     </div>
   );
 };
