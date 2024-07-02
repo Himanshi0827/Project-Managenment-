@@ -1,545 +1,3 @@
-// const express = require("express");
-// const app = express();
-// const mongoose = require("mongoose");
-// app.use(express.json());
-// const cors = require("cors");
-// app.use(cors());
-// const bcrypt = require("bcryptjs");
-// app.set("view engine", "ejs");
-// app.use(express.urlencoded({ extended: false }));
-// const fs = require("fs");
-
-// const jwt = require("jsonwebtoken");
-// var nodemailer = require("nodemailer");
-
-// const JWT_SECRET =
-//   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
-
-// const mongoUrl =
-// "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-// mongoose
-//   .connect(mongoUrl, {
-//     useNewUrlParser: true,
-//   })
-//   .then(() => {
-//     console.log("Connected to database");
-//   })
-//   .catch((e) => console.log(e));
-
-// require("./userDetails");
-// require("./imageDetails");
-
-// const User = mongoose.model("UserInfo");
-// const Images = mongoose.model("ImageDetails");
-
-// const getDateTime = () => {
-//   let date_time = new Date();
-//   let date = ("0" + date_time.getDate()).slice(-2);
-//   let month = ("0" + (date_time.getMonth() + 1)).slice(-2);
-//   let year = date_time.getFullYear();
-//   let hours = date_time.getHours();
-//   let minutes = date_time.getMinutes();
-//   let seconds = date_time.getSeconds();
-//   const date_now =
-//     year +
-//     "-" +
-//     month +
-//     "-" +
-//     date +
-//     " " +
-//     hours +
-//     ":" +
-//     minutes +
-//     ":" +
-//     seconds;
-
-//   return date_now;
-// };
-
-// app.post("/register", async (req, res) => {
-//   const date_now = getDateTime();
-//   const Registerlogs = "Logs\\Register_logs.txt";
-
-//   const { fname, lname, email, password, userType } = req.body;
-
-//   const encryptedPassword = await bcrypt.hash(password, 10);
-//   try {
-//     const oldUser = await User.findOne({ email });
-//     if (oldUser) {
-//       fs.appendFile(
-//         Registerlogs,
-//         `[${date_now}] : Registration failed: User Already exists - ${email} (${oldUser.fname} ${oldUser.lname}) (${oldUser.userType})\n`,
-//         function (err) {
-//           if (err) throw err;
-//         }
-//       );
-//       return res.json({ error: "User Exists" });
-//     }
-//     await User.create({
-//       fname,
-//       lname,
-//       email,
-//       password: encryptedPassword,
-//       userType,
-//     });
-//     fs.appendFile(
-//       Registerlogs,
-//       `[${date_now}] : Registration Successful: New User added - ${email} (${fname} ${lname}) (${userType})\n`,
-//       function (err) {
-//         if (err) throw err;
-//       }
-//     );
-
-//     res.send({ status: "ok" });
-
-//   } catch (error) {
-//     res.send({ status: "error" });
-//   }
-// });
-
-// app.post("/login-user", async (req, res) => {
-//   const date_now = getDateTime();
-//   const LoginLogs = "Logs\\Login_logs.txt";
-
-//   const { email, password } = req.body;
-
-//   const user = await User.findOne({ email });
-//   if (!user) {
-//     fs.appendFile(
-//       LoginLogs,
-//       `[${date_now}] : Login attempt failed: User Not Found - ${email} (${user.fname} ${user.lname}) (${user.userType})\n`,
-//       function (err) {
-//         if (err) throw err;
-//       }
-//     );
-//     return res.json({ error: "User Not found" });
-//   }
-//   if (await bcrypt.compare(password, user.password)) {
-//     const token = jwt.sign({ email: user.email }, JWT_SECRET, {
-//       expiresIn: "15m",
-//     });
-
-//     if (res.status(201)) {
-//       fs.appendFile(
-//         LoginLogs,
-//         `[${date_now}] : Login attempt successful: ${email} (${user.fname} ${user.lname}) (${user.userType})\n`,
-//         function (err) {
-//           if (err) throw err;
-//         }
-//       );
-//       return res.json({ status: "ok", data: token });
-//     } else {
-//       fs.appendFile(
-//         LoginLogs,
-//         `[${date_now}] : Login attempt failed: ${email} (${user.fname} ${user.lname}) (${user.userType})\n`,
-//         function (err) {
-//           if (err) throw err;
-//         }
-//       );
-//       return res.json({ error: "error" });
-//     }
-//   } else {
-//     fs.appendFile(
-//       LoginLogs,
-//       `[${date_now}] : Login attempt failed: Incorrect Password - ${email} (${user.fname} ${user.lname}) (${user.userType})\n`,
-//       function (err) {
-//         if (err) throw err;
-//       }
-//     );
-
-//     res.json({ status: "error", error: "Invalid Password" });
-//   }
-// });
-
-// app.post("/userData", async (req, res) => {
-//   const { token } = req.body;
-//   try {
-//     const user = jwt.verify(token, JWT_SECRET, (err, res) => {
-//       if (err) {
-//         return "token expired";
-//       }
-//       return res;
-//     });
-//     console.log(user);
-//     if (user == "token expired") {
-//       return res.send({ status: "error", data: "token expired" });
-//     }
-
-//     const useremail = user.email;
-//     User.findOne({ email: useremail })
-//       .then((data) => {
-//         res.send({ status: "ok", data: data });
-//       })
-//       .catch((error) => {
-//         res.send({ status: "error", data: error });
-//       });
-//   } catch (error) {}
-// });
-
-// app.listen(5000, () => {
-//   console.log("Server Started");
-// });
-
-// app.post("/forgot-password", async (req, res) => {
-//   const { email } = req.body;
-//   try {
-//     const oldUser = await User.findOne({ email });
-//     if (!oldUser) {
-//       return res.json({ status: "User Not Exists!!" });
-//     }
-//     const secret = JWT_SECRET + oldUser.password;
-//     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
-//       expiresIn: "5m",
-//     });
-//     const link = `http://localhost:5000/reset-password/${oldUser._id}/${token}`;
-//     var transporter = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         user: "adarsh438tcsckandivali@gmail.com",
-//         pass: "rmdklolcsmswvyfw",
-//       },
-//     });
-
-//     var mailOptions = {
-//       from: "youremail@gmail.com",
-//       to: "thedebugarena@gmail.com",
-//       subject: "Password Reset",
-//       text: link,
-//     };
-
-//     transporter.sendMail(mailOptions, function (error, info) {
-//       if (error) {
-//         console.log(error);
-//       } else {
-//         console.log("Email sent: " + info.response);
-//       }
-//     });
-//     console.log(link);
-//   } catch (error) {}
-// });
-
-// app.get("/reset-password/:id/:token", async (req, res) => {
-//   const { id, token } = req.params;
-//   console.log(req.params);
-//   const oldUser = await User.findOne({ _id: id });
-//   if (!oldUser) {
-//     return res.json({ status: "User Not Exists!!" });
-//   }
-//   const secret = JWT_SECRET + oldUser.password;
-//   try {
-//     const verify = jwt.verify(token, secret);
-//     res.render("index", { email: verify.email, status: "Not Verified" });
-//   } catch (error) {
-//     console.log(error);
-//     res.send("Not Verified");
-//   }
-// });
-
-// app.post("/reset-password/:id/:token", async (req, res) => {
-//   const { id, token } = req.params;
-//   const { password } = req.body;
-
-//   const oldUser = await User.findOne({ _id: id });
-//   if (!oldUser) {
-//     return res.json({ status: "User Not Exists!!" });
-//   }
-//   const secret = JWT_SECRET + oldUser.password;
-//   try {
-//     const verify = jwt.verify(token, secret);
-//     const encryptedPassword = await bcrypt.hash(password, 10);
-//     await User.updateOne(
-//       {
-//         _id: id,
-//       },
-//       {
-//         $set: {
-//           password: encryptedPassword,
-//         },
-//       }
-//     );
-
-//     res.render("index", { email: verify.email, status: "verified" });
-//   } catch (error) {
-//     console.log(error);
-//     res.json({ status: "Something Went Wrong" });
-//   }
-// });
-
-// app.get("/getAllUser", async (req, res) => {
-//   let query = {};
-//   const searchData = req.query.search;
-//   if (searchData) {
-//     query = {
-//       $or: [
-//         { fname: { $regex: searchData, $options: "i" } },
-//         { email: { $regex: searchData, $options: "i" } },
-//       ],
-//     };
-//   }
-
-//   try {
-//     const allUser = await User.find(query);
-//     res.send({ status: "ok", data: allUser });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// app.post("/deleteUser", async (req, res) => {
-//   const { userid } = req.body;
-//   try {
-//     User.deleteOne({ _id: userid }, function (err, res) {
-//       console.log(err);
-//     });
-//     res.send({ status: "Ok", data: "Deleted" });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// app.get("/paginatedUsers", async (req, res) => {
-//   const allUser = await User.find({});
-//   const page = parseInt(req.query.page);
-//   const limit = parseInt(req.query.limit);
-
-//   const startIndex = (page - 1) * limit;
-//   const lastIndex = page * limit;
-
-//   const results = {};
-//   results.totalUser = allUser.length;
-//   results.pageCount = Math.ceil(allUser.length / limit);
-
-//   if (lastIndex < allUser.length) {
-//     results.next = {
-//       page: page + 1,
-//     };
-//   }
-//   if (startIndex > 0) {
-//     results.prev = {
-//       page: page - 1,
-//     };
-//   }
-//   results.result = allUser.slice(startIndex, lastIndex);
-//   res.json(results);
-// });
-
-// // Temp Data fetching
-
-// // Define the Project schema and model
-// const projectSchema = new mongoose.Schema({
-//   id: String,
-//   clientname: String,
-//   title: String,
-//   description: String,
-//   manager: String,
-//   status: String,
-//   cp: Number,
-//   date: Date,
-//   nom:Number,
-// });
-
-// // const Project = mongoose.model('Project', projectSchema);
-
-// // // Define a route to fetch analyst projects
-// app.get('/analyst-projects', async (req, res) => {
-//   try {
-//     const projects = await Project.find({});
-//     res.json(projects);
-//   } catch (error) {
-//     console.error('Error fetching projects:', error);
-//     res.status(500).send('Server Error');
-//   }
-// });
-
-// // Temp Project Director
-
-// // const projectSchema = new mongoose.Schema({
-// //   manager: String,
-// //   title: String,
-// //   numMembers: Number,
-// //   selectedMembers: [String],
-// //   cp: { type: Number, default: 0 }
-// // });
-
-// const managerSchema = new mongoose.Schema({
-//   name: String,
-//   email: String
-// });
-// const roleSchema = new mongoose.Schema({
-//   role: String,
-//   // email: String
-// });
-// const memberSchema = new mongoose.Schema({
-//   name: String,
-//   email: String
-// });
-
-// const querySchema = new mongoose.Schema({
-//   text: String,
-//   resolved: { type: Boolean, default: false }
-// });
-
-// const Project = mongoose.model('Project', projectSchema);
-// const Manager = mongoose.model('Manager', managerSchema);
-// const Role = mongoose.model('Role', roleSchema);
-// const Member = mongoose.model('Member', memberSchema);
-// const Query = mongoose.model('Query', querySchema);
-
-// // Sample data
-// const sampleManagers = [
-//   { name: 'John Doe', email: 'john@example.com' },
-//   { name: 'Jane Smith', email: 'jane@example.com' }
-// ];
-// const sampleRole = [
-//   { role: 'Analyst' },
-//   { role: 'Project Manager' },
-//   { role: 'Project Director' },
-//   { role: 'Admin' },
-//   { role: 'Auditor'}
-// ];
-// const sampleMembers = [
-//   { name: 'Alice Brown', email: 'alice@example.com' },
-//   { name: 'Bob White', email: 'bob@example.com' }
-// ];
-
-// const sampleQueries = [
-//   { text: 'What is the deadline for project A?' },
-//   { text: 'How to access project B details?' }
-// ];
-// const sampleProject = [
-//   { id: '24SC2',clientname:'himanshi',title:'LMS',manager:'abc',description:'learning managenment system',status:'ongoing',nom:7},
-//   { id: '24SC3',clientname:'himanshi singh',title:'project ',manager:'ab',description:'project managenment system',status:'ongoing',nom:3}
-// ];
-// // Populate sample data
-// const populateSampleData = async () => {
-//   await Manager.deleteMany({});
-//   await Manager.insertMany(sampleManagers);
-//   await Role.deleteMany({});
-//   await Role.insertMany(sampleRole);
-//   await Member.deleteMany({});
-//   await Member.insertMany(sampleMembers);
-
-//   await Query.deleteMany({});
-//   await Query.insertMany(sampleQueries);
-//   await Project.deleteMany({});
-//   await Project.insertMany(sampleProject);
-// };
-
-// populateSampleData();
-
-// // Routes
-// app.get('/projects', async (req, res) => {
-//   const projects = await Project.find();
-//   res.json(projects);
-// });
-
-// app.get('/managers', async (req, res) => {
-//   const managers = await Manager.find();
-//   res.json(managers);
-// });
-// app.get('/role', async (req, res) => {
-//   const roles = await Role.find();
-//   res.json(roles);
-// });
-// app.get('/members', async (req, res) => {
-//   const members = await Member.find();
-//   res.json(members);
-// });
-
-// app.get('/queries', async (req, res) => {
-//   const queries = await Query.find();
-//   res.json(queries);
-// });
-
-// app.post('/create-project', async (req, res) => {
-//   const newProject = new Project(req.body);
-//   await newProject.save();
-//   res.json(newProject);
-// });
-
-// app.post('/resolve-query', async (req, res) => {
-//   const { queryId } = req.body;
-//   const query = await Query.findById(queryId);
-//   if (query) {
-//     query.resolved = true;
-//     await query.save();
-//     res.json({ message: 'Query resolved successfully' });
-//   } else {
-//     res.status(404).json({ message: 'Query not found' });
-//   }
-// });
-// // Endpoint to handle POST request for requirements
-// app.post('/requirements', async (req, res) => {
-//   const { requirementsId } = req.body;
-//   const requirements = await requirements.findById(requirementsId);
-//   if (requirements) {
-
-//     await requirements.save();
-//     res.json({ message: 'requirements resolved successfully' });
-//   } else {
-//     res.status(404).json({ message: 'requirements not found' });
-//   }
-// });
-// // app.post("/requirements", (req, res) => {
-// //   //const requirementData = req.body;
-// //   const newRequirement = new Requirement(req.body);
-// //   // Here you can insert the data into your database using a database query
-// //   // Example:
-// //   newRequirement.insert(requirementData).then(() => {
-// //     res.status(201).json({ message: "Requirement data inserted successfully" });
-// //   }).catch((error) => {
-// //     res.status(500).json({ error: "Error inserting data into database" });
-// //   });
-
-//   // For demonstration purposes, just sending back the received data
-// //   res.status(201).json({ message: "Requirement data received", data: requirementData });
-// // });
-
-// //temp requirement data
-
-// const Requirement = require('./requirementModel');
-// // Create a new requirement
-// app.post('/create-requirement', async (req, res) => {
-//   try {
-//     const newRequirement = new Requirement(req.body);
-//     await newRequirement.save();
-//     res.json(newRequirement);
-//   } catch (error) {
-//     console.error('Error creating requirement:', error);
-//     res.status(500).send('Server Error');
-//   }
-// });
-
-// app.get('/requirements', async (req, res) => {
-//   try {
-//     const requirements = await Requirement.find();
-//     res.json(requirements);
-//   } catch (error) {
-//     console.error('Error fetching requirements:', error);
-//     res.status(500).send('Server Error');
-//   }
-// });
-
-// app.put('/update-requirement/:id', async (req, res) => {
-//   try {
-//     const updatedRequirement = await Requirement.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//     res.json(updatedRequirement);
-//   } catch (error) {
-//     console.error('Error updating requirement:', error);
-//     res.status(500).send('Server Error');
-//   }
-// });
-
-// app.delete('/delete-requirement/:id', async (req, res) => {
-//   try {
-//     await Requirement.findByIdAndDelete(req.params.id);
-//     res.json({ message: 'Requirement deleted successfully' });
-//   } catch (error) {
-//     console.error('Error deleting requirement:', error);
-//     res.status(500).send('Server Error');
-//   }
-// });
 
 const express = require("express");
 const app = express();
@@ -570,7 +28,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-    console.log("Connected to database");
+    console.log(`Connected to database at ${port}`);
   })
   .catch((e) => console.log(e));
 
@@ -1595,35 +1053,7 @@ cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
 
 const File = mongoose.model("File", FileSchema);
 
-// app.post("/api/saveForm", async (req, res) => {
-//   try {
-//     const { title, description, data, version, versionName,projectNumber,fileNumber,projectTitle,templateName,createdBy,createdAt } = req.body;
 
-//     const newVersion = {
-//       version,
-//       title,
-//       description,
-//       data,
-//       versionNum: versionName,
-//     };
-
-//     const file = new File({
-//       fileNumber : fileNumber,
-//       projectNumber: projectNumber, // Example project number, adjust as needed
-//       projectTitle: projectTitle, // Example project title, adjust as needed
-//       templateName: templateName, // Example template name, adjust as needed
-//       createdBy:createdBy, // Example user, adjust as needed
-//       createdAt: createdAt,
-//       versions: [newVersion],
-//     });
-
-//     const savedFile = await file.save();
-//     res.status(200).json({ id: savedFile._id });
-//   } catch (error) {
-//     console.error("Error saving form:", error);
-//     res.status(500).send("Error saving form data");
-//   }
-// });
 
 app.post("/api/saveForm", async (req, res) => {
   try {
@@ -1698,134 +1128,7 @@ app.post("/api/saveForm", async (req, res) => {
 
 
 
-// app.get("/api/getForm/:version", async (req, res) => {
-//   try {
-//     const { version } = req.params;
 
-//     const form = await File.aggregate([
-//       { $unwind: "$versions" },
-//       { $match: { "versions.version": version } },
-//       {
-//         $project: {
-//           _id: 1,
-//           "versions.title": 1,
-//           "versions.description": 1,
-//           "versions.data": 1,
-//         },
-//       },
-//     ]);
-
-//     if (form.length === 0) {
-//       return res.status(404).send({ error: "Form version not found" });
-//     }
-
-//     const result = form.map((f) => ({
-//       _id: f._id,
-//       title: f.versions.title,
-//       description: f.versions.description,
-//       data: f.versions.data,
-//     }))[0];
-
-//     res.status(200).send(result);
-//   } catch (error) {
-//     res.status(500).send({ error: "Error fetching form data" });
-//   }
-// });
-
-// >> Correct only for form data
-
-// app.get("/api/getForm/:version", async (req, res) => {
-//   try {
-//     const version = Number(req.params.version); // Convert version to a number
-//     console.log(`Fetching form with version: ${version}`);
-
-//     const form = await File.aggregate([
-//       { $unwind: "$versions" },
-//       { $match: { "versions.version": version } }, // Ensure the match is done with a number
-//       {
-//         $project: {
-//           _id: 1,
-//           "versions.title": 1,
-//           "versions.description": 1,
-//           "versions.data": 1,
-//         },
-//       },
-//     ]);
-
-//     if (form.length === 0) {
-//       return res.status(404).send({ error: "Form version not found" });
-//     }
-
-//     const result = form.map((f) => ({
-//       _id: f._id,
-//       title: f.versions.title,
-//       description: f.versions.description,
-//       data: f.versions.data,
-//     }))[0];
-
-//     res.status(200).send(result);
-//   } catch (error) {
-//     res.status(500).send({ error: "Error fetching form data" });
-//   }
-// });
-
-// app.get("/api/getForm/:version", async (req, res) => {
-//   try {
-//     const version = Number(req.params.version); // Convert version to a number
-//     console.log(`Fetching form with version: ${version}`);
-
-//     // Log before running the aggregate query
-//     console.log("Starting aggregation pipeline");
-
-//     const form = await File.aggregate([
-//       { $unwind: "$versions" },
-//       { $match: { "versions.version": version } }, // Ensure the match is done with a number
-//       {
-//         $project: {
-//           _id: 1,
-//           projectNumber: 1,
-//           fileNumber: 1,
-//           projectTitle: 1,
-//           templateName: 1,
-//           createdBy: 1,
-//           createdAt: 1,
-//           "versions.title": 1,
-//           "versions.description": 1,
-//           "versions.data": 1,
-//         },
-//       },
-//     ]);
-
-//     // Log the result of the aggregation
-//     console.log(`Aggregation result: ${JSON.stringify(form)}`);
-
-//     if (form.length === 0) {
-//       console.log(`Form version not found`);
-//       return res.status(404).send({ error: "Form version not found" });
-//     }
-
-//     const result = form.map((f) => ({
-//       _id: f._id,
-//       projectNumber: f.projectNumber,
-//       fileNumber: f.fileNumber,
-//       projectTitle: f.projectTitle,
-//       templateName: f.templateName,
-//       createdBy: f.createdBy,
-//       createdAt: f.createdAt,
-//       title: f.versions.title,
-//       description: f.versions.description,
-//       data: f.versions.data,
-//     }))[0];
-
-//     // Log the final result to be sent
-//     console.log(`Sending result: ${JSON.stringify(result)}`);
-
-//     res.status(200).send(result);
-//   } catch (error) {
-//     console.error(`Error fetching form data: ${error}`);
-//     res.status(500).send({ error: "Error fetching form data" });
-//   }
-// });
 
 app.use(bodyParser.json());
 app.get("/api/getForm/:version", async (req, res) => {
@@ -1878,3 +1181,262 @@ app.get("/api/files", async (req, res) => {
     res.status(500).send(err);
   }
 });
+
+
+
+
+//upload file
+
+
+//const express = require('express');
+const multer = require('multer');
+const { MongoClient, GridFSBucket, ObjectId } = require('mongodb');
+const stream = require('stream');
+//const cors = require('cors'); // Import the cors package
+const mammoth = require('mammoth');
+const Docxtemplater = require('docxtemplater');
+const path = require('path');
+// const app = express();
+const PizZip = require('pizzip');
+//const fs = require('fs');
+const htmlDocx = require('html-docx-js');
+const requirements = require("./Schema/requirements");
+//const bodyParser = require('body-parser');
+
+// Use CORS middleware
+app.use(cors());
+
+// Configure Multer for memory storage
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Replace with your MongoDB connection URI
+// const uri =  "mongodb://0.0.0.0:27017";
+const dbName = "test";
+const collectionName = "uploads"; // GridFS collection name
+
+async function connectToDatabase(){
+  const client = new MongoClient(mongoUrl);
+  try {
+    await client.connect();
+    console.log("Connected successfully to MongoDB");
+    return client;
+  } catch (error) {
+    console.error("Failed to connect to MongoDB", error);
+    throw error;
+  }
+}
+
+// async function closeDatabaseConnection(client) {
+//   try {
+//     await client.close();
+//     console.log("MongoDB connection closed");
+//   } catch (error) {
+//     console.error("Failed to close MongoDB connection", error);
+//   }
+// }
+// //change
+async function uploadToGridFS(file, metadata, fileId) {
+ const client = await connectToDatabase();
+  try {
+    const db = client.db(dbName);
+    const bucket = new GridFSBucket(db, { bucketName: collectionName });
+
+    const uploadStream = bucket.openUploadStreamWithId(new ObjectId(fileId), file.originalname, {
+      metadata,
+      contentType: file.mimetype, // Ensure contentType is set here
+    });
+    const bufferStream = stream.Readable.from(file.buffer);
+
+    const uploadPromise = new Promise((resolve, reject) => {
+      bufferStream.pipe(uploadStream)
+        .on('error', (err) => {
+          reject(err);
+          // closeDatabaseConnection(client);
+        })
+        .on('finish', () => {
+          resolve(uploadStream);
+          // closeDatabaseConnection(client);
+        });
+    });
+
+    return uploadPromise;
+  } catch (error) {
+    // closeDatabaseConnection(client);
+    throw error;
+  }
+}
+
+// Upload route
+app.post('/upload', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      throw new Error('No file uploaded'); // Handle missing file
+    }
+    const metadata = { contentType: req.file.mimetype }; 
+    const uploadStream = await uploadToGridFS(req.file, req.body); // Access additional data from req.body
+
+    // Add GridFS-specific details to req.file.grid
+    req.file.grid = {
+      _id: uploadStream.id,
+      filename: uploadStream.filename,
+      metadata: uploadStream.options.metadata,
+      bucketName: collectionName,
+  
+    };
+
+    res.json({
+      message: 'File uploaded successfully!',
+      file: req.file,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error uploading file' });
+  }
+});
+
+// Edit route
+app.post('/files/edit', upload.single('file'), async (req, res) => {
+  const { id } = req.body;
+  if (!id) {
+    return res.status(400).json({ message: 'Missing file ID' });
+  }
+
+  try {
+    const uploadStream = await uploadToGridFS(req.file, req.body, id);
+    res.json({
+      message: 'File updated successfully!',
+      file: req.file,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error updating file' });
+  }
+});
+
+// Get all files
+app.get('/files', async (req, res) => {
+  const client = await connectToDatabase();
+  try {
+    const db = client.db(dbName);
+    const filesCollection = db.collection(`${collectionName}.files`);
+    const files = await filesCollection.find().toArray();
+    res.json(files);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching files' });
+  } finally {
+    client.close();
+  }
+});
+
+
+app.get('/files/:id', async (req, res) => {
+  const client = await connectToDatabase();
+  try {
+    const db = client.db(dbName);
+    const bucket = new GridFSBucket(db, { bucketName: collectionName });
+    const id = new ObjectId(req.params.id);
+
+    const downloadStream = bucket.openDownloadStream(id);
+
+    downloadStream.on('error', (err) => {
+      console.error(err);
+      res.status(404).json({ message: 'File not found' });
+      client.close();
+    });
+
+    downloadStream.on('file', (file) => {
+      const contentType = file.contentType || 'application/octet-stream';
+      res.setHeader('Content-Type', contentType);
+      res.setHeader('Content-Disposition', `inline; filename="${file.filename}"`);
+    });
+
+    downloadStream.on('end', () => {
+      client.close();
+    });
+
+    downloadStream.pipe(res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching file' });
+    client.close();
+  }
+});
+
+
+
+
+
+app.post('/files/save', upload.none(), async (req, res) => {
+  const { id, content } = req.body;
+  console.log("Received id:", id);
+  console.log("Received content:", content);
+
+  try {
+    const client = await connectToDatabase();
+    const db = client.db(dbName);
+    const bucket = new GridFSBucket(db, { bucketName: collectionName });
+
+    // Fetch the existing file from GridFS
+    const downloadStream = bucket.openDownloadStream(new ObjectId(id));
+    const bufferChunks = [];
+
+    downloadStream.on('data', (chunk) => bufferChunks.push(chunk));
+    downloadStream.on('error', (error) => {
+      console.error('Error fetching file:', error);
+      res.status(500).send('Error fetching file');
+      client.close();
+    });
+
+    downloadStream.on('end', async () => {
+      const buffer = Buffer.concat(bufferChunks);
+
+      // Convert the HTML content to .docx format using html-docx-js
+      const docxContent = htmlDocx.asBlob(content);
+
+      // Load the .docx file into docxtemplater
+      const zip = new PizZip(buffer);
+
+      // Replace a placeholder in the .docx file with the new content
+      const doc = new Docxtemplater(zip);
+      doc.setData({ content });
+
+      try {
+        doc.render();
+      } catch (error) {
+        console.error('Error rendering docxtemplater:', error);
+        res.status(500).send('Error rendering document');
+        client.close();
+        return;
+      }
+
+      // Get the updated .docx file content as a buffer
+      const updatedBuffer = doc.getZip().generate({ type: 'nodebuffer' });
+
+      // Delete the old file from GridFS
+      await bucket.delete(new ObjectId(id));
+
+      // Save the updated file back to GridFS with the same ID
+      const uploadStream = bucket.openUploadStreamWithId(new ObjectId(id), `${id}.docx`);
+      const bufferStream = new stream.PassThrough();
+      bufferStream.end(updatedBuffer);
+
+      bufferStream.pipe(uploadStream)
+        .on('error', (error) => {
+          console.error('Error saving file:', error);
+          res.status(500).send('Error saving file');
+          client.close();
+        })
+        .on('finish', () => {
+          res.status(200).send('File saved successfully!');
+          client.close();
+        });
+    });
+  } catch (error) {
+    console.error('Error saving file:', error);
+    res.status(500).send('Error saving file');
+  }
+});
+
+

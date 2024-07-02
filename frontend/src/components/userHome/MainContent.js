@@ -335,6 +335,38 @@ const MainContent = ({ content, userData }) => {
     // Handle query form submission logic here
   };
 
+  //upload file 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState('');
+
+  const onFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const onFileUpload = async () => {
+    if (!selectedFile) {
+      setUploadStatus('Please select a file first.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      const response = await axios.post('http://localhost:5000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert("File Uploaded")
+      setUploadStatus(response.data.message);
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      setUploadStatus('Error uploading file.');
+    }
+  };
+
+
   const renderContent = () => {
     switch (content) {
       case "AboutUs":
@@ -1478,14 +1510,22 @@ const MainContent = ({ content, userData }) => {
                           >
                             Upload File
                           </label>
-                          <input
+                          <input type="file" id="fileUpload"
+                            name="fileUpload" onChange={onFileChange} 
+                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            
+                               style={{ borderRadius: "15px" }}
+                            />
+      <button onClick={onFileUpload}>Upload</button>
+      <p>{uploadStatus}</p>
+                          {/* <input
                             type="file"
                             id="fileUpload"
                             name="fileUpload"
                             onChange={handleRmInputChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             style={{ borderRadius: "15px" }}
-                          />
+                          /> */}
                         </div>
                       </div>
                       <button
