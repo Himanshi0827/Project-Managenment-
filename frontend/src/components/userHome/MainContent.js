@@ -127,7 +127,7 @@ const MainContent = ({ content, userData }) => {
             Math.floor(requirementCount / 100)
           ).padStart(2, "0");
           const newRequirementNumber = `${mainPart}${middlePart}${lastPart}`;
-
+          console.log(newRequirementNumber);
           setFormData((prevData) => ({
             ...prevData,
             requirementNumber: newRequirementNumber,
@@ -336,11 +336,34 @@ const MainContent = ({ content, userData }) => {
   //upload file
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
-  const [rNumber,setRNumber] = useState("");
+  const [rNumber, setRNumber] = useState("");
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-    setRNumber(selectedRequirementId);
+
+    if (!rNumber) {
+      const generateRequirementNumber = async () => {
+        const projectNumber = selectedProject.projectNumber; // You can set this dynamically as needed
+        const count = requirements.filter(
+          (req) => req.projectNumber === projectNumber
+        ).length;
+
+        const requirementCount = count + 1;
+        const mainPart = `R${String(projectNumber).padStart(2, "0")}.00.`;
+        const lastPart = String(requirementCount % 100).padStart(2, "0");
+        const middlePart = String(Math.floor(requirementCount / 100)).padStart(
+          2,
+          "0"
+        );
+        const newRequirementNumber = `${mainPart}${middlePart}.${lastPart}`;
+        console.log(newRequirementNumber);
+        setRNumber(newRequirementNumber);
+      };
+
+      generateRequirementNumber();
+    } else {
+      setRNumber(selectedRequirementId);
+    }
   };
 
   // const onFileUpload = async () => {
@@ -370,7 +393,6 @@ const MainContent = ({ content, userData }) => {
   //   }
   // };
 
-
   const onFileUpload = async () => {
     if (!selectedFile) {
       setUploadStatus("Please select a file first.");
@@ -379,7 +401,7 @@ const MainContent = ({ content, userData }) => {
 
     const formData1 = new FormData();
     formData1.append("file", selectedFile);
-    if(rNumber) formData1.append("rNumber", rNumber); // Add rNumber to FormData
+    if (rNumber) formData1.append("rNumber", rNumber); // Add rNumber to FormData
 
     try {
       const response = await axios.post(
@@ -1549,7 +1571,7 @@ const MainContent = ({ content, userData }) => {
                           >
                             Upload File
                           </label>
-                          
+
                           <input
                             type="file"
                             id="fileUpload"
