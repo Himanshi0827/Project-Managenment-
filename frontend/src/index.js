@@ -23,6 +23,10 @@ import ABC from "ABC";
 import FormBuilder from "components/FormBuilder";
 import TaskSelector from "components/Forms/temp";
 
+import FileList from "components/userHome/FileList";
+import ViewFile from "components/userHome/ViewFile";
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -41,9 +45,12 @@ function App() {
         <Route path="/formGrid" exact component={Grid} />
         {/*<Route path="/form" exact component={ABC} />*/}
         <Route path="/form" exact component={FormBuilder} />
+        <Route path="/files" exact component={FileList} />
+        <Route path="/view/:id" exact component={ViewFile} />
         
         {/* Routes from the second project */}
         <Route path="/userdetails" exact component={UserDetails} />
+
 
         {/* Combined landing page */}
 

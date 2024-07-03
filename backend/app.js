@@ -1351,12 +1351,33 @@ app.post('/files/edit', upload.single('file'), async (req, res) => {
 });
 
 // Get all files
+// app.get('/files', async (req, res) => {
+//   const client = await connectToDatabase();
+//   try {
+//     const db = client.db(dbName);
+//     const filesCollection = db.collection(`${collectionName}.files`);
+//     const files = await filesCollection.find().toArray();
+//     res.json(files);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Error fetching files' });
+//   } finally {
+//     client.close();
+//   }
+// });
+
+
 app.get('/files', async (req, res) => {
   const client = await connectToDatabase();
   try {
     const db = client.db(dbName);
     const filesCollection = db.collection(`${collectionName}.files`);
-    const files = await filesCollection.find().toArray();
+    const { requirementNumber } = req.query; // Get the requirementNumber from query parameters
+
+    // Find files that match the requirementNumber
+    const query = requirementNumber ? { "metadata.rNumber": requirementNumber } : {};
+    const files = await filesCollection.find(query).toArray();
+
     res.json(files);
   } catch (error) {
     console.error(error);
@@ -1365,6 +1386,7 @@ app.get('/files', async (req, res) => {
     client.close();
   }
 });
+
 
 
 app.get('/files/:id', async (req, res) => {

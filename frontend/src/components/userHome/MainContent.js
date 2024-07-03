@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const MainContent = ({ content, userData }) => {
   const containerStyle = {
     padding: "20px",
@@ -34,7 +35,7 @@ const MainContent = ({ content, userData }) => {
     actionsToBeTaken: "",
     completionDate: "",
     responsibility: "",
-    impactOfNewRequirement: "",
+    impactOfNewRequirementsOrChanges: "",
     dependency: "",
     requirementAcceptance: "yes",
     status: "ongoing",
@@ -340,8 +341,9 @@ const MainContent = ({ content, userData }) => {
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-
-    if (!rNumber) {
+    setRNumber(selectedRequirementId);
+    if (!selectedRequirementId) {
+      console.log(rNumber)
       const generateRequirementNumber = async () => {
         const projectNumber = selectedProject.projectNumber; // You can set this dynamically as needed
         const count = requirements.filter(
@@ -362,6 +364,7 @@ const MainContent = ({ content, userData }) => {
 
       generateRequirementNumber();
     } else {
+      console.log("else" + rNumber)
       setRNumber(selectedRequirementId);
     }
   };
@@ -761,6 +764,9 @@ const MainContent = ({ content, userData }) => {
                             <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
                               Actions
                             </th>
+                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
+                              Uploads
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -892,6 +898,7 @@ const MainContent = ({ content, userData }) => {
                                 >
                                   Requirements Management
                                 </button>
+
                                 {/* <br></br>
                                 <br></br>
                                 <button
@@ -904,6 +911,27 @@ const MainContent = ({ content, userData }) => {
                                 >
                                   Calculate CP
                                 </button> */}
+                              </td>
+                              <td
+                                className="px-8 py-5 border border-gray-200 bg-white text-sm"
+                                key={requirement.requirementNumber}
+                              >
+                                <Link
+                                  to={{
+                                    pathname: "/files",
+                                    state: {
+                                      requirementNumber:
+                                        requirement.requirementNumber,
+                                    },
+                                  }}
+                                >
+                                  <button
+                                    className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+                                    type="button"
+                                  >
+                                    View
+                                  </button>
+                                </Link>
                               </td>
                             </tr>
                           ))}
@@ -1480,7 +1508,7 @@ const MainContent = ({ content, userData }) => {
                             type="text"
                             id="impactOfNewRequirements"
                             name="impactOfNewRequirements"
-                            value={formData.impactOfNewRequirementsOrChanges}
+                            value={formData.impactOfNewRequirements}
                             onChange={handleRmInputChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             style={{ borderRadius: "15px" }}
