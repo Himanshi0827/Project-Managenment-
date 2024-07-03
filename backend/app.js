@@ -17,11 +17,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-const mongoUrl =
-  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 // const mongoUrl =
-//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const mongoUrl =
+  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -532,240 +532,240 @@ app.get("/roles", async (req, res) => {
 const Project = require("./Schema/project");
 const Requirement = require("./Schema/requirements");
 
-const seedDatabase = async () => {
-  try {
-    // Clear existing data
+// const seedDatabase = async () => {
+//   try {
+//     // Clear existing data
 
-    await Project.deleteMany({});
-    await Requirement.deleteMany({});
-    // Sample Projects
-    const projects = [
-      {
-        projectNumber: 1,
-        projectManagerName: "Alice Johnson",
-        clientName: "Client A",
-        projectTitle: "Project Alpha",
-        projectDesc: "Description for Project Alpha",
-        projectStatus: "Ongoing",
-        email: "hp24@gmail.com",
-        dateOfCreation: new Date("2023-01-01"),
-        numberOfmembers: 5,
-        priority: "High",
-        CP: 1001,
-      },
-      {
-        projectNumber: 2,
-        projectManagerName: "Bob Smith",
-        clientName: "Client B",
-        projectTitle: "Project Beta",
-        projectDesc: "Description for Project Beta",
-        projectStatus: "Completed",
-        email: "smit@gmail.com",
-        dateOfCreation: new Date("2023-02-01"),
-        numberOfmembers: 8,
-        priority: "Medium",
-        CP: 1002,
-      },
-      {
-        projectNumber: 3,
-        projectManagerName: "Alice Johnson",
-        clientName: "Client C",
-        projectTitle: "Project Gamma",
-        projectDesc: "Description for Project Gamma",
-        projectStatus: "Ongoing",
-        email: "hp24@gmail.com",
-        dateOfCreation: new Date("2023-03-01"),
-        numberOfmembers: 10,
-        priority: "Low",
-        CP: 1003,
-      },
-    ];
+//     await Project.deleteMany({});
+//     await Requirement.deleteMany({});
+//     // Sample Projects
+//     const projects = [
+//       {
+//         projectNumber: 1,
+//         projectManagerName: "Alice Johnson",
+//         clientName: "Client A",
+//         projectTitle: "Project Alpha",
+//         projectDesc: "Description for Project Alpha",
+//         projectStatus: "Ongoing",
+//         email: "hp24@gmail.com",
+//         dateOfCreation: new Date("2023-01-01"),
+//         numberOfmembers: 5,
+//         priority: "High",
+//         CP: 1001,
+//       },
+//       {
+//         projectNumber: 2,
+//         projectManagerName: "Bob Smith",
+//         clientName: "Client B",
+//         projectTitle: "Project Beta",
+//         projectDesc: "Description for Project Beta",
+//         projectStatus: "Completed",
+//         email: "smit@gmail.com",
+//         dateOfCreation: new Date("2023-02-01"),
+//         numberOfmembers: 8,
+//         priority: "Medium",
+//         CP: 1002,
+//       },
+//       {
+//         projectNumber: 3,
+//         projectManagerName: "Alice Johnson",
+//         clientName: "Client C",
+//         projectTitle: "Project Gamma",
+//         projectDesc: "Description for Project Gamma",
+//         projectStatus: "Ongoing",
+//         email: "hp24@gmail.com",
+//         dateOfCreation: new Date("2023-03-01"),
+//         numberOfmembers: 10,
+//         priority: "Low",
+//         CP: 1003,
+//       },
+//     ];
 
-    // Insert Projects
-    await Project.insertMany(projects);
-    console.log("Projects inserted");
+//     // Insert Projects
+//     await Project.insertMany(projects);
+//     console.log("Projects inserted");
 
-    // Sample Requirements
-    const requirements = [
-      {
-        projectNumber: 1,
-        requirementNumber: "R01.00.01",
-        requirementDate: new Date("2023-04-01"),
-        requirementChangeNumber: "RC01.00.01",
-        changeDate: new Date("2023-04-02"),
-        description: "Requirement 1 for Project Alpha",
-        priority: "High",
-        requirementGatheredBy: "John Doe",
-        modeOfReceipt: "Email",
-        providedBy: "Client A",
-        requirementAcceptance: "Yes",
-        actionsToBeTaken: "Action 1",
-        responsibility: "Team A",
-        expectedDateOfDelivery: new Date("2023-05-01"),
-        status: "Pending",
-        requirementOutputName: "Output 1",
-        dependency: "None",
-        impactOfNewRequirementsOrChanges: "Low",
-        remarks: "Remark 1",
-      },
-      {
-        projectNumber: 1,
-        requirementNumber: "R01.00.02",
-        requirementDate: new Date("2023-04-03"),
-        requirementChangeNumber: "RC01.00.02",
-        changeDate: new Date("2023-04-04"),
-        description: "Requirement 2 for Project Alpha",
-        priority: "Medium",
-        requirementGatheredBy: "Jane Doe",
-        modeOfReceipt: "Meeting",
-        providedBy: "Client A",
-        requirementAcceptance: "Yes",
-        actionsToBeTaken: "Action 2",
-        responsibility: "Team A",
-        expectedDateOfDelivery: new Date("2023-05-15"),
-        status: "In Progress",
-        requirementOutputName: "Output 2",
-        dependency: "Task 1",
-        impactOfNewRequirementsOrChanges: "Medium",
-        remarks: "Remark 2",
-      },
-      {
-        projectNumber: 1,
-        requirementNumber: "R01.00.03",
-        requirementDate: new Date("2023-04-05"),
-        requirementChangeNumber: "RC01.00.03",
-        changeDate: new Date("2023-04-06"),
-        description: "Requirement 3 for Project Alpha",
-        priority: "Low",
-        requirementGatheredBy: "John Doe",
-        modeOfReceipt: "Phone Call",
-        providedBy: "Client A",
-        requirementAcceptance: "No",
-        actionsToBeTaken: "Action 3",
-        responsibility: "Team B",
-        expectedDateOfDelivery: new Date("2023-06-01"),
-        status: "Completed",
-        requirementOutputName: "Output 3",
-        dependency: "Task 2",
-        impactOfNewRequirementsOrChanges: "High",
-        remarks: "Remark 3",
-      },
-      {
-        projectNumber: 2,
-        requirementNumber: "R02.00.01",
-        requirementDate: new Date("2023-05-01"),
-        requirementChangeNumber: "RC02.00.01",
-        changeDate: new Date("2023-05-02"),
-        description: "Requirement 1 for Project Beta",
-        priority: "High",
-        requirementGatheredBy: "Emily Smith",
-        modeOfReceipt: "Email",
-        providedBy: "Client B",
-        requirementAcceptance: "Yes",
-        actionsToBeTaken: "Action 1",
-        responsibility: "Team C",
-        expectedDateOfDelivery: new Date("2023-06-01"),
-        status: "Pending",
-        requirementOutputName: "Output 1",
-        dependency: "None",
-        impactOfNewRequirementsOrChanges: "Low",
-        remarks: "Remark 1",
-      },
-      {
-        projectNumber: 2,
-        requirementNumber: "R02.00.02",
-        requirementDate: new Date("2023-05-03"),
-        requirementChangeNumber: "RC02.00.02",
-        changeDate: new Date("2023-05-04"),
-        description: "Requirement 2 for Project Beta",
-        priority: "Medium",
-        requirementGatheredBy: "Michael Brown",
-        modeOfReceipt: "Meeting",
-        providedBy: "Client B",
-        requirementAcceptance: "No",
-        actionsToBeTaken: "Action 2",
-        responsibility: "Team D",
-        expectedDateOfDelivery: new Date("2023-07-01"),
-        status: "In Progress",
-        requirementOutputName: "Output 2",
-        dependency: "Task 1",
-        impactOfNewRequirementsOrChanges: "Medium",
-        remarks: "Remark 2",
-      },
-      {
-        projectNumber: 3,
-        requirementNumber: "R03.00.01",
-        requirementDate: new Date("2023-06-01"),
-        requirementChangeNumber: "RC03.00.01",
-        changeDate: new Date("2023-06-02"),
-        description: "Requirement 1 for Project Gamma",
-        priority: "Low",
-        requirementGatheredBy: "Alice Johnson",
-        modeOfReceipt: "Phone Call",
-        providedBy: "Client C",
-        requirementAcceptance: "Yes",
-        actionsToBeTaken: "Action 1",
-        responsibility: "Team E",
-        expectedDateOfDelivery: new Date("2023-08-01"),
-        status: "Pending",
-        requirementOutputName: "Output 1",
-        dependency: "None",
-        impactOfNewRequirementsOrChanges: "Low",
-        remarks: "Remark 1",
-      },
-      {
-        projectNumber: 3,
-        requirementNumber: "R03.00.02",
-        requirementDate: new Date("2023-06-03"),
-        requirementChangeNumber: "RC03.00.02",
-        changeDate: new Date("2023-06-04"),
-        description: "Requirement 2 for Project Gamma",
-        priority: "Medium",
-        requirementGatheredBy: "Alice Johnson",
-        modeOfReceipt: "Email",
-        providedBy: "Client C",
-        requirementAcceptance: "Yes",
-        actionsToBeTaken: "Action 2",
-        responsibility: "Team F",
-        expectedDateOfDelivery: new Date("2023-09-01"),
-        status: "In Progress",
-        requirementOutputName: "Output 2",
-        dependency: "Task 2",
-        impactOfNewRequirementsOrChanges: "Medium",
-        remarks: "Remark 2",
-      },
-      {
-        projectNumber: 3,
-        requirementNumber: "R03.00.03",
-        requirementDate: new Date("2023-06-05"),
-        requirementChangeNumber: "RC03.00.03",
-        changeDate: new Date("2023-06-06"),
-        description: "Requirement 3 for Project Gamma",
-        priority: "High",
-        requirementGatheredBy: "Alice Johnson",
-        modeOfReceipt: "Meeting",
-        providedBy: "Client C",
-        requirementAcceptance: "No",
-        actionsToBeTaken: "Action 3",
-        responsibility: "Team G",
-        expectedDateOfDelivery: new Date("2023-10-01"),
-        status: "Completed",
-        requirementOutputName: "Output 3",
-        dependency: "Task 3",
-        impactOfNewRequirementsOrChanges: "High",
-        remarks: "Remark 3",
-      },
-    ];
+//     // Sample Requirements
+//     const requirements = [
+//       {
+//         projectNumber: 1,
+//         requirementNumber: "R01.00.01",
+//         requirementDate: new Date("2023-04-01"),
+//         requirementChangeNumber: "RC01.00.01",
+//         changeDate: new Date("2023-04-02"),
+//         description: "Requirement 1 for Project Alpha",
+//         priority: "High",
+//         requirementGatheredBy: "John Doe",
+//         modeOfReceipt: "Email",
+//         providedBy: "Client A",
+//         requirementAcceptance: "Yes",
+//         actionsToBeTaken: "Action 1",
+//         responsibility: "Team A",
+//         expectedDateOfDelivery: new Date("2023-05-01"),
+//         status: "Pending",
+//         requirementOutputName: "Output 1",
+//         dependency: "None",
+//         impactOfNewRequirementsOrChanges: "Low",
+//         remarks: "Remark 1",
+//       },
+//       {
+//         projectNumber: 1,
+//         requirementNumber: "R01.00.02",
+//         requirementDate: new Date("2023-04-03"),
+//         requirementChangeNumber: "RC01.00.02",
+//         changeDate: new Date("2023-04-04"),
+//         description: "Requirement 2 for Project Alpha",
+//         priority: "Medium",
+//         requirementGatheredBy: "Jane Doe",
+//         modeOfReceipt: "Meeting",
+//         providedBy: "Client A",
+//         requirementAcceptance: "Yes",
+//         actionsToBeTaken: "Action 2",
+//         responsibility: "Team A",
+//         expectedDateOfDelivery: new Date("2023-05-15"),
+//         status: "In Progress",
+//         requirementOutputName: "Output 2",
+//         dependency: "Task 1",
+//         impactOfNewRequirementsOrChanges: "Medium",
+//         remarks: "Remark 2",
+//       },
+//       {
+//         projectNumber: 1,
+//         requirementNumber: "R01.00.03",
+//         requirementDate: new Date("2023-04-05"),
+//         requirementChangeNumber: "RC01.00.03",
+//         changeDate: new Date("2023-04-06"),
+//         description: "Requirement 3 for Project Alpha",
+//         priority: "Low",
+//         requirementGatheredBy: "John Doe",
+//         modeOfReceipt: "Phone Call",
+//         providedBy: "Client A",
+//         requirementAcceptance: "No",
+//         actionsToBeTaken: "Action 3",
+//         responsibility: "Team B",
+//         expectedDateOfDelivery: new Date("2023-06-01"),
+//         status: "Completed",
+//         requirementOutputName: "Output 3",
+//         dependency: "Task 2",
+//         impactOfNewRequirementsOrChanges: "High",
+//         remarks: "Remark 3",
+//       },
+//       {
+//         projectNumber: 2,
+//         requirementNumber: "R02.00.01",
+//         requirementDate: new Date("2023-05-01"),
+//         requirementChangeNumber: "RC02.00.01",
+//         changeDate: new Date("2023-05-02"),
+//         description: "Requirement 1 for Project Beta",
+//         priority: "High",
+//         requirementGatheredBy: "Emily Smith",
+//         modeOfReceipt: "Email",
+//         providedBy: "Client B",
+//         requirementAcceptance: "Yes",
+//         actionsToBeTaken: "Action 1",
+//         responsibility: "Team C",
+//         expectedDateOfDelivery: new Date("2023-06-01"),
+//         status: "Pending",
+//         requirementOutputName: "Output 1",
+//         dependency: "None",
+//         impactOfNewRequirementsOrChanges: "Low",
+//         remarks: "Remark 1",
+//       },
+//       {
+//         projectNumber: 2,
+//         requirementNumber: "R02.00.02",
+//         requirementDate: new Date("2023-05-03"),
+//         requirementChangeNumber: "RC02.00.02",
+//         changeDate: new Date("2023-05-04"),
+//         description: "Requirement 2 for Project Beta",
+//         priority: "Medium",
+//         requirementGatheredBy: "Michael Brown",
+//         modeOfReceipt: "Meeting",
+//         providedBy: "Client B",
+//         requirementAcceptance: "No",
+//         actionsToBeTaken: "Action 2",
+//         responsibility: "Team D",
+//         expectedDateOfDelivery: new Date("2023-07-01"),
+//         status: "In Progress",
+//         requirementOutputName: "Output 2",
+//         dependency: "Task 1",
+//         impactOfNewRequirementsOrChanges: "Medium",
+//         remarks: "Remark 2",
+//       },
+//       {
+//         projectNumber: 3,
+//         requirementNumber: "R03.00.01",
+//         requirementDate: new Date("2023-06-01"),
+//         requirementChangeNumber: "RC03.00.01",
+//         changeDate: new Date("2023-06-02"),
+//         description: "Requirement 1 for Project Gamma",
+//         priority: "Low",
+//         requirementGatheredBy: "Alice Johnson",
+//         modeOfReceipt: "Phone Call",
+//         providedBy: "Client C",
+//         requirementAcceptance: "Yes",
+//         actionsToBeTaken: "Action 1",
+//         responsibility: "Team E",
+//         expectedDateOfDelivery: new Date("2023-08-01"),
+//         status: "Pending",
+//         requirementOutputName: "Output 1",
+//         dependency: "None",
+//         impactOfNewRequirementsOrChanges: "Low",
+//         remarks: "Remark 1",
+//       },
+//       {
+//         projectNumber: 3,
+//         requirementNumber: "R03.00.02",
+//         requirementDate: new Date("2023-06-03"),
+//         requirementChangeNumber: "RC03.00.02",
+//         changeDate: new Date("2023-06-04"),
+//         description: "Requirement 2 for Project Gamma",
+//         priority: "Medium",
+//         requirementGatheredBy: "Alice Johnson",
+//         modeOfReceipt: "Email",
+//         providedBy: "Client C",
+//         requirementAcceptance: "Yes",
+//         actionsToBeTaken: "Action 2",
+//         responsibility: "Team F",
+//         expectedDateOfDelivery: new Date("2023-09-01"),
+//         status: "In Progress",
+//         requirementOutputName: "Output 2",
+//         dependency: "Task 2",
+//         impactOfNewRequirementsOrChanges: "Medium",
+//         remarks: "Remark 2",
+//       },
+//       {
+//         projectNumber: 3,
+//         requirementNumber: "R03.00.03",
+//         requirementDate: new Date("2023-06-05"),
+//         requirementChangeNumber: "RC03.00.03",
+//         changeDate: new Date("2023-06-06"),
+//         description: "Requirement 3 for Project Gamma",
+//         priority: "High",
+//         requirementGatheredBy: "Alice Johnson",
+//         modeOfReceipt: "Meeting",
+//         providedBy: "Client C",
+//         requirementAcceptance: "No",
+//         actionsToBeTaken: "Action 3",
+//         responsibility: "Team G",
+//         expectedDateOfDelivery: new Date("2023-10-01"),
+//         status: "Completed",
+//         requirementOutputName: "Output 3",
+//         dependency: "Task 3",
+//         impactOfNewRequirementsOrChanges: "High",
+//         remarks: "Remark 3",
+//       },
+//     ];
 
-    // Insert Requirements
-    await Requirement.insertMany(requirements);
-    console.log("Requirements inserted");
+//     // Insert Requirements
+//     await Requirement.insertMany(requirements);
+//     console.log("Requirements inserted");
 
-    mongoose.connection.close();
-  } catch (error) {
-    console.error("Error seeding database:", error);
-  }
-};
+//     mongoose.connection.close();
+//   } catch (error) {
+//     console.error("Error seeding database:", error);
+//   }
+// };
 
 // seedDatabase();
 
@@ -1268,13 +1268,50 @@ async function uploadToGridFS(file, metadata, fileId) {
 }
 
 // Upload route
+// app.post('/upload', upload.single('file'), async (req, res) => {
+//   try {
+//     if (!req.file) {
+//       throw new Error('No file uploaded'); // Handle missing file
+//     }
+//     const metadata = { contentType: req.file.mimetype }; 
+//     const uploadStream = await uploadToGridFS(req.file, req.body); // Access additional data from req.body
+
+//     // Add GridFS-specific details to req.file.grid
+//     req.file.grid = {
+//       _id: uploadStream.id,
+//       filename: uploadStream.filename,
+//       metadata: uploadStream.options.metadata,
+//       bucketName: collectionName,
+  
+//     };
+
+//     res.json({
+//       message: 'File uploaded successfully!',
+//       file: req.file,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Error uploading file' });
+//   }
+// });
+
+
+
 app.post('/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       throw new Error('No file uploaded'); // Handle missing file
     }
-    const metadata = { contentType: req.file.mimetype }; 
-    const uploadStream = await uploadToGridFS(req.file, req.body); // Access additional data from req.body
+
+    const rNumber = req.body.rNumber; // Access rNumber from req.body
+
+    // Example metadata, including rNumber
+    const metadata = {
+      contentType: req.file.mimetype,
+      rNumber: rNumber, // Add rNumber to metadata
+    };
+
+    const uploadStream = await uploadToGridFS(req.file, metadata); // Pass metadata to GridFS upload function
 
     // Add GridFS-specific details to req.file.grid
     req.file.grid = {
@@ -1282,7 +1319,6 @@ app.post('/upload', upload.single('file'), async (req, res) => {
       filename: uploadStream.filename,
       metadata: uploadStream.options.metadata,
       bucketName: collectionName,
-  
     };
 
     res.json({

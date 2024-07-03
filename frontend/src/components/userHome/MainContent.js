@@ -5,8 +5,6 @@ const MainContent = ({ content, userData }) => {
     padding: "20px",
     backgroundColor: "white",
     color: "#334155",
-
-    
   };
 
   const [projects, setProjects] = useState([]);
@@ -203,8 +201,8 @@ const MainContent = ({ content, userData }) => {
     // setRmInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
     setFormData((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
-    //change
-    
+  //change
+
   const handleManageRequirements = (requirementNumber) => {
     setSelectedRequirementId(requirementNumber);
     setShowRMForm(true);
@@ -335,37 +333,71 @@ const MainContent = ({ content, userData }) => {
     // Handle query form submission logic here
   };
 
-  //upload file 
+  //upload file
   const [selectedFile, setSelectedFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState('');
+  const [uploadStatus, setUploadStatus] = useState("");
+  const [rNumber,setRNumber] = useState("");
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+    setRNumber(selectedRequirementId);
   };
+
+  // const onFileUpload = async () => {
+  //   if (!selectedFile) {
+  //     setUploadStatus("Please select a file first.");
+  //     return;
+  //   }
+
+  //   const formData1 = new FormData();
+  //   formData1.append("file", selectedFile);
+
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/upload",
+  //       formData1,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     alert("File Uploaded");
+  //     setUploadStatus(response.data.message);
+  //   } catch (error) {
+  //     console.error("Error uploading file:", error);
+  //     setUploadStatus("Error uploading file.");
+  //   }
+  // };
+
 
   const onFileUpload = async () => {
     if (!selectedFile) {
-      setUploadStatus('Please select a file first.');
+      setUploadStatus("Please select a file first.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
+    const formData1 = new FormData();
+    formData1.append("file", selectedFile);
+    if(rNumber) formData1.append("rNumber", rNumber); // Add rNumber to FormData
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert("File Uploaded")
+      const response = await axios.post(
+        "http://localhost:5000/upload",
+        formData1,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      alert("File Uploaded");
       setUploadStatus(response.data.message);
     } catch (error) {
-      console.error('Error uploading file:', error);
-      setUploadStatus('Error uploading file.');
+      console.error("Error uploading file:", error);
+      setUploadStatus("Error uploading file.");
     }
   };
-
 
   const renderContent = () => {
     switch (content) {
@@ -393,7 +425,7 @@ const MainContent = ({ content, userData }) => {
         return (
           <div className="text-blueGray-700 text-2xl font-bold text-center">
             <h2 className="text-blueGray-700 text-2xl font-bold text-center">
-              Project Manager 
+              Project Manager
             </h2>
             <h3 className="text-blueGray-600 text-xl font-bold mt-4">
               Ongoing Projects
@@ -573,7 +605,7 @@ const MainContent = ({ content, userData }) => {
 
             {selectedProject && (
               <div className="flex flex-wrap mt-4">
-              {requirements.length > -1 && (
+                {requirements.length > -1 && (
                   <div className="w-full items-center">
                     <h3 className="text-blueGray-600 text-xl font-bold mt-4 text-center">
                       Requirements for {selectedProject.projectTitle}
@@ -1158,7 +1190,14 @@ const MainContent = ({ content, userData }) => {
                   </div>
                 )} */}
                 {showRMForm && (
-                  <div className="w-1/2  px-6 justify-items" style={{justifyContent:"center", alignItems:"center", marginLeft:"315px"}}>
+                  <div
+                    className="w-1/2  px-6 justify-items"
+                    style={{
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginLeft: "315px",
+                    }}
+                  >
                     <form
                       onSubmit={handleSubmit}
                       className="mt-4 bg-blueGray-50 p-4 rounded shadow-inner"
@@ -1510,14 +1549,17 @@ const MainContent = ({ content, userData }) => {
                           >
                             Upload File
                           </label>
-                          <input type="file" id="fileUpload"
-                            name="fileUpload" onChange={onFileChange} 
-                               className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            
-                               style={{ borderRadius: "15px" }}
-                            />
-      <button onClick={onFileUpload}>Upload</button>
-      <p>{uploadStatus}</p>
+                          
+                          <input
+                            type="file"
+                            id="fileUpload"
+                            name="fileUpload"
+                            onChange={onFileChange}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            style={{ borderRadius: "15px" }}
+                          />
+                          <button onClick={onFileUpload}>Upload</button>
+                          <p>{uploadStatus}</p>
                           {/* <input
                             type="file"
                             id="fileUpload"
