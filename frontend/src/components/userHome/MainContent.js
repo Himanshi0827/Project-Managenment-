@@ -289,7 +289,7 @@ const MainContent = ({ content, userData }) => {
   const linkStyle2 = {
     margin: "10px 32px",
     padding: " 8px",
-    backgroundColor: "#1e293b",
+    // backgroundColor: "#1e293b",
   };
   const handleQueryInputChange = (e, requirementId) => {
     const { name, value } = e.target;
@@ -480,7 +480,7 @@ const MainContent = ({ content, userData }) => {
 
                         <th
                           scope="col"
-                          className="px-8 py-5 border border-gray-200 bg-gray-800 text-center text-xs font-semibold text-white uppercase tracking-wider"
+                          className="px-8 py-5 border border-gray-200 bg-gray-900 text-center text-xs font-semibold text-white uppercase tracking-wider"
                           style={linkStyle2}
                         >
                           Project Id
