@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-// const navigate = useNavigate();
+
 
 const MainContent = ({ content, userData }) => {
   const history = useHistory();
@@ -201,8 +201,7 @@ const MainContent = ({ content, userData }) => {
       })
       .catch((error) => {
         console.error("Error fetching projects:", error);
-        // Optionally, you can set a default empty array or handle the error state
-        // setProjects([]); // Set empty array if needed
+
       });
   }, []);
 
@@ -251,7 +250,7 @@ const MainContent = ({ content, userData }) => {
   const handleRmInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // setRmInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+
     setFormData((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
 
@@ -273,7 +272,7 @@ const MainContent = ({ content, userData }) => {
     console.log(cp);
 
     const formData = {
-      projectNumber: selectedProject.projectNumber, // Set the project number appropriately
+      projectNumber: selectedProject.projectNumber,
       requirementNumber: selectedRequirementId,
       task: cpInputs.task,
       numberOfInputElements: cpInputs.inputElements,
@@ -318,27 +317,7 @@ const MainContent = ({ content, userData }) => {
       console.error(error);
     }
   };
-  //change
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formDataToSend = new FormData();
-  //   for (const key in formData) {
-  //     formDataToSend.append(key, formData[key]);
-  //   }
 
-  //   try {
-  //     const response = await fetch("http://localhost:5000/api/submit-form", {
-  //       method: "POST",
-  //       body: formDataToSend,
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-  //     fetchRequirements();
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
-  //change
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
     setSelectedDate(selectedDate);
@@ -400,7 +379,7 @@ const MainContent = ({ content, userData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [currPage, setCurrPage] = useState(1);
 
-  const rowsPerPage = 8;
+  const rowsPerPage = 5;
 
   const filteredProjects = projects.filter((project) =>
     project.clientName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -410,16 +389,20 @@ const MainContent = ({ content, userData }) => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredProjects.slice(indexOfFirstRow, indexOfLastRow);
 
-  // const handleProjectSelect = (project) => {
-  //   console.log("Selected project:", project);
-  // };
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const paginate1 = (pageNumber) => setCurrPage(pageNumber);
+
+  const paginate1 = (pageNumber) => {
+    const totalPages = Math.ceil(requirements.length / rowsPerPage);
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrPage(pageNumber);
+    }
+  };
   //hello
   const handleQueryFormSubmit = (e, requirementId) => {
     e.preventDefault();
@@ -490,11 +473,6 @@ const MainContent = ({ content, userData }) => {
                         >
                           Select
                         </th>
-                        {/* <th
-            scope="col"
-            className="px-8 py-5 border border-gray-200 bg-gray-800 text-center text-xs font-semibold text-white uppercase tracking-wider"
-          >
-          </th> */}
                         <th
                           scope="col"
                           className="px-8 py-5 border border-gray-200 bg-gray-800 text-center text-xs font-semibold text-white uppercase tracking-wider"
@@ -558,9 +536,7 @@ const MainContent = ({ content, userData }) => {
                           className="cursor-pointer hover:bg-gray-300 text-center"
                           onClick={() => handleProjectSelect(project)}
                         >
-                          {/* <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
-              <p className="text-gray-900 whitespace-no-wrap text-center">vjjffjri</p>
-            </td> */}
+
                           <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                             <input
                               type="checkbox"
@@ -619,8 +595,8 @@ const MainContent = ({ content, userData }) => {
                                   pathname: "/temp",
                                   state: {
                                     projectNumber: project.projectNumber,
-                                    projectTitle : project.projectTitle,
-                                    createdBy:managerEmail 
+                                    projectTitle: project.projectTitle,
+                                    createdBy: managerEmail
                                   },
                                 }}
                               >
@@ -801,12 +777,12 @@ const MainContent = ({ content, userData }) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {requirements.map((requirement) => (
+                          {requirements.slice((currPage - 1) * rowsPerPage, currPage * rowsPerPage).map((requirement) => (
                             <tr
                               key={requirement.requirementNumber}
                               ref={
                                 requirementRefs.current[
-                                  requirement.requirementNumber
+                                requirement.requirementNumber
                                 ]
                               }
                             >
@@ -947,6 +923,7 @@ const MainContent = ({ content, userData }) => {
                         </tbody>
                       </table>
                     </div>
+
                     <div className="flex justify-between w-full max-w-7xl py-4">
                       <button
                         onClick={() => paginate1(currPage - 1)}
@@ -958,97 +935,17 @@ const MainContent = ({ content, userData }) => {
                       <div>Page {currPage}</div>
                       <button
                         onClick={() => paginate1(currPage + 1)}
-                        disabled={
-                          currPage ===
-                          Math.ceil(filteredProjects.length / rowsPerPage)
-                        }
+                        disabled={currPage === Math.ceil(requirements.length / rowsPerPage)}
                         className="px-4 py-2 bg-gray-300 rounded shadow"
                       >
                         Next &gt;
                       </button>
                     </div>
+
                   </div>
                 )}
 
-                {/*{showCPForm && (
-                  <div className="w-1/2 px-6">
-                    <form
-                      onSubmit={handleCpFormSubmit}
-                      className="mt-4 bg-blueGray-50 p-4 rounded shadow-inner max-w-lg mx-auto"
-                      style={{ borderRadius: "30px" }}
-                    >
-                      <h4 className="text-blueGray-600 text-xl font-bold mb-4 text-center">
-                        Calculate CP
-                      </h4>
-        
-                      <div className="form-group mb-4">
-                        <label className="block text-blueGray-600 text-sm font-bold mb-2">
-                          Requirement No:
-                        </label>
 
-                        <select
-                          value={selectedRequirementId}
-                          onChange={handleRequirementSelect}
-                          style={{ borderRadius: "15px" }}
-                        >
-                          <option value="">Select Requirement</option>
-                          {requirements.map((requirement) => (
-                            <option
-                              key={requirement.requirementNumber}
-                              value={requirement.requirementNumber}
-                            >
-                              {requirement.requirementNumber}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="form-group mb-4 ">
-                        <label className="block text-blueGray-600 text-sm font-bold mb-2">
-                          Task:
-                        </label>
-                        <input
-                          type="text"
-                          name="task"
-                          value={cpInputs.task}
-                          onChange={handleCpInputChange}
-                          className="form-control w-full px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
-                          style={{ borderRadius: "15px" }}
-                        />
-                      </div>
-              
-                      {Object.keys(cpInputs)
-                        .slice(2)
-                        .map((inputName) => (
-                          <div key={inputName} className="form-group mb-4">
-                            <label className="block text-blueGray-600 text-sm font-bold mb-2">
-                              {inputName.charAt(0).toUpperCase() +
-                                inputName.slice(1)}
-                              :
-                            </label>
-                            <select
-                              name={inputName}
-                              value={cpInputs[inputName]}
-                              onChange={handleCpInputChange}
-                              className="form-control w-full px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
-                              style={{ borderRadius: "15px" }}
-                            >
-                              <option value="Low">Low</option>
-                              <option value="Medium">Medium</option>
-                              <option value="High">High</option>
-                            </select>
-                          </div>
-                        ))}
-                      <div className="text-center mt-6">
-                        <button
-                          type="submit"
-                          className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                        >
-                          Calculate CP
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                )} */}
 
                 {showCPForm && (
                   <div className="w-1/2 px-4 ">

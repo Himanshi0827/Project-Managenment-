@@ -199,7 +199,7 @@ const MainContent = ({ content, userData }) => {
   const handleRmInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // setRmInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+
     setFormData((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
   //change
@@ -209,10 +209,7 @@ const MainContent = ({ content, userData }) => {
     setShowRMForm(true);
     setShowCPForm(false);
   };
-  // const handleManageRequirements = () => {
-  //   setShowRMForm(true);
-  //   setShowCPForm(false);
-  // };
+
   const logOut = () => {
     window.localStorage.clear();
     window.location.href = "/auth/login";
@@ -222,10 +219,6 @@ const MainContent = ({ content, userData }) => {
     const { name, value } = e.target;
     setCpInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
   };
-  // const handleRmInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setRmInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
-  // };
 
   const handleCpFormSubmit = (e) => {
     e.preventDefault();
@@ -305,8 +298,9 @@ const MainContent = ({ content, userData }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [currPage, setCurrPage] = useState(1);
-  const rowsPerPage = 8;
+const [currPage, setCurrPage] = useState(1);
+const rowsPerPage = 5; // Adjust as needed
+
 
   const filteredProjects = projects.filter((project) =>
     project.clientName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -325,7 +319,13 @@ const MainContent = ({ content, userData }) => {
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  const paginate1 = (pageNumber) => setCurrPage(pageNumber);
+  //const paginate1 = (pageNumber) => setCurrPage(pageNumber);
+  const paginate1 = (pageNumber) => {
+    const totalPages = Math.ceil(requirements.length / rowsPerPage);
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrPage(pageNumber);
+    }
+  };
   //hello
   const handleQueryFormSubmit = (e, requirementId) => {
     e.preventDefault();
@@ -368,33 +368,6 @@ const MainContent = ({ content, userData }) => {
       setRNumber(selectedRequirementId);
     }
   };
-
-  // const onFileUpload = async () => {
-  //   if (!selectedFile) {
-  //     setUploadStatus("Please select a file first.");
-  //     return;
-  //   }
-
-  //   const formData1 = new FormData();
-  //   formData1.append("file", selectedFile);
-
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:5000/upload",
-  //       formData1,
-  //       {
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //       }
-  //     );
-  //     alert("File Uploaded");
-  //     setUploadStatus(response.data.message);
-  //   } catch (error) {
-  //     console.error("Error uploading file:", error);
-  //     setUploadStatus("Error uploading file.");
-  //   }
-  // };
 
   const onFileUpload = async () => {
     if (!selectedFile) {
@@ -770,12 +743,12 @@ const MainContent = ({ content, userData }) => {
                           </tr>
                         </thead>
                         <tbody>
-                          {requirements.map((requirement) => (
+                          {requirements.slice((currPage - 1) * rowsPerPage, currPage * rowsPerPage).map((requirement) => (
                             <tr
                               key={requirement.requirementNumber}
                               ref={
                                 requirementRefs.current[
-                                  requirement.requirementNumber
+                                requirement.requirementNumber
                                 ]
                               }
                             >
@@ -899,18 +872,7 @@ const MainContent = ({ content, userData }) => {
                                   Requirements Management
                                 </button>
 
-                                {/* <br></br>
-                                <br></br>
-                                <button
-                                  onClick={() =>
-                                    handleCalculateCP(
-                                      requirement.requirementNumber
-                                    )
-                                  }
-                                  className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                                >
-                                  Calculate CP
-                                </button> */}
+
                               </td>
                               <td
                                 className="px-8 py-5 border border-gray-200 bg-white text-sm"
@@ -938,307 +900,28 @@ const MainContent = ({ content, userData }) => {
                         </tbody>
                       </table>
                     </div>
+                  
                     <div className="flex justify-between w-full max-w-7xl py-4">
-                      <button
-                        onClick={() => paginate1(currPage - 1)}
-                        disabled={currPage === 1}
-                        className="px-4 py-2 bg-gray-300 rounded shadow"
-                      >
-                        &lt; Prev
-                      </button>
-                      <div>Page {currPage}</div>
-                      <button
-                        onClick={() => paginate1(currPage + 1)}
-                        disabled={
-                          currPage ===
-                          Math.ceil(filteredProjects.length / rowsPerPage)
-                        }
-                        className="px-4 py-2 bg-gray-300 rounded shadow"
-                      >
-                        Next &gt;
-                      </button>
-                    </div>
+  <button
+    onClick={() => paginate1(currPage - 1)}
+    disabled={currPage === 1}
+    className="px-4 py-2 bg-gray-300 rounded shadow"
+  >
+    &lt; Prev
+  </button>
+  <div>Page {currPage}</div>
+  <button
+    onClick={() => paginate1(currPage + 1)}
+    disabled={currPage === Math.ceil(requirements.length / rowsPerPage)}
+    className="px-4 py-2 bg-gray-300 rounded shadow"
+  >
+    Next &gt;
+  </button>
+</div>
+
                   </div>
                 )}
-                {/* {requirements.length > -1 && (
-                  <div className="w-full  px-4 items-center">
-                    <h3 className="text-blueGray-600 text-xl font-bold mt-4">
-                      Requirements for {selectedProject.projectTitle}
-                    </h3>
-                    <div className="mt-4">
-                      <label className="block text-blueGray-600 text-sm font-bold mb-2">
-                        Select Date:
-                      </label>
-                      <input
-                        type="date"
-                        value={selectedDate}
-                        onChange={handleDateChange}
-                        className="form-control w-full px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring ease-linear transition-all duration-150"
-                      />
-                      
-                    </div>
-                    <div className="table-container mt-3 mr-3 ml-3 max-w-full overflow-x-auto shadow-lg rounded-lg overflow-hidden">
-                      <table
-                        className="w-full  px-8 items-center"
-                        style={{ width: "1500px" }}
-                      >
-                        <thead>
-                          <tr
-                            square={false}
-                            className="px-8 mt-3 mr-3 ml-3"
-                            style={{
-                              background: "#334155",
-                              color: "white",
-                              textAlign: "center",
-                              padding: "10px",
-                            }}
-                          >
-                            <th
-                              className="px-8 py-5 border border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Select
-                            </th>
-                            <th
-                              className="px-8 py-5 border border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Requirement No
-                            </th>
-                            <th
-                              className="px-8 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Requirement Date
-                            </th>
 
-                            <th
-                              className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Requirement Change No
-                            </th>
-                            <th
-                              className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Change Date
-                            </th>
-                            <th
-                              className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Description
-                            </th>
-                            <th
-                              className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Priority
-                            </th>
-                            <th
-                              className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center"
-                              style={{ minWidth: "100px" }}
-                            >
-                              Requirement Gathered By
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center mt-3 mr-3 ml-3">
-                              Mode Of Receipt
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Provided By
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Requirement Acceptance
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Actions To Be Taken
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Responsibility
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Expected Date Of Delivery
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Status
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Requirement Output Name
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Dependency
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Impact Of New Requirements
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Remarks
-                            </th>
-                            <th className="px-9 py-5 border border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                              Actions
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {requirements.map((requirement) => (
-                            <tr
-                              key={requirement.requirementNumber}
-                              ref={
-                                requirementRefs.current[
-                                  requirement.requirementNumber
-                                ]
-                              }
-                            >
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <input
-                                  type="checkbox"
-                                  onChange={(e) =>
-                                    handleCheckboxChange(
-                                      e,
-                                      requirement.requirementNumber
-                                    )
-                                  }
-                                  checked={selectedRequirements.includes(
-                                    requirement.requirementNumber
-                                  )}
-                                />
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementNumber}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementDate}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementChangeNumber}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.changeDate}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.description}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.priority}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementGatheredBy}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.modeOfReceipt}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.providedBy}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementAcceptance}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.actionsToBeTaken}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.responsibility}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.expectedDateOfDelivery}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.status}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementOutputName}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.dependency}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {
-                                    requirement.impactOfNewRequirementsOrChangesOrChanges
-                                  }
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                                <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.remarks}
-                                </p>
-                              </td>
-                              <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
-                              <button
-                                  className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                                  type="button"
-                                  onClick={() =>
-                                    handleManageRequirements(
-                                      requirement.requirementNumber
-                                    )
-                                  }
-                                >
-                                  Requirements Management
-                                </button>
-                               
-                                <br></br>
-                                <br></br>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="flex justify-between w-full max-w-7xl py-4">
-                      <button
-                        onClick={() => paginate1(currPage - 1)}
-                        disabled={currPage === 1}
-                        className="px-4 py-2 bg-gray-300 rounded shadow"
-                      >
-                        &lt; Prev
-                      </button>
-                      <div>Page {currPage}</div>
-                      <button
-                        onClick={() => paginate1(currPage + 1)}
-                        disabled={
-                          currPage ===
-                          Math.ceil(filteredProjects.length / rowsPerPage)
-                        }
-                        className="px-4 py-2 bg-gray-300 rounded shadow"
-                      >
-                        Next &gt;
-                      </button>
-                    </div>
-                  </div>
-                )} */}
                 {showRMForm && (
                   <div
                     className="w-1/2  px-6 justify-items"
@@ -1610,14 +1293,7 @@ const MainContent = ({ content, userData }) => {
                           />
                           <button onClick={onFileUpload}>Upload</button>
                           <p>{uploadStatus}</p>
-                          {/* <input
-                            type="file"
-                            id="fileUpload"
-                            name="fileUpload"
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            style={{ borderRadius: "15px" }}
-                          /> */}
+
                         </div>
                       </div>
                       <button
@@ -1629,358 +1305,7 @@ const MainContent = ({ content, userData }) => {
                     </form>
                   </div>
                 )}
-                {/* {showRMForm && (
-                  <div className="w-full  px-4">
-                    <form
-                      onSubmit={handleRmFormSubmit}
-                      className="mt-4 bg-blueGray-50 p-4 rounded shadow-inner"
-                    >
-                      <h3 className="text-blueGray-600 text-lg font-bold">
-                        Requirements Management
-                      </h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label
-                            htmlFor="requirementDate"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Requirement Date
-                          </label>
-                          <input
-                            type="date"
-                            id="requirementDate"
-                            name="requirementDate"
-                            value={rmInputs.requirementDate}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
 
-                        <div>
-                          <label
-                            htmlFor="requirementChangeNumber"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Requirement Change No.
-                          </label>
-                          <input
-                            type="text"
-                            id="requirementChangeNumber"
-                            name="requirementChangeNumber"
-                            value={rmInputs.requirementChangeNumber}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="changeDate"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Change Date
-                          </label>
-                          <input
-                            type="date"
-                            id="changeDate"
-                            name="changeDate"
-                            value={rmInputs.changeDate}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="description"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Description
-                          </label>
-                          <textarea
-                            id="description"
-                            name="description"
-                            value={rmInputs.description}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="requirementGatheredBy"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Requirement Gathered By
-                          </label>
-                          <input
-                            type="text"
-                            id="requirementGatheredBy"
-                            name="requirementGatheredBy"
-                            value={rmInputs.requirementGatheredBy}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="providedBy"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Provided By
-                          </label>
-                          <input
-                            type="text"
-                            id="providedBy"
-                            name="providedBy"
-                            value={rmInputs.providedBy}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="remarks"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Remarks
-                          </label>
-                          <input
-                            type="text"
-                            id="remarks"
-                            name="remarks"
-                            value={rmInputs.remarks}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="priority"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Priority
-                          </label>
-                          <select
-                            id="priority"
-                            name="priority"
-                            value={rmInputs.priority}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option value="Low">Low</option>
-                            <option value="Medium">Medium</option>
-                            <option value="High">High</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="modeOfReceipt"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Mode of Receipt
-                          </label>
-                          <select
-                            id="modeOfReceipt"
-                            name="modeOfReceipt"
-                            value={rmInputs.modeOfReceipt}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option value="VideoCall">Video Call</option>
-                            <option value="Call">Call</option>
-                            <option value="Meeting">Meeting</option>
-                            <option value="Email">Email</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="actionsToBeTaken"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Actions to be taken
-                          </label>
-                          <input
-                            type="text"
-                            id="actionsToBeTaken"
-                            name="actionsToBeTaken"
-                            value={rmInputs.actionsToBeTaken}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="completionDate"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Completion Date
-                          </label>
-                          <input
-                            type="date"
-                            id="completionDate"
-                            name="completionDate"
-                            value={rmInputs.completionDate}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="responsibility"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Responsibility
-                          </label>
-                          <input
-                            type="text"
-                            id="responsibility"
-                            name="responsibility"
-                            value={rmInputs.responsibility}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="changeDate2"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Change Date
-                          </label>
-                          <input
-                            type="date"
-                            id="changeDate2"
-                            name="changeDate2"
-                            value={rmInputs.changeDate2}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="impactOfNewRequirements"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Impact of new requirements/changes
-                          </label>
-                          <input
-                            type="text"
-                            id="impactOfNewRequirements"
-                            name="impactOfNewRequirements"
-                            value={rmInputs.impactOfNewRequirements}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="requirementOutputName"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Requirement output name
-                          </label>
-                          <input
-                            type="text"
-                            id="requirementOutputName"
-                            name="requirementOutputName"
-                            value={rmInputs.requirementOutputName}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="dependency"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Dependency
-                          </label>
-                          <input
-                            type="text"
-                            id="dependency"
-                            name="dependency"
-                            value={rmInputs.dependency}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="requirementAcceptance"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Requirement Acceptance (Yes/No)
-                          </label>
-                          <select
-                            id="requirementAcceptance"
-                            name="requirementAcceptance"
-                            value={rmInputs.requirementAcceptance}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="status"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Status
-                          </label>
-                          <select
-                            id="status"
-                            name="status"
-                            value={rmInputs.status}
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          >
-                            <option value="Ongoing">Ongoing</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Waiting">Waiting</option>
-                          </select>
-                        </div>
-
-                        <div>
-                          <label
-                            htmlFor="fileUpload"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Upload File
-                          </label>
-                          <input
-                            type="file"
-                            id="fileUpload"
-                            name="fileUpload"
-                            onChange={handleRmInputChange}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                          />
-                        </div>
-                      </div>
-                      <button
-                        type="submit"
-                        className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                      >
-                        Submit
-                      </button>
-                    </form>
-                  </div>
-                )} */}
               </div>
             )}
           </div>
