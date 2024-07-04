@@ -152,26 +152,13 @@
 
 // export default ViewFile;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import mammoth from "mammoth";
 import { read, utils } from "xlsx";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const ViewFile = () => {
   const { id } = useParams();
@@ -239,7 +226,9 @@ const ViewFile = () => {
         const cell = sheet[cellRef] ? sheet[cellRef].v : "";
         const style = sheet[cellRef] ? sheet[cellRef].s : "";
 
-        htmlTable.push(`<td style='border: 1px solid #ccc; padding: 5px;'>${cell}</td>`);
+        htmlTable.push(
+          `<td style='border: 1px solid #ccc; padding: 5px;'>${cell}</td>`
+        );
       }
 
       htmlTable.push("</tr>");
@@ -260,7 +249,8 @@ const ViewFile = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           maxWidth: "800px",
           margin: "0 auto",
-          textAlign: "center"
+          textAlign: "center",
+          marginTop: "40px",
         }}
       >
         <Box sx={{ display: "flex" }}>
@@ -321,7 +311,8 @@ const ViewFile = () => {
       return (
         <div
           dangerouslySetInnerHTML={{ __html: fileContent }}
-          style={{
+          style=
+          {{
             border: "1px solid #ccc",
             padding: "10px",
             borderRadius: "8px",
@@ -347,7 +338,7 @@ const ViewFile = () => {
         borderRadius: "8px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         maxWidth: "800px",
-        margin: "20px auto",
+        margin: "40px auto",
         textAlign: "center",
       }}
     >

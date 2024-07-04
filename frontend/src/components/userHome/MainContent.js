@@ -318,8 +318,8 @@ const MainContent = ({ content, userData }) => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-const [currPage, setCurrPage] = useState(1);
-const rowsPerPage = 10; // Adjust as needed
+  const [currPage, setCurrPage] = useState(1);
+  const rowsPerPage = 10; // Adjust as needed
 
 
   const filteredProjects = projects.filter((project) =>
