@@ -103,6 +103,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const FileList = () => {
   const [files, setFiles] = useState([]);
@@ -134,7 +136,23 @@ const FileList = () => {
   }, [requirementNumber]); // Depend on requirementNumber to trigger the useEffect
 
   if (loading) {
-    return <p>Loading files...</p>;
+    return (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#e2e8f0",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          maxWidth: "800px",
+          margin: "0 auto",
+          textAlign: "center"
+        }}
+      >
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      </div>
+    );
   }
 
   if (error) {

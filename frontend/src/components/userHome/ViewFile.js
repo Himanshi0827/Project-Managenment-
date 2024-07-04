@@ -170,6 +170,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import mammoth from "mammoth";
 import { read, utils } from "xlsx";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const ViewFile = () => {
   const { id } = useParams();
@@ -249,7 +251,23 @@ const ViewFile = () => {
   };
 
   if (loading) {
-    return <p>Loading file...</p>;
+    return (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#e2e8f0",
+          borderRadius: "8px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          maxWidth: "800px",
+          margin: "0 auto",
+          textAlign: "center"
+        }}
+      >
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      </div>
+    );
   }
 
   if (error) {
