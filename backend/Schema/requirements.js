@@ -14,18 +14,18 @@ const requirementSchema = new mongoose.Schema(
     },
     requirementDate: {
       type: Date,
-      required: true,
+    
     },
     requirementChangeNumber: {
       type: String,
-      unique: true,
-      default: null,
-      required : true,
+    
+  
+    
     },
     changeDate: {
       type: Date,
       default: null,
-      required : true,
+     
     },
     description: {
       type: String,
@@ -82,7 +82,7 @@ const requirementSchema = new mongoose.Schema(
     },
     remarks: {
       type: String,
-      required: true,
+   
     },
   },
   {
