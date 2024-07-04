@@ -252,6 +252,26 @@ const MainContent = ({ content, userData }) => {
       );
     }
   };
+  // const handleDateChange = (e) => {
+  //   const selectedDate = e.target.value;
+  //   setSelectedDate(selectedDate);
+  //   scrollToRequirement(selectedDate);
+  // };
+
+  // const scrollToRequirement = (date) => {
+  //   const requirement = requirements.find((req) => req.date === date);
+
+  //   if (requirement && requirementRefs.current[requirement.requirementNumber]) {
+  //     requirementRefs.current[
+  //       requirement.requirementNumber
+  //     ].current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //     });
+  //   } else {
+  //     alert("No requirement found for the selected date.");
+  //   }
+  // };
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
     setSelectedDate(selectedDate);
@@ -259,20 +279,20 @@ const MainContent = ({ content, userData }) => {
   };
 
   const scrollToRequirement = (date) => {
-    const requirement = requirements.find((req) => req.date === date);
+    const requirement = requirements.find((req) => {
+      const reqDate = new Date(req.requirementDate).toISOString().split('T')[0];
+      return reqDate === date;
+    });
 
     if (requirement && requirementRefs.current[requirement.requirementNumber]) {
-      requirementRefs.current[
-        requirement.requirementNumber
-      ].current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      requirementRefs.current[requirement.requirementNumber].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
       });
     } else {
-      alert("No requirement found for the selected date.");
+      alert('No requirement found for the selected date.');
     }
   };
-
   const toggleQueryForm = (requirementId) => {
     setQueryForms((prevForms) => ({
       ...prevForms,
@@ -299,7 +319,7 @@ const MainContent = ({ content, userData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 const [currPage, setCurrPage] = useState(1);
-const rowsPerPage = 5; // Adjust as needed
+const rowsPerPage = 10; // Adjust as needed
 
 
   const filteredProjects = projects.filter((project) =>
@@ -367,6 +387,13 @@ const rowsPerPage = 5; // Adjust as needed
       console.log("else" + rNumber)
       setRNumber(selectedRequirementId);
     }
+  };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based in JavaScript
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
   const onFileUpload = async () => {
@@ -555,7 +582,7 @@ const rowsPerPage = 5; // Adjust as needed
                           </td>
                           <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                              {project.dateOfCreation}
+                              {formatDate(project.dateOfCreation)}
                             </p>
                           </td>
                           <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
@@ -773,7 +800,7 @@ const rowsPerPage = 5; // Adjust as needed
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementDate}
+                                  {formatDate(requirement.requirementDate)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
@@ -783,7 +810,7 @@ const rowsPerPage = 5; // Adjust as needed
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.changeDate}
+                                  {formatDate(requirement.changeDate)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
@@ -828,7 +855,7 @@ const rowsPerPage = 5; // Adjust as needed
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.expectedDateOfDelivery}
+                                  {formatDate(requirement.expectedDateOfDelivery)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">

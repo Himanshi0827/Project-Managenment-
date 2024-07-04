@@ -145,7 +145,8 @@ const FileList = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           maxWidth: "800px",
           margin: "0 auto",
-          textAlign: "center"
+          textAlign: "center",
+          marginTop:'40px',
         }}
       >
         <Box sx={{ display: "flex" }}>
@@ -169,9 +170,10 @@ const FileList = () => {
         maxWidth: "800px",
         margin: "0 auto",
         textAlign: "center",
+        marginTop:'40px',
       }}
     >
-      <h1><b>Uploaded Files</b></h1>
+      <h1 style={{fontSize:"20px"}}><b>Uploaded Files</b></h1>
       <table
         style={{
           width: "100%",
@@ -213,6 +215,7 @@ const FileList = () => {
                   padding: "12px 15px",
                   border: "1px solid #ddd",
                   textAlign: "left",
+                  fontFamily:"JetBrains Mono"
                 }}
               >
                 {/* <a
@@ -234,8 +237,6 @@ const FileList = () => {
                 <Link to={`/view/${file._id}`}>
                   <button
                     className="ml-auto  bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-                   
-                  
                   >
                     View
                   </button>
