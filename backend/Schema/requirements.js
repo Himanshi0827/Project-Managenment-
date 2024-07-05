@@ -14,13 +14,9 @@ const requirementSchema = new mongoose.Schema(
     },
     requirementDate: {
       type: Date,
-    
     },
     requirementChangeNumber: {
       type: String,
-    
-  
-    
     },
     changeDate: {
       type: Date,

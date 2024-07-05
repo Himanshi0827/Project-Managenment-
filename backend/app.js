@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -94,7 +93,7 @@ app.post("/register", async (req, res) => {
       }
     );
 
-    res.send({ status: "ok" }); 
+    res.send({ status: "ok" });
   } catch (error) {
     res.send({ status: "error" });
   }
@@ -534,358 +533,368 @@ const Requirement = require("./Schema/requirements");
 
 const seedDatabase = async () => {
   try {
-//     // Clear existing data
+    //     // Clear existing data
 
-//     await Project.deleteMany({});
+    //     await Project.deleteMany({});
     await Requirement.deleteMany({});
-//     // Sample Projects
-//     const projects = [
-//       {
-//         projectNumber: 1,
-//         projectManagerName: "Alice Johnson",
-//         clientName: "Client A",
-//         projectTitle: "Project Alpha",
-//         projectDesc: "Description for Project Alpha",
-//         projectStatus: "Ongoing",
-//         email: "hp24@gmail.com",
-//         dateOfCreation: new Date("2023-01-01"),
-//         numberOfmembers: 5,
-//         priority: "High",
-//         CP: 1001,
-//       },
-//       {
-//         projectNumber: 2,
-//         projectManagerName: "Bob Smith",
-//         clientName: "Client B",
-//         projectTitle: "Project Beta",
-//         projectDesc: "Description for Project Beta",
-//         projectStatus: "Completed",
-//         email: "smit@gmail.com",
-//         dateOfCreation: new Date("2023-02-01"),
-//         numberOfmembers: 8,
-//         priority: "Medium",
-//         CP: 1002,
-//       },
-//       {
-//         projectNumber: 3,
-//         projectManagerName: "Alice Johnson",
-//         clientName: "Client C",
-//         projectTitle: "Project Gamma",
-//         projectDesc: "Description for Project Gamma",
-//         projectStatus: "Ongoing",
-//         email: "hp24@gmail.com",
-//         dateOfCreation: new Date("2023-03-01"),
-//         numberOfmembers: 10,
-//         priority: "Low",
-//         CP: 1003,
-//       },
-//     ];
+    //     // Sample Projects
+    //     const projects = [
+    //       {
+    //         projectNumber: 1,
+    //         projectManagerName: "Alice Johnson",
+    //         clientName: "Client A",
+    //         projectTitle: "Project Alpha",
+    //         projectDesc: "Description for Project Alpha",
+    //         projectStatus: "Ongoing",
+    //         email: "hp24@gmail.com",
+    //         dateOfCreation: new Date("2023-01-01"),
+    //         numberOfmembers: 5,
+    //         priority: "High",
+    //         CP: 1001,
+    //       },
+    //       {
+    //         projectNumber: 2,
+    //         projectManagerName: "Bob Smith",
+    //         clientName: "Client B",
+    //         projectTitle: "Project Beta",
+    //         projectDesc: "Description for Project Beta",
+    //         projectStatus: "Completed",
+    //         email: "smit@gmail.com",
+    //         dateOfCreation: new Date("2023-02-01"),
+    //         numberOfmembers: 8,
+    //         priority: "Medium",
+    //         CP: 1002,
+    //       },
+    //       {
+    //         projectNumber: 3,
+    //         projectManagerName: "Alice Johnson",
+    //         clientName: "Client C",
+    //         projectTitle: "Project Gamma",
+    //         projectDesc: "Description for Project Gamma",
+    //         projectStatus: "Ongoing",
+    //         email: "hp24@gmail.com",
+    //         dateOfCreation: new Date("2023-03-01"),
+    //         numberOfmembers: 10,
+    //         priority: "Low",
+    //         CP: 1003,
+    //       },
+    //     ];
 
-//     // Insert Projects
-//     await Project.insertMany(projects);
-//     console.log("Projects inserted");
+    //     // Insert Projects
+    //     await Project.insertMany(projects);
+    //     console.log("Projects inserted");
 
     // Sample Requirements
-    const requirements =[
+    const requirements = [
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.01.00.00",
-        "requirementDate": "2023-09-01T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Gross GST Paid during claim period and Net GST Paid during claim period",
-        "priority": "High",
-        "requirementGatheredBy": "Krunal Patel , Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Development",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-11-02T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.01.00.00",
+        requirementDate: "2023-09-01T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Gross GST Paid during claim period and Net GST Paid during claim period",
+        priority: "High",
+        requirementGatheredBy: "Krunal Patel , Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Development",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-11-02T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.02.00.00",
-        "requirementDate": "2023-09-06T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add Income Tax of Central Govt. share in Applicant Module",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Development",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-10-09T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.02.00.00",
+        requirementDate: "2023-09-06T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add Income Tax of Central Govt. share in Applicant Module",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Development",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-10-09T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.03.00.00",
-        "requirementDate": "2023-09-25T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add GST reimbursement of Central Govt. share in District Module Approval",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Call",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-12-06T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "District Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.03.00.00",
+        requirementDate: "2023-09-25T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add GST reimbursement of Central Govt. share in District Module Approval",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Call",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-12-06T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "District Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.04.00.00",
-        "requirementDate": "2023-10-02T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add Income Tax of Central Govt. share in District Module Approval",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Call",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-11-06T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "District Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.04.00.00",
+        requirementDate: "2023-10-02T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add Income Tax of Central Govt. share in District Module Approval",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Call",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-11-06T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "District Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.05.00.00",
-        "requirementDate": "2023-10-11T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add GST reimbursement of Central Govt. share in GST Commissioner Module Approval",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Usha",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-01-04T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "GST Commissioner Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.05.00.00",
+        requirementDate: "2023-10-11T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add GST reimbursement of Central Govt. share in GST Commissioner Module Approval",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Usha",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-01-04T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "GST Commissioner Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.06.00.00",
-        "requirementDate": "2023-10-16T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add GST reimbursement of Central Govt. share in State Module Approval",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Meeting",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-01-10T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "State Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.06.00.00",
+        requirementDate: "2023-10-16T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add GST reimbursement of Central Govt. share in State Module Approval",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Meeting",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-01-10T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "State Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.07.00.00",
-        "requirementDate": "2023-10-23T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add Income Tax of Central Govt. share in State Module Approval",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Meeting",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-12-12T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "State Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.07.00.00",
+        requirementDate: "2023-10-23T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add Income Tax of Central Govt. share in State Module Approval",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Meeting",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-12-12T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "State Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.08.00.00",
-        "requirementDate": "2023-11-01T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years in Applicant Module",
-        "priority": "High",
-        "requirementGatheredBy": "Krunal Patel , Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Call",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Development",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-01-02T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.08.00.00",
+        requirementDate: "2023-11-01T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years in Applicant Module",
+        priority: "High",
+        requirementGatheredBy: "Krunal Patel , Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Call",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Development",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-01-02T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.09.00.00",
-        "requirementDate": null,
-        "requirementChangeNumber": "C.08.01.00",
-        "changeDate": "2024-01-02T00:00:00.000Z",
-        "description": "Add Turnover Amount in Rs.",
-        "priority": "Low",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Usha",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Change Input",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-02-01T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.09.00.00",
+        requirementDate: null,
+        requirementChangeNumber: "C.08.01.00",
+        changeDate: "2024-01-02T00:00:00.000Z",
+        description: "Add Turnover Amount in Rs.",
+        priority: "Low",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Usha",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Change Input",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-02-01T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.10.00.00",
-        "requirementDate": null,
-        "requirementChangeNumber": "C.08.02.00",
-        "requirementDate": "2024-04-01T00:00:00.000Z",
-        "requirementChangeNumber": null,
-        "changeDate": null,
-        "description": "Add Period of claim Drop Down and Monthly quarter Radio Button",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Usha",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Change Input",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-02-01T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.10.00.00",
+        requirementDate: null,
+        requirementChangeNumber: "C.08.02.00",
+        requirementDate: "2024-04-01T00:00:00.000Z",
+        requirementChangeNumber: null,
+        changeDate: null,
+        description:
+          "Add Period of claim Drop Down and Monthly quarter Radio Button",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Usha",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Change Input",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-02-01T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.11.00.00",
-        "requirementDate": "2023-11-13T00:00:00.000Z",
-        "requirementChangeNumber": "C.08.01.00",
-        "changeDate": "2024-01-02T00:00:00.000Z",
-        "description": "Add Income Tax Reimbursement of centre’s share for 5 years in Applicant Module",
-        "priority": "Medium",
-        "requirementGatheredBy": "Krunal Patel, Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "VC",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Development",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-12-30T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "Applicant Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.11.00.00",
+        requirementDate: "2023-11-13T00:00:00.000Z",
+        requirementChangeNumber: "C.08.01.00",
+        changeDate: "2024-01-02T00:00:00.000Z",
+        description:
+          "Add Income Tax Reimbursement of centre’s share for 5 years in Applicant Module",
+        priority: "Medium",
+        requirementGatheredBy: "Krunal Patel, Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "VC",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Development",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-12-30T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "Applicant Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.12.00.00",
-        "requirementDate": "2023-11-16T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years view Report Particular District",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Call",
-        "providedBy": "Usha",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Add Report filter by district",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2023-11-20T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "District Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.12.00.00",
+        requirementDate: "2023-11-16T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description:
+          "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years view Report Particular District",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Call",
+        providedBy: "Usha",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Add Report filter by district",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2023-11-20T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "District Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "R.13.00.00",
-        "requirementDate": "2023-11-21T00:00:00.000Z",
-        "requirementChangeNumber": "C.11.01.00",
-        "changeDate": "2024-02-05T00:00:00.000Z",
-        "description": "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years in District Module Approval",
-        "priority": "High",
-        "requirementGatheredBy": "Krunal Patel, Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Meeting",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Approval for Application",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-01-08T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "District Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "R.13.00.00",
+        requirementDate: "2023-11-21T00:00:00.000Z",
+        requirementChangeNumber: "C.11.01.00",
+        changeDate: "2024-02-05T00:00:00.000Z",
+        description:
+          "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years in District Module Approval",
+        priority: "High",
+        requirementGatheredBy: "Krunal Patel, Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Meeting",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Approval for Application",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-01-08T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "District Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
       {
-        "projectNumber": 1,
-        "requirementNumber": "C.14.01.00",
-        "requirementDate": "2024-02-05T00:00:00.000Z",
-        "requirementChangeNumber": "",
-        "changeDate": null,
-        "description": "Add Incentive Amount (INR), Document Agenda and Remark",
-        "priority": "Medium",
-        "requirementGatheredBy": "Jai Prakash & Rashmi Patel",
-        "modeOfReceipt": "Meeting",
-        "providedBy": "Rashmi",
-        "requirementAcceptance": "Yes",
-        "actionsToBeTaken": "Add Document",
-        "responsibility": "Rashmi",
-        "expectedDateOfDelivery": "2024-02-08T00:00:00.000Z",
-        "status": "Completed",
-        "requirementOutputName": "District Module",
-        "dependency": "",
-        "impactOfNewRequirementsOrChanges": "",
-        "remarks": ""
+        projectNumber: 1,
+        requirementNumber: "C.14.01.00",
+        requirementDate: "2024-02-05T00:00:00.000Z",
+        requirementChangeNumber: "",
+        changeDate: null,
+        description: "Add Incentive Amount (INR), Document Agenda and Remark",
+        priority: "Medium",
+        requirementGatheredBy: "Jai Prakash & Rashmi Patel",
+        modeOfReceipt: "Meeting",
+        providedBy: "Rashmi",
+        requirementAcceptance: "Yes",
+        actionsToBeTaken: "Add Document",
+        responsibility: "Rashmi",
+        expectedDateOfDelivery: "2024-02-08T00:00:00.000Z",
+        status: "Completed",
+        requirementOutputName: "District Module",
+        dependency: "",
+        impactOfNewRequirementsOrChanges: "",
+        remarks: "",
       },
-    ]
-    ;
-
+    ];
     // Insert Requirements
     await Requirement.insertMany(requirements);
     console.log("Requirements inserted");
@@ -1006,6 +1015,11 @@ const cpSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  projectNumber: {
+    type: Number,
+    ref: "Project",
+    required: true,
+  },
   task: {
     type: String,
     required: true,
@@ -1039,12 +1053,34 @@ const cpSchema = new mongoose.Schema({
 cpSchema.plugin(AutoIncrement.plugin, { model: "CP", field: "taskNumber" });
 const CPmodel = mongoose.model("CP", cpSchema);
 
-// Express route for handling POST request
+const updateProjectCP = async (projectNumber) => {
+  try {
+    // Calculate the sum of CP values for the given project number
+    const cpSum = await CPmodel.aggregate([
+      { $match: { projectNumber: projectNumber } },
+      { $group: { _id: null, totalCP: { $sum: { $toDouble: "$CP" } } } }, // Convert CP to a number
+    ]);
+
+    const totalCP = cpSum.length ? cpSum[0].totalCP : 0;
+
+    // Update the Project schema with the calculated CP value
+    await Project.updateOne(
+      { projectNumber: projectNumber },
+      { $set: { CP: totalCP } }
+    );
+
+    console.log(`Project ${projectNumber} CP updated to ${totalCP}`);
+  } catch (error) {
+    console.error("Error updating project CP:", error);
+  }
+};
+
 app.post("/api/calculate-cp", async (req, res) => {
   try {
     const {
       requirementNumber,
       task,
+      projectNumber,
       numberOfInputElements,
       numberOfTablesViews,
       interfaceClass,
@@ -1057,6 +1093,7 @@ app.post("/api/calculate-cp", async (req, res) => {
     const newCP = new CPmodel({
       requirementNumber,
       task,
+      projectNumber,
       numberOfInputElements,
       numberOfTablesViews,
       interfaceClass,
@@ -1068,12 +1105,53 @@ app.post("/api/calculate-cp", async (req, res) => {
     // Save the new document to the database
     await newCP.save();
 
+    // Update the total CP for the related project
+    await updateProjectCP(projectNumber);
+
     res.status(200).json({ message: "Form data saved successfully." });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+// Express route for handling POST request
+// app.post("/api/calculate-cp", async (req, res) => {
+//   try {
+//     const {
+//       requirementNumber,
+//       task,
+//       projectNumber,
+//       numberOfInputElements,
+//       numberOfTablesViews,
+//       interfaceClass,
+//       functionsLogic,
+//       rndComponent,
+//       CP,
+//     } = req.body;
+
+//     // Create a new CP document
+//     const newCP = new CPmodel({
+//       requirementNumber,
+//       task,
+//       projectNumber,
+//       numberOfInputElements,
+//       numberOfTablesViews,
+//       interfaceClass,
+//       functionsLogic,
+//       rndComponent,
+//       CP,
+//     });
+
+//     // Save the new document to the database
+//     await newCP.save();
+
+//     res.status(200).json({ message: "Form data saved successfully." });
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 const TemplateModel = require("./Schema/template");
 
@@ -1182,8 +1260,6 @@ cpSchema.plugin(AutoIncrement.plugin, { model: "File", field: "version" });
 
 const File = mongoose.model("File", FileSchema);
 
-
-
 app.post("/api/saveForm", async (req, res) => {
   try {
     const {
@@ -1255,10 +1331,6 @@ app.post("/api/saveForm", async (req, res) => {
   }
 });
 
-
-
-
-
 app.use(bodyParser.json());
 app.get("/api/getForm/:version", async (req, res) => {
   const { version } = req.params;
@@ -1285,7 +1357,7 @@ app.get("/api/getForm/:version", async (req, res) => {
           templateName: form.templateName,
           createdBy: form.createdBy,
           createdAt: versionData.createdAt,
-          versionNum : versionData.versionNum,
+          versionNum: versionData.versionNum,
         };
         res.json(response);
       } else {
@@ -1311,24 +1383,20 @@ app.get("/api/files", async (req, res) => {
   }
 });
 
-
-
-
 //upload file
 
-
 //const express = require('express');
-const multer = require('multer');
-const { MongoClient, GridFSBucket, ObjectId } = require('mongodb');
-const stream = require('stream');
+const multer = require("multer");
+const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
+const stream = require("stream");
 //const cors = require('cors'); // Import the cors package
-const mammoth = require('mammoth');
-const Docxtemplater = require('docxtemplater');
-const path = require('path');
+const mammoth = require("mammoth");
+const Docxtemplater = require("docxtemplater");
+const path = require("path");
 // const app = express();
-const PizZip = require('pizzip');
+const PizZip = require("pizzip");
 //const fs = require('fs');
-const htmlDocx = require('html-docx-js');
+const htmlDocx = require("html-docx-js");
 const requirements = require("./Schema/requirements");
 //const bodyParser = require('body-parser');
 
@@ -1344,7 +1412,7 @@ const upload = multer({ storage });
 const dbName = "test";
 const collectionName = "uploads"; // GridFS collection name
 
-async function connectToDatabase(){
+async function connectToDatabase() {
   const client = new MongoClient(mongoUrl);
   try {
     await client.connect();
@@ -1366,24 +1434,29 @@ async function connectToDatabase(){
 // }
 // //change
 async function uploadToGridFS(file, metadata, fileId) {
- const client = await connectToDatabase();
+  const client = await connectToDatabase();
   try {
     const db = client.db(dbName);
     const bucket = new GridFSBucket(db, { bucketName: collectionName });
 
-    const uploadStream = bucket.openUploadStreamWithId(new ObjectId(fileId), file.originalname, {
-      metadata,
-      contentType: file.mimetype, // Ensure contentType is set here
-    });
+    const uploadStream = bucket.openUploadStreamWithId(
+      new ObjectId(fileId),
+      file.originalname,
+      {
+        metadata,
+        contentType: file.mimetype, // Ensure contentType is set here
+      }
+    );
     const bufferStream = stream.Readable.from(file.buffer);
 
     const uploadPromise = new Promise((resolve, reject) => {
-      bufferStream.pipe(uploadStream)
-        .on('error', (err) => {
+      bufferStream
+        .pipe(uploadStream)
+        .on("error", (err) => {
           reject(err);
           // closeDatabaseConnection(client);
         })
-        .on('finish', () => {
+        .on("finish", () => {
           resolve(uploadStream);
           // closeDatabaseConnection(client);
         });
@@ -1402,7 +1475,7 @@ async function uploadToGridFS(file, metadata, fileId) {
 //     if (!req.file) {
 //       throw new Error('No file uploaded'); // Handle missing file
 //     }
-//     const metadata = { contentType: req.file.mimetype }; 
+//     const metadata = { contentType: req.file.mimetype };
 //     const uploadStream = await uploadToGridFS(req.file, req.body); // Access additional data from req.body
 
 //     // Add GridFS-specific details to req.file.grid
@@ -1411,7 +1484,7 @@ async function uploadToGridFS(file, metadata, fileId) {
 //       filename: uploadStream.filename,
 //       metadata: uploadStream.options.metadata,
 //       bucketName: collectionName,
-  
+
 //     };
 
 //     res.json({
@@ -1424,12 +1497,10 @@ async function uploadToGridFS(file, metadata, fileId) {
 //   }
 // });
 
-
-
-app.post('/upload', upload.single('file'), async (req, res) => {
+app.post("/upload", upload.single("file"), async (req, res) => {
   try {
     if (!req.file) {
-      throw new Error('No file uploaded'); // Handle missing file
+      throw new Error("No file uploaded"); // Handle missing file
     }
 
     const rNumber = req.body.rNumber; // Access rNumber from req.body
@@ -1451,31 +1522,31 @@ app.post('/upload', upload.single('file'), async (req, res) => {
     };
 
     res.json({
-      message: 'File uploaded successfully!',
+      message: "File uploaded successfully!",
       file: req.file,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error uploading file' });
+    res.status(500).json({ message: "Error uploading file" });
   }
 });
 
 // Edit route
-app.post('/files/edit', upload.single('file'), async (req, res) => {
+app.post("/files/edit", upload.single("file"), async (req, res) => {
   const { id } = req.body;
   if (!id) {
-    return res.status(400).json({ message: 'Missing file ID' });
+    return res.status(400).json({ message: "Missing file ID" });
   }
 
   try {
     const uploadStream = await uploadToGridFS(req.file, req.body, id);
     res.json({
-      message: 'File updated successfully!',
+      message: "File updated successfully!",
       file: req.file,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error updating file' });
+    res.status(500).json({ message: "Error updating file" });
   }
 });
 
@@ -1495,8 +1566,7 @@ app.post('/files/edit', upload.single('file'), async (req, res) => {
 //   }
 // });
 
-
-app.get('/files', async (req, res) => {
+app.get("/files", async (req, res) => {
   const client = await connectToDatabase();
   try {
     const db = client.db(dbName);
@@ -1504,21 +1574,21 @@ app.get('/files', async (req, res) => {
     const { requirementNumber } = req.query; // Get the requirementNumber from query parameters
 
     // Find files that match the requirementNumber
-    const query = requirementNumber ? { "metadata.rNumber": requirementNumber } : {};
+    const query = requirementNumber
+      ? { "metadata.rNumber": requirementNumber }
+      : {};
     const files = await filesCollection.find(query).toArray();
 
     res.json(files);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error fetching files' });
+    res.status(500).json({ message: "Error fetching files" });
   } finally {
     client.close();
   }
 });
 
-
-
-app.get('/files/:id', async (req, res) => {
+app.get("/files/:id", async (req, res) => {
   const client = await connectToDatabase();
   try {
     const db = client.db(dbName);
@@ -1527,35 +1597,34 @@ app.get('/files/:id', async (req, res) => {
 
     const downloadStream = bucket.openDownloadStream(id);
 
-    downloadStream.on('error', (err) => {
+    downloadStream.on("error", (err) => {
       console.error(err);
-      res.status(404).json({ message: 'File not found' });
+      res.status(404).json({ message: "File not found" });
       client.close();
     });
 
-    downloadStream.on('file', (file) => {
-      const contentType = file.contentType || 'application/octet-stream';
-      res.setHeader('Content-Type', contentType);
-      res.setHeader('Content-Disposition', `inline; filename="${file.filename}"`);
+    downloadStream.on("file", (file) => {
+      const contentType = file.contentType || "application/octet-stream";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader(
+        "Content-Disposition",
+        `inline; filename="${file.filename}"`
+      );
     });
 
-    downloadStream.on('end', () => {
+    downloadStream.on("end", () => {
       client.close();
     });
 
     downloadStream.pipe(res);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error fetching file' });
+    res.status(500).json({ message: "Error fetching file" });
     client.close();
   }
 });
 
-
-
-
-
-app.post('/files/save', upload.none(), async (req, res) => {
+app.post("/files/save", upload.none(), async (req, res) => {
   const { id, content } = req.body;
   console.log("Received id:", id);
   console.log("Received content:", content);
@@ -1569,14 +1638,14 @@ app.post('/files/save', upload.none(), async (req, res) => {
     const downloadStream = bucket.openDownloadStream(new ObjectId(id));
     const bufferChunks = [];
 
-    downloadStream.on('data', (chunk) => bufferChunks.push(chunk));
-    downloadStream.on('error', (error) => {
-      console.error('Error fetching file:', error);
-      res.status(500).send('Error fetching file');
+    downloadStream.on("data", (chunk) => bufferChunks.push(chunk));
+    downloadStream.on("error", (error) => {
+      console.error("Error fetching file:", error);
+      res.status(500).send("Error fetching file");
       client.close();
     });
 
-    downloadStream.on('end', async () => {
+    downloadStream.on("end", async () => {
       const buffer = Buffer.concat(bufferChunks);
 
       // Convert the HTML content to .docx format using html-docx-js
@@ -1592,38 +1661,40 @@ app.post('/files/save', upload.none(), async (req, res) => {
       try {
         doc.render();
       } catch (error) {
-        console.error('Error rendering docxtemplater:', error);
-        res.status(500).send('Error rendering document');
+        console.error("Error rendering docxtemplater:", error);
+        res.status(500).send("Error rendering document");
         client.close();
         return;
       }
 
       // Get the updated .docx file content as a buffer
-      const updatedBuffer = doc.getZip().generate({ type: 'nodebuffer' });
+      const updatedBuffer = doc.getZip().generate({ type: "nodebuffer" });
 
       // Delete the old file from GridFS
       await bucket.delete(new ObjectId(id));
 
       // Save the updated file back to GridFS with the same ID
-      const uploadStream = bucket.openUploadStreamWithId(new ObjectId(id), `${id}.docx`);
+      const uploadStream = bucket.openUploadStreamWithId(
+        new ObjectId(id),
+        `${id}.docx`
+      );
       const bufferStream = new stream.PassThrough();
       bufferStream.end(updatedBuffer);
 
-      bufferStream.pipe(uploadStream)
-        .on('error', (error) => {
-          console.error('Error saving file:', error);
-          res.status(500).send('Error saving file');
+      bufferStream
+        .pipe(uploadStream)
+        .on("error", (error) => {
+          console.error("Error saving file:", error);
+          res.status(500).send("Error saving file");
           client.close();
         })
-        .on('finish', () => {
-          res.status(200).send('File saved successfully!');
+        .on("finish", () => {
+          res.status(200).send("File saved successfully!");
           client.close();
         });
     });
   } catch (error) {
-    console.error('Error saving file:', error);
-    res.status(500).send('Error saving file');
+    console.error("Error saving file:", error);
+    res.status(500).send("Error saving file");
   }
 });
-
-
