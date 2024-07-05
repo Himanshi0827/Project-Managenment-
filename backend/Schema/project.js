@@ -43,7 +43,7 @@ const projectSchema = new mongoose.Schema(
     CP: {
       ref: "CP",
       type: Number,
-      required: true,
+    
     },
   },
   {

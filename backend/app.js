@@ -16,11 +16,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-// const mongoUrl =
-//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 const mongoUrl =
-  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// const mongoUrl =
+//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -354,10 +354,10 @@ app.get("/paginatedUsers", async (req, res) => {
 //   }
 // });
 
-// const managerSchema = new mongoose.Schema({
-//   name: String,
-//   email: String
-// });
+const managerSchema = new mongoose.Schema({
+  name: String,
+  email: String
+});
 
 // const memberSchema = new mongoose.Schema({
 //   name: String,
@@ -370,7 +370,7 @@ app.get("/paginatedUsers", async (req, res) => {
 // });
 
 // const Project = mongoose.model('Project', projectSchema);
-// const Manager = mongoose.model('Manager', managerSchema);
+const Manager = mongoose.model('Manager', managerSchema);
 // const Member = mongoose.model('Member', memberSchema);
 // const Query = mongoose.model('Query', querySchema);
 
@@ -415,10 +415,10 @@ app.get("/paginatedUsers", async (req, res) => {
 //   res.json(projects);
 // });
 
-// app.get('/managers', async (req, res) => {
-//   const managers = await Manager.find();
-//   res.json(managers);
-// });
+app.get('/managers', async (req, res) => {
+  const managers = await Manager.find();
+  res.json(managers);
+});
 
 // app.get('/members', async (req, res) => {
 //   const members = await Member.find();
@@ -430,11 +430,6 @@ app.get("/paginatedUsers", async (req, res) => {
 //   res.json(queries);
 // });
 
-// app.post('/create-project', async (req, res) => {
-//   const newProject = new Project(req.body);
-//   await newProject.save();
-//   res.json(newProject);
-// });
 
 // app.post('/resolve-query', async (req, res) => {
 //   const { queryId } = req.body;
@@ -530,6 +525,11 @@ app.get("/roles", async (req, res) => {
 
 const Project = require("./Schema/project");
 const Requirement = require("./Schema/requirements");
+app.post('/create-project', async (req, res) => {
+  const newProject = new Project(req.body);
+  await newProject.save();
+  res.json(newProject);
+});
 
 const seedDatabase = async () => {
   try {
