@@ -16,11 +16,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-const mongoUrl =
-  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 // const mongoUrl =
-//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+const mongoUrl =
+  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -354,10 +354,10 @@ app.get("/paginatedUsers", async (req, res) => {
 //   }
 // });
 
-const managerSchema = new mongoose.Schema({
-  name: String,
-  email: String
-});
+// const managerSchema = new mongoose.Schema({
+//   name: String,
+//   email: String
+// });
 
 // const memberSchema = new mongoose.Schema({
 //   name: String,
@@ -370,7 +370,7 @@ const managerSchema = new mongoose.Schema({
 // });
 
 // const Project = mongoose.model('Project', projectSchema);
-const Manager = mongoose.model('Manager', managerSchema);
+// const Manager = mongoose.model('Manager', managerSchema);
 // const Member = mongoose.model('Member', memberSchema);
 // const Query = mongoose.model('Query', querySchema);
 
@@ -415,10 +415,10 @@ const Manager = mongoose.model('Manager', managerSchema);
 //   res.json(projects);
 // });
 
-app.get('/managers', async (req, res) => {
-  const managers = await Manager.find();
-  res.json(managers);
-});
+// app.get('/managers', async (req, res) => {
+//   const managers = await Manager.find();
+//   res.json(managers);
+// });
 
 // app.get('/members', async (req, res) => {
 //   const members = await Member.find();
@@ -511,6 +511,7 @@ async function createRoles() {
   }
 }
 
+// createRoles();
 app.get("/roles", async (req, res) => {
   try {
     const roles = await UserRoles.find({});
@@ -520,7 +521,6 @@ app.get("/roles", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-// createRoles();
 // Project and Requirements
 
 const Project = require("./Schema/project");
@@ -1696,5 +1696,14 @@ app.post("/files/save", upload.none(), async (req, res) => {
   } catch (error) {
     console.error("Error saving file:", error);
     res.status(500).send("Error saving file");
+  }
+});
+
+app.get('/api/project-managers', async (req, res) => {
+  try {
+    const managers = await User.find({ userType: 'Project Manager' }, 'fname lname'); // Retrieve only the fname field
+    res.status(200).json(managers);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });

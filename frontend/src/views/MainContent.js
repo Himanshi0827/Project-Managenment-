@@ -167,6 +167,14 @@ const MainContent = ({ content, userData }) => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based in JavaScript
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   const handleRequirementSelect = (e) => {
     setSelectedRequirementId(e.target.value);
   };
@@ -325,17 +333,18 @@ const MainContent = ({ content, userData }) => {
   };
 
   const scrollToRequirement = (date) => {
-    const requirement = requirements.find((req) => req.date === date);
+    const requirement = requirements.find((req) => {
+      const reqDate = new Date(req.requirementDate).toISOString().split('T')[0];
+      return reqDate === date;
+    });
 
     if (requirement && requirementRefs.current[requirement.requirementNumber]) {
-      requirementRefs.current[
-        requirement.requirementNumber
-      ].current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+      requirementRefs.current[requirement.requirementNumber].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
       });
     } else {
-      alert("No requirement found for the selected date.");
+      alert('No requirement found for the selected date.');
     }
   };
 
@@ -575,7 +584,7 @@ const MainContent = ({ content, userData }) => {
                           </td>
                           <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
                             <p className="text-gray-900 whitespace-no-wrap text-center">
-                              {project.dateOfCreation}
+                              {formatDate(project.dateOfCreation)}
                             </p>
                           </td>
                           <td className="px-8 py-5 border border-gray-200 bg-gray-200 text-sm">
@@ -807,7 +816,7 @@ const MainContent = ({ content, userData }) => {
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.requirementDate}
+                                  {formatDate(requirement.requirementDate)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
@@ -817,7 +826,7 @@ const MainContent = ({ content, userData }) => {
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.changeDate}
+                                  {formatDate(requirement.changeDate)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
@@ -862,7 +871,7 @@ const MainContent = ({ content, userData }) => {
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {requirement.expectedDateOfDelivery}
+                                  {formatDate(requirement.expectedDateOfDelivery)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
