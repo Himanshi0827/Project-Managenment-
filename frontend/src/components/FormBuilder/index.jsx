@@ -60,7 +60,6 @@ const FormBuilder = () => {
   const [versionNum, setVersionNum] = useState("1.0");
   const [disable, setDisable] = useState(false);
 
-
   const items = data;
 
   const location = useLocation();
@@ -72,21 +71,20 @@ const FormBuilder = () => {
 
   useEffect(() => {
     setTitle(location.state.titlen);
+    console.log("location.state.titlen : " + location.state.titlen);
     setDescription(location.state.descriptionn);
     setData(location.state.datan);
 
+    setPNumber(location.state.projectNumber);
+    setFileNumber(location.state.fileNumber);
+    setProjectTitle(location.state.projectTitle);
+    setTemplateName(location.state.templateName);
+    setCreatedBy(location.state.createdBy);
+    setCreatedAt(location.state.createdAt);
+    setDisable(location.state.disable);
+    setVersionNum(location.state.versionNum);
 
-    setPNumber(location.state.projectNumber)
-    setFileNumber(location.state.fileNumber)
-    setProjectTitle(location.state.projectTitle)
-    setTemplateName(location.state.templateName)
-    setCreatedBy(location.state.createdBy)
-    setCreatedAt(location.state.createdAt)
-    setDisable(location.state.disable)
-    setVersionNum(location.state.versionNum)
-
-    console.log(location.state.disable)
-
+    console.log(location.state.disable);
   }, []);
 
   const handleImageUpload = (file) => {
@@ -399,6 +397,16 @@ const FormBuilder = () => {
                   after: 200,
                 },
               }),
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    text: "--------------------------------------------------------------------------------------------------------------------------------------",
+                  }),
+                ],
+                spacing: {
+                  after: 200,
+                },
+              }),
             ]),
           ],
         },
@@ -436,6 +444,7 @@ const FormBuilder = () => {
       const metadata = await extractMetadataFromDoc(arrayBuffer);
       if (metadata) {
         setTitle(metadata.title || "Untitled Form");
+        console.log("metadata.title : " + metadata.title);
         setDescription(metadata.description || "");
         setData(metadata.data || []);
       }
@@ -510,8 +519,8 @@ const FormBuilder = () => {
     openModal();
   };
   // const [count,setCount]= useState(27);
-  // const handleModalSave2 = async () => { 
-  //   // Use same version 
+  // const handleModalSave2 = async () => {
+  //   // Use same version
   //   try {
   //     const newc= count+1
   //     console.log(newc);
@@ -600,6 +609,7 @@ const FormBuilder = () => {
         createdAt: createdAt || Date.now(),
       });
       if (response.data.id) {
+        console.log("title in save : " + title);
         alert(`Form saved! ID: ${response.data.id}`);
         closeModal();
       }
@@ -630,6 +640,7 @@ const FormBuilder = () => {
         createdAt: createdAt || Date.now(),
       });
       if (response.data.id) {
+        console.log("title in save 2 : " + title);
         alert(`Form saved! ID: ${response.data.id}`);
         closeModal();
       }
@@ -795,7 +806,7 @@ const FormBuilder = () => {
         backgroundColor: "#e0e6ee",
         height: "100vh",
         backgroundAttachment: "fixed",
-        overflowY:"auto",
+        overflowY: "auto",
       }}
     >
       <div
@@ -803,7 +814,6 @@ const FormBuilder = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-
         }}
       >
         <div style={centeredDivStyle}>
@@ -824,7 +834,7 @@ const FormBuilder = () => {
                     fontFamily: "sans-serif",
                   }}
                 >
-                  {tName}
+                  {tName} {templateName}
                 </h1>
                 <Header
                   title={title}
@@ -845,7 +855,7 @@ const FormBuilder = () => {
                   <IconButton
                     aria-label="add-element"
                     onClick={addElement}
-                    sx={{ position: "sticky", top: 30 }}
+                    sx={{ position: "sticky", top: 60 }}
                   >
                     <AddCircleOutlineOutlinedIcon color="#c8c7c7" />
                   </IconButton>
