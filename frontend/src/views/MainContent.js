@@ -118,7 +118,7 @@ const MainContent = ({ content, userData }) => {
           ).length;
 
           const requirementCount = count + 1;
-          const mainPart = `R${String(projectNumber).padStart(2, "0")}.00.`;
+          const mainPart = `R.${String(projectNumber).padStart(2, "0")}.00.`;
           const lastPart = String(requirementCount % 100).padStart(2, "0");
           const middlePart = String(
             Math.floor(requirementCount / 100)
@@ -871,7 +871,7 @@ const MainContent = ({ content, userData }) => {
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
                                 <p className="text-gray-900 whitespace-no-wrap">
-                                  {formatDate(requirement.expectedDateOfDelivery)}
+                                  {formatDate(requirement.completionDate)}
                                 </p>
                               </td>
                               <td className="px-8 py-5 border border-gray-200 bg-white text-sm">
@@ -1294,7 +1294,7 @@ const MainContent = ({ content, userData }) => {
                             type="text"
                             id="impactOfNewRequirements"
                             name="impactOfNewRequirements"
-                            value={formData.impactOfNewRequirementsOrChanges}
+                            value={formData.impactOfNewRequirements}
                             onChange={handleRmInputChange}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             style={{ borderRadius: "15px" }}
@@ -1378,7 +1378,7 @@ const MainContent = ({ content, userData }) => {
                           </select>
                         </div>
 
-                        <div>
+                        {/* <div>
                           <label
                             htmlFor="fileUpload"
                             className="block text-sm font-medium text-gray-700 mt-3 mb-3"
@@ -1393,7 +1393,7 @@ const MainContent = ({ content, userData }) => {
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             style={{ borderRadius: "15px" }}
                           />
-                        </div>
+                        </div> */}
                       </div>
                       <button
                         type="submit"

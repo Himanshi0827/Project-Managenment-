@@ -189,7 +189,7 @@ export default function Landing() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  src="https://bisag-n.gov.in/images/b/2.jpg"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbwyoF3dhyoy4I0aoD3epRvRjy717uN5VQS1W-f2uMGczF97y6z3uHf9wErGHxs0C54ZI&usqp=CAU"
                 />
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
@@ -201,7 +201,7 @@ export default function Landing() {
                   <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
                   To empower and serve the Nation through development of Space and Geo-spatial Technologies, its applications/solutions/services in accordance to governance principles for socio-economic welfare of the Society.
                   </p>
-                  <ul className="list-none mt-6">
+                  {/* <ul className="list-none mt-6">
                     <li className="py-2">
                       <div className="flex items-center">
                         <div>
@@ -244,7 +244,7 @@ export default function Landing() {
                         </div>
                       </div>
                     </li>
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
             </div>
@@ -257,9 +257,7 @@ export default function Landing() {
               <div className="w-full lg:w-6/12 px-4">
                 <h2 className="text-4xl font-semibold">Here are our heroes</h2>
                 <p className="text-lg leading-relaxed m-4 text-blueGray-500">
-                  According to the National Oceanic and Atmospheric
-                  Administration, Ted, Scambos, NSIDClead scentist, puts the
-                  potentially record maximum.
+                Software development to support project management process of standardization
                 </p>
               </div>
             </div>
@@ -339,7 +337,7 @@ export default function Landing() {
                   <div className="pt-6 text-center px-4 text">
                     <h5 className="text-xl font-bold">Himanshi Singh</h5>
                     <p className="mt-1 text-sm text-blueGray-400 uppercase font-semibold">
-                      UI/UX Designer Developer
+                      UI/UX Designer & Developer
                     </p>
                     <div className="mt-6">
                       <button
@@ -409,7 +407,7 @@ export default function Landing() {
           </div>
         </section>
 
-        <section className="pb-20 relative block bg-blueGray-800">
+        {/* <section className="pb-20 relative block bg-blueGray-800">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
             style={{ transform: "translateZ(0)" }}
@@ -482,9 +480,9 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="relative block py-24 lg:pt-0 bg-blueGray-800">
-          <div className="container mx-auto px-4">
+          {/* <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center lg:-mt-64 -mt-48">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200">
@@ -550,7 +548,7 @@ export default function Landing() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </section>
       </main>
       <Footer />

@@ -16,11 +16,11 @@ var nodemailer = require("nodemailer");
 const JWT_SECRET =
   "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
 
-// const mongoUrl =
-//   "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 const mongoUrl =
-  "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+  "mongodb+srv://himanshisingh0827:h@cluster0.w9k30d4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// const mongoUrl =
+//   "mongodb+srv://smitprog24:smit123@cluster1.oyf8t6x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
 
 mongoose
   .connect(mongoUrl, {
@@ -588,7 +588,7 @@ const seedDatabase = async () => {
     const requirements = [
       {
         projectNumber: 1,
-        requirementNumber: "R.01.00.00",
+        requirementNumber: "R.01.00.00.01",
         requirementDate: "2023-09-01T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -610,7 +610,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.02.00.00",
+        requirementNumber: "R.01.00.00.02",
         requirementDate: "2023-09-06T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -632,7 +632,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.03.00.00",
+        requirementNumber: "R.01.00.00.03",
         requirementDate: "2023-09-25T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -654,7 +654,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.04.00.00",
+        requirementNumber: "R.01.00.00.04",
         requirementDate: "2023-10-02T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -676,7 +676,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.05.00.00",
+        requirementNumber: "R.01.00.00.05",
         requirementDate: "2023-10-11T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -698,7 +698,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.06.00.00",
+        requirementNumber: "R.01.00.00.06",
         requirementDate: "2023-10-16T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -720,7 +720,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.07.00.00",
+        requirementNumber: "R.01.00.00.07",
         requirementDate: "2023-10-23T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -742,7 +742,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.08.00.00",
+        requirementNumber: "R.01.00.00.08",
         requirementDate: "2023-11-01T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -764,9 +764,9 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.09.00.00",
+        requirementNumber: "R.01.00.00.09",
         requirementDate: null,
-        requirementChangeNumber: "C.08.01.00",
+        requirementChangeNumber: "C.01.00.00.08",
         changeDate: "2024-01-02T00:00:00.000Z",
         description: "Add Turnover Amount in Rs.",
         priority: "Low",
@@ -785,9 +785,9 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.10.00.00",
+        requirementNumber: "R.01.00.00.10",
         requirementDate: null,
-        requirementChangeNumber: "C.08.02.00",
+        requirementChangeNumber: "C.01.00.00.09",
         requirementDate: "2024-04-01T00:00:00.000Z",
         requirementChangeNumber: null,
         changeDate: null,
@@ -809,9 +809,9 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.11.00.00",
+        requirementNumber: "R.01.00.00.11",
         requirementDate: "2023-11-13T00:00:00.000Z",
-        requirementChangeNumber: "C.08.01.00",
+        requirementChangeNumber: "C.01.00.00.07",
         changeDate: "2024-01-02T00:00:00.000Z",
         description:
           "Add Income Tax Reimbursement of centre’s share for 5 years in Applicant Module",
@@ -831,7 +831,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.12.00.00",
+        requirementNumber: "R.01.00.00.12",
         requirementDate: "2023-11-16T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -853,9 +853,9 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "R.13.00.00",
+        requirementNumber: "R.01.00.00.13",
         requirementDate: "2023-11-21T00:00:00.000Z",
-        requirementChangeNumber: "C.11.01.00",
+        requirementChangeNumber: "C.01.11.00.11",
         changeDate: "2024-02-05T00:00:00.000Z",
         description:
           "Add GST reimbursement of Central Govt. share of CGST & IGST for 5 years in District Module Approval",
@@ -875,7 +875,7 @@ const seedDatabase = async () => {
       },
       {
         projectNumber: 1,
-        requirementNumber: "C.14.01.00",
+        requirementNumber: "R.01.00.00.14",
         requirementDate: "2024-02-05T00:00:00.000Z",
         requirementChangeNumber: "",
         changeDate: null,
@@ -975,7 +975,7 @@ app.post("/api/requirements", async (req, res) => {
       const count = await Requirement.countDocuments({ projectNumber });
 
       const requirementCount = count + 1;
-      const mainPart = ` R${String(projectNumber).padStart(2, "0")}.00.`;
+      const mainPart = ` R.${String(projectNumber).padStart(2, "0")}.00.`;
       const lastPart = String(requirementCount % 100).padStart(2, "0");
       const middlePart = String(Math.floor(requirementCount / 100)).padStart(
         2,

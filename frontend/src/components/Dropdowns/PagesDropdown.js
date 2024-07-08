@@ -27,7 +27,7 @@ const PagesDropdown = () => {
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        Menu
       </a>
       <div
         ref={popoverDropdownRef}
@@ -36,7 +36,7 @@ const PagesDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <span
+        {/* <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
@@ -74,7 +74,7 @@ const PagesDropdown = () => {
           }
         >
           Maps
-        </Link>
+        </Link> */}
         <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
@@ -99,14 +99,14 @@ const PagesDropdown = () => {
         >
           Register
         </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+        {/* <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
         <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
           No Layout
-        </span>
+        </span> */}
         <Link
           to="/landing"
           className={
@@ -115,14 +115,14 @@ const PagesDropdown = () => {
         >
           Landing
         </Link>
-        <Link
+        {/* <Link
           to="/profile"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
           Profile
-        </Link>
+        </Link> */}
       </div>
     </>
   );

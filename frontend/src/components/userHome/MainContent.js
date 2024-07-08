@@ -122,7 +122,7 @@ const MainContent = ({ content, userData }) => {
           ).length;
 
           const requirementCount = count + 1;
-          const mainPart = `R${String(projectNumber).padStart(2, "0")}.00.`;
+          const mainPart = `R.${String(projectNumber).padStart(2, "0")}.00.`;
           const lastPart = String(requirementCount % 100).padStart(2, "0");
           const middlePart = String(
             Math.floor(requirementCount / 100)
@@ -319,7 +319,7 @@ const MainContent = ({ content, userData }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [currPage, setCurrPage] = useState(1);
-  const rowsPerPage = 10; // Adjust as needed
+  const rowsPerPage = 5; // Adjust as needed
 
 
   const filteredProjects = projects.filter((project) =>
@@ -371,7 +371,7 @@ const MainContent = ({ content, userData }) => {
         ).length;
 
         const requirementCount = count + 1;
-        const mainPart = `R${String(projectNumber).padStart(2, "0")}.00.`;
+        const mainPart = `R.${String(projectNumber).padStart(2, "0")}.00.`;
         const lastPart = String(requirementCount % 100).padStart(2, "0");
         const middlePart = String(Math.floor(requirementCount / 100)).padStart(
           2,

@@ -345,7 +345,7 @@ export default function AuditorDashboard({ userData }) {
                       key={project.projectNumber}
                       value={project.projectNumber}
                     >
-                      {project.name}
+                      {project.projectTitle}
                     </option>
                   ))}
                 </select>

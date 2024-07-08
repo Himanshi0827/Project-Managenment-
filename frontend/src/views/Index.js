@@ -177,7 +177,7 @@ export default function Index() {
           </div>
         </div>
 
-        {/* <div className="container mx-auto overflow-hidden pb-20">
+        <div className="container mx-auto overflow-hidden pb-20">
           <div className="flex flex-wrap items-center">
             <div className="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
               <div className="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
@@ -189,17 +189,38 @@ export default function Index() {
               <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
               Streamlined processes for managing and updating client requirements.
               </p>
+              <ul>
+              <li className="py-2">
+                    <div className="flex items-center">
+                      <div>
+                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3">
+                          <i className="fab fa-html5"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-blueGray-700 ">
+                          <b>Enhanced Collaboration: </b>
+
+                        </h4>
+                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+                          Dashboards tailored for different roles facilitate
+                          better communication and collaboration among team members.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
               <div className="block pb-6">
                 
               </div>
-              <a
+              {/* <a
                 href="https://www.creative-tim.com/learning-lab/tailwind/react/alerts/notus?ref=nr-index"
                 target="_blank"
                 className="font-bold text-blueGray-700 hover:text-blueGray-500 ease-linear transition-all duration-150"
               >
                 View All{" "}
                 <i className="fa fa-angle-double-right ml-1 leading-relaxed"></i>
-              </a>
+              </a> */}
             </div>
 
             <div className="w-full md:w-5/12 px-4 mr-auto ml-auto mt-32">
@@ -224,11 +245,11 @@ export default function Index() {
                   src={require("assets/img/component-info-2.png").default}
                   className="w-full align-middle rounded-lg absolute shadow-2xl max-w-200-px -left-50-px top-25-px"
                 />
-                <img
+                {/* <img
                   alt="..."
                   src={require("assets/img/component-menu.png").default}
                   className="w-full align-middle rounded absolute shadow-lg max-w-580-px -left-20-px top-210-px"
-                />
+                /> */}
                 <img
                   alt="..."
                   src={require("assets/img/component-btn-pink.png").default}
@@ -238,7 +259,7 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center pt-32">
+          {/* <div className="flex flex-wrap items-center pt-32">
             <div className="w-full md:w-6/12 px-4 mr-auto ml-auto mt-32">
               <div className="justify-center flex flex-wrap relative">
                 <div className="my-4 w-full lg:w-6/12 px-4">
@@ -367,8 +388,8 @@ Node.js: Runtime environment for executing server-side code.
                 <i className="fa fa-angle-double-right ml-1 leading-relaxed"></i>
               </a>
             </div>
-          </div>
-        </div> */}
+          </div> */}
+        </div>
 
         <div className="container mx-auto px-4 pb-32 pt-48">
           <div className="items-center flex flex-wrap">
@@ -394,7 +415,7 @@ Node.js: Runtime environment for executing server-side code.
                
                 </p> */}
                 <ul className="list-none mt-6">
-                  <li className="py-2">
+                  {/* <li className="py-2">
                     <div className="flex items-center">
                       <div>
                         <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3">
@@ -412,26 +433,8 @@ Node.js: Runtime environment for executing server-side code.
                         </p>
                       </div>
                     </div>
-                  </li>
-                  <li className="py-2">
-                    <div className="flex items-center">
-                      <div>
-                        <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3">
-                          <i className="fab fa-html5"></i>
-                        </span>
-                      </div>
-                      <div>
-                        <h4 className="text-blueGray-700 ">
-                          <b>Enhanced Collaboration: </b>
-
-                        </h4>
-                        <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                          Dashboards tailored for different roles facilitate
-                          better communication and collaboration among team members.
-                        </p>
-                      </div>
-                    </div>
-                  </li>
+                  </li> */}
+                
                   <li className="py-2">
                     <div className="flex items-center">
                       <div>
@@ -522,7 +525,7 @@ Node.js: Runtime environment for executing server-side code.
           <div className="justify-center flex flex-wrap">
             <div className="w-full lg:w-12/12 px-4  -mt-24">
               <div className="flex flex-wrap">
-                <div className="w-full lg:w-4/12 px-4">
+                <div className="w-full lg:w-6/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
                     Login
                   </h5>
@@ -537,7 +540,7 @@ Node.js: Runtime environment for executing server-side code.
                   </Link>
                 </div>
 
-                <div className="w-full lg:w-4/12 px-4">
+                {/* <div className="w-full lg:w-4/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
                     About
                   </h5>
@@ -550,9 +553,9 @@ Node.js: Runtime environment for executing server-side code.
                       />
                     </div>
                   </Link>
-                </div>
+                </div> */}
 
-                <div className="w-full lg:w-4/12 px-4">
+                <div className="w-full lg:w-6/12 px-4">
                   <h5 className="text-xl font-semibold pb-4 text-center">
                     Know more
                   </h5>
