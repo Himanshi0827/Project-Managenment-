@@ -287,18 +287,18 @@ app.get("/getAllUser", async (req, res) => {
   }
 });
 
+
+//deleteuser
 app.post("/deleteUser", async (req, res) => {
   const { userid } = req.body;
   try {
-    User.deleteOne({ _id: userid }, function (err, res) {
-      console.log(err);
-    });
+    await User.deleteOne({ email: userid });
     res.send({ status: "Ok", data: "Deleted" });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ status: "Error", data: "Could not delete user" });
   }
 });
-
 app.get("/paginatedUsers", async (req, res) => {
   const allUser = await User.find({});
   const page = parseInt(req.query.page);
@@ -510,7 +510,18 @@ async function createRoles() {
     mongoose.connection.close();
   }
 }
-
+//add roles
+app.post("/addRole", async (req, res) => {
+  const { userRole } = req.body;
+  try {
+    const newRole = new UserRoles({ userRole });
+    await newRole.save();
+    res.send({ status: "Ok", message: "Role added successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: "Error", message: "Could not add role" });
+  }
+});
 // createRoles();
 app.get("/roles", async (req, res) => {
   try {
